@@ -54,13 +54,28 @@ record the approved result but must not design or self-approve it.
 
 - Plan: `<path>`
 - Goal status: partial
-- Current Slice: `<ID>`
+- Current Slice: `<ID, or none>`
+- Slice status: `<in progress, blocked, or none>`
+- Selected from HEAD: `<commit, or none>`
 - Based on HEAD: `<commit>`
 - Worktree: `<clean, or concise dirty paths>`
 
+## Current Slice Contract
+
+- Why now: <Selection reason>
+- Covers: <Stable acceptance labels>
+- Local outcome: <One reviewable result>
+- Preserved behavior: <External promises or boundaries>
+- Expected scope: <Relevant responsibility or authority>
+- Exit evidence: <Checks or review needed to finish>
+
 ## Completed
 
-- <Completed work package or Slice>
+- `<Slice ID>` <Completed result and covered labels>
+
+## Slice Transitions
+
+- `<old pointer> -> <new pointer>` at `<commit>`: <Short reason>
 
 ## Evidence
 
@@ -77,10 +92,14 @@ record the approved result but must not design or self-approve it.
 
 - <Existing failure, baseline, or approved exception>
 
-## Next
+## Resume
 
-<Exact next action>
+<Exact continuation point, or where to re-evaluate when no Slice is active>
 ```
+
+Omit the current contract when no Slice is active. Record transitions only for
+selection, completion, blocking, resumption, or invalidation; do not use them
+as an activity log or reconstruct unsupported history.
 
 ## Goal Change Record
 

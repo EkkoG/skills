@@ -81,8 +81,15 @@ any design can be made more local without weakening the Goal.
 
 ## Recommended First Slice
 
-State the smallest reviewable local outcome, preserved behavior, expected scope,
-and suggested verification. Do not predefine every later Slice.
+- Why first
+- Acceptance conditions advanced
+- Smallest reviewable local outcome
+- Preserved behavior
+- Expected scope
+- Exit evidence
+
+Treat this as a recommendation based on the observed state. The executor must
+revalidate it and should not predefine every later Slice.
 
 ## Review And Approval
 

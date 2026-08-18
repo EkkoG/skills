@@ -81,19 +81,48 @@ Do not design the replacement target or approve it on the user's behalf. After
 approval, the executor may record the decision in a Goal Change Record and
 continue delivery.
 
+## Select The Current Slice
+
+On start or resume, continue the recorded unfinished Slice when its plan,
+boundaries, and dependencies remain valid. Do not replace valid in-progress
+work merely because another task looks easier.
+
+When no valid Slice is active, choose from dependency-ready Work Packages,
+unmet acceptance conditions, blockers, incomplete authority replacements, and
+required removals. Reject candidates that need a material plan change or lack
+one independently reviewable outcome and clear exit evidence. Prefer work that
+removes a blocker or half-migrated state, then work that advances the earliest
+ready package; break ties with smaller scope and earlier risk reduction. Do not
+pre-plan every later Slice or use a mechanical score.
+
+Before editing, assign a stable local Slice ID and record why it is selected,
+the conditions it advances, its local outcome, preserved behavior, expected
+scope, and exit evidence. After completion, move it to completed work, clear
+the current pointer, and re-evaluate current code and evidence before selecting
+another Slice. A predicted next direction is not current work until revalidated.
+
 ## Maintain Text Evidence
 
-Prefer the project's existing plan and status documents. If they do not provide
-a suitable checkpoint, use an uncommitted `.codex/delivery-v2.md`.
+Prefer the project's existing plan and status documents. Place a committed
+checkpoint beside the approved plan with a related name, or use
+`docs/delivery.md` when no plan document exists. Use `.codex/delivery.md` only
+as a local fallback. Update or commit checkpoints at Slice transitions and
+delivery boundaries, not for every command, and omit machine- or
+session-specific noise.
 
 Record only what supports continuation and acceptance:
 
-- approved plan and current Slice;
+- approved plan and the current Slice contract;
 - current `HEAD` and a concise worktree description;
 - completed work packages;
 - passed commands and what each proves;
 - review conclusions, known failures, and approved exceptions;
-- exact remaining work or next action.
+- concise Slice pointer changes and the exact resume action.
+
+Record a pointer change only when selecting, completing, blocking, resuming, or
+invalidating a Slice. Include the relevant `HEAD` and one short reason. Do not
+turn the checkpoint into an activity log or invent transitions that predate
+the available evidence.
 
 Map evidence explicitly without imposing a file format:
 
@@ -109,8 +138,7 @@ judgment. When relevance is uncertain, rerun the related check.
 
 ## Execute A Slice
 
-Before editing, state the local outcome, preserved external behavior, expected
-scope, and acceptance evidence. Then:
+After selecting or resuming the current Slice:
 
 1. inspect the relevant authority boundary and current worktree;
 2. implement the smallest independently reviewable result;
@@ -123,7 +151,7 @@ scope, and acceptance evidence. Then:
 6. run affected checks and repository-required pre-commit commands once;
 7. review scope, architecture, obsolete paths, and maintainability;
 8. update only affected plan, status, and text evidence, including the stable
-   condition labels covered by new evidence;
+   condition labels, Slice status, and pointer change when applicable;
 9. commit when authorized and independently explainable and verifiable.
 
 Do not build compatibility facades, dual tracks, or fallbacks unless the

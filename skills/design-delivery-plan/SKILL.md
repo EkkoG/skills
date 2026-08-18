@@ -103,7 +103,9 @@ package must have:
 
 Do not split packages merely by directory, technical layer, team, or file type.
 Do not pre-plan every Slice. The execution workflow should select the smallest
-Slice from current code and evidence at run time.
+Slice from current code and evidence at run time. Make dependencies clear
+enough to identify which package outcomes are ready without prescribing their
+implementation sequence.
 
 ### 5. Design Proportional Acceptance
 
@@ -138,10 +140,11 @@ real external requirement merely to make the implementation smaller.
 
 ### 7. Prepare The Handoff
 
-Recommend only the first smallest reviewable Slice, including its local outcome,
-preserved behavior, expected scope, and suggested verification. Make clear that
-the execution workflow may refine Slice boundaries without changing approved
-Work Packages or Goal conditions.
+Recommend only the first smallest reviewable Slice, including why it should be
+first, the conditions it advances, its local outcome, preserved behavior,
+expected scope, and exit evidence. Treat it as a recommendation for the
+observed state: the execution workflow must revalidate it and may refine Slice
+boundaries without changing approved Work Packages or Goal conditions.
 
 List the architecture decisions, assumptions, and exceptions the user should
 review. End with an explicit approval boundary.
