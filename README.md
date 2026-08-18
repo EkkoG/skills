@@ -28,8 +28,20 @@ current Slice was selected, what it covers, and what proves it complete.
 
 ## Installation
 
-Clone the repository, then copy the skills into the user-level Codex skills
-directory:
+Install interactively with the Skills CLI:
+
+```bash
+npx skills add EkkoG/skills
+```
+
+Add `-g` to install at user scope instead of the current project:
+
+```bash
+npx skills add EkkoG/skills -g
+```
+
+For manual installation, clone the repository and copy the skills into the
+user-level Codex skills directory:
 
 ```bash
 git clone https://github.com/EkkoG/skills.git ekko-skills
@@ -102,7 +114,19 @@ Slice，并记录为什么选择当前 Slice、它覆盖哪些条件，以及什
 
 ### 安装
 
-克隆仓库，然后将 skill 复制到用户级 Codex skill 目录：
+使用 Skills CLI 进行交互式安装：
+
+```bash
+npx skills add EkkoG/skills
+```
+
+增加 `-g` 可以安装到用户级范围，而不是当前项目：
+
+```bash
+npx skills add EkkoG/skills -g
+```
+
+如需手工安装，可以克隆仓库并将 skill 复制到用户级 Codex skill 目录：
 
 ```bash
 git clone https://github.com/EkkoG/skills.git ekko-skills
