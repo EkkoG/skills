@@ -1,0 +1,6 @@
+interface:
+  display_name: "Evidence-Driven Delivery"
+  short_description: "Execute approved plans with proportional evidence"
+  default_prompt: "Use $deliver-with-evidence to execute this approved engineering plan through the smallest applicable Slice, Milestone, or Final mode."
+policy:
+  allow_implicit_invocation: true

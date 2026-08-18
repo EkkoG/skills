@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Delivery Plan"
+  short_description: "Create approval-ready plans for complex engineering work"
+  default_prompt: "Use $design-delivery-plan to inspect this engineering goal and produce an approval-ready plan without implementing it."
