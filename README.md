@@ -1,6 +1,6 @@
 # Ekko Skills
 
-English (default) | [简体中文](#zh-cn)
+English | [简体中文](#zh-cn)
 
 Reusable Codex skills for planning and delivering multi-step engineering work
 without confusing local progress with whole-goal completion.
