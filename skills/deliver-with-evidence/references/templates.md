@@ -80,9 +80,13 @@ record the approved result but must not design or self-approve it.
 ## Evidence
 
 - PASS [G-01] `<command>`
-  - Proves: <Behavior or condition>
+  - Observed: <What the command actually established>
+  - Supports: <Behavior or condition within that observation>
+  - Limits: <Material claims this does not establish, when easy to overread>
+  - State: <HEAD or other relevant state>
 - REVIEW [G-02, WP-04-03] <Boundary or quality>
-  - <Conclusion and relevant paths>
+  - Observed: <Conclusion and relevant paths>
+  - Counterexample checked: <Plausible incomplete state and result>
 
 ## Missing evidence
 
@@ -162,14 +166,20 @@ Next action:
 <Exact continuation point>
 ```
 
-## Acceptance Report
+## Milestone Or Final Acceptance Report
 
 ```markdown
 # Acceptance
 
-| Requirement | Status | Code evidence | Verification | Exception |
-|---|---|---|---|---|
-| <ID> | verified/partial | <Path or symbol> | <Result> | <ID or none> |
+Reviewed state:
+<HEAD and concise worktree state>
+
+Review mode:
+<milestone review, independent Final, or clean-room Final self-review>
+
+| Requirement | Type | Status | Current evidence | Counterevidence checked | Exception |
+|---|---|---|---|---|---|
+| <ID> | behavior/structure/replacement/etc. | verified/partial | <Observation and relevant code> | <Challenge and result> | <ID or none> |
 
 Goal changes reviewed:
 <None, or decision records>
@@ -180,6 +190,12 @@ Architecture and dependency review:
 Legacy authority review:
 <What no longer controls behavior and what still does>
 
+Evidence limitations:
+<What major checks establish and what they do not establish>
+
+Completion challenges:
+<Material counterexamples sought, results, and unresolved findings>
+
 Compatibility review:
 <External compatibility versus unfinished internal migration>
 
@@ -188,6 +204,7 @@ Verification summary:
 
 Status:
 - Slice: complete/partial
+- Work Package: complete/partial/not applicable
 - Milestone: complete/partial
 - Phase: complete/partial
 - Goal: complete/partial

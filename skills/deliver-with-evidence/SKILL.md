@@ -115,7 +115,8 @@ Record only what supports continuation and acceptance:
 - approved plan and the current Slice contract;
 - current `HEAD` and a concise worktree description;
 - completed work packages;
-- passed commands and what each proves;
+- passed commands, what each observed, and which conditions that observation
+  supports;
 - review conclusions, known failures, and approved exceptions;
 - concise Slice pointer changes and the exact resume action.
 
@@ -129,7 +130,23 @@ Map evidence explicitly without imposing a file format:
 - every required acceptance condition must be stably identifiable;
 - every evidence item must name the condition or conditions it covers;
 - one evidence item may cover multiple conditions;
-- Final acceptance must expose every required condition still lacking evidence.
+- Milestone and Final acceptance must expose every required condition in scope
+  that still lacks evidence.
+
+Evidence claims must not exceed what the performed check can distinguish.
+Passing behavior checks does not by itself establish structural ownership,
+removal, or maintainability. Exact symbol or path absence does not by itself
+establish that a responsibility was removed or replaced. Checkpoints, commit
+messages, and acceptance documents may index evidence, but they are not primary
+proof of implementation conditions.
+
+Match evidence to the nature of the condition. Behavioral, structural,
+replacement, security, performance, compatibility, and hygiene claims may need
+different checks or review. When an approved condition claims that an
+authority, dependency, fallback, side effect, or implementation is replaced,
+verify that the replacement owns the intended responsibility, relevant
+consumers use it, and the superseded path has the approved disposition. A
+rename, move, or wrapper is not sufficient replacement evidence by itself.
 
 Do not require JSON or duplicate evidence already present in an authoritative
 project document. On resume, reuse evidence when the relevant code, tests,
@@ -159,6 +176,9 @@ approved external compatibility boundary requires them.
 
 ## Accept A Milestone
 
+Read [references/acceptance-review.md](references/acceptance-review.md)
+completely before changing a Work Package, Milestone, or phase to `complete`.
+
 At a work-package or phase boundary, run the applicable layers once for the
 current state:
 
@@ -169,11 +189,22 @@ current state:
 5. required regression and static checks;
 6. delivery and repository hygiene.
 
-Update Milestone or phase status only after every required condition in that
-scope maps to current evidence. Keep the whole Goal `partial` while later
-required work remains.
+Reconstruct the conditions and intentional removals in the current acceptance
+scope from the approved plan and current state. Prior Slice, commit, and
+checkpoint completion labels are claims to verify, not proof. Challenge each
+material completion claim with a plausible incomplete state and inspect whether
+it exists.
+
+Update Milestone or phase status only after every required condition in scope
+maps to sufficient current evidence. If the review discovers a required
+production change, leave Milestone acceptance, return to a Slice, and perform a
+new Milestone pass after the change is verified. Keep the whole Goal `partial`
+while later required work remains.
 
 ## Accept The Final Goal
+
+Read [references/acceptance-review.md](references/acceptance-review.md)
+completely before performing Final acceptance.
 
 Before setting a phase or Goal to `complete`, verify:
 
@@ -187,9 +218,18 @@ Before setting a phase or Goal to `complete`, verify:
 - plan, implementation, tests, and documentation agree;
 - blocking exceptions are zero or approved.
 
-Perform the final review as a distinct acceptance pass over the whole Goal, not
-as an assumption inside the last Slice or status edit. The reviewer may be the
-coordinating agent unless higher-level instructions require independence.
+Perform the final review as a distinct, falsification-oriented acceptance pass
+over the whole Goal, not as an assumption inside the last Slice or status edit.
+Reconstruct completion from the approved conditions and current state; prior
+completion labels are claims to verify, not facts to inherit. For every material
+completion claim, identify a plausible counterexample and inspect whether it
+exists.
+
+Use an independent reviewer when delegation is available, authorized, and
+proportional to the risk. Otherwise perform a clean-room self-review that does
+not trust implementation-ledger status. Record the review mode. If Final review
+discovers a required production change, leave Final mode, implement and verify
+the change, then start a new Final acceptance pass on the resulting state.
 
 ## Judge Evidence Proportionally
 
