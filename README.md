@@ -2,17 +2,19 @@
 
 English | [简体中文](#zh-cn)
 
-Reusable Codex skills for planning and delivering multi-step engineering work
-without confusing local progress with whole-goal completion.
+Reusable Codex skills for focused Git commits, Markdown conversion, and
+evidence-driven planning and delivery of multi-step engineering work.
 
 ## Included Skills
 
 | Skill | Purpose |
 |---|---|
+| `commit` | Inspects local changes and creates focused, reviewable Git commits. |
 | `design-delivery-plan` | Creates approval-ready plans with clear goals, boundaries, dependency-ordered work packages, and proportional acceptance conditions. |
 | `deliver-with-evidence` | Executes approved plans through reviewable Slices, maintains readable evidence and checkpoints, and verifies Milestone and Goal completion separately. |
+| `markitdown` | Converts local files, standard input, and public web pages to Markdown. |
 
-## Workflow
+## Planning and Delivery Workflow
 
 1. Use `$design-delivery-plan` to inspect a complex engineering goal and draft
    an approval-ready plan.
@@ -47,8 +49,9 @@ user-level Codex skills directory:
 git clone https://github.com/EkkoG/skills.git ekko-skills
 cd ekko-skills
 mkdir -p "$HOME/.agents/skills"
-rsync -a skills/design-delivery-plan/ "$HOME/.agents/skills/design-delivery-plan/"
-rsync -a skills/deliver-with-evidence/ "$HOME/.agents/skills/deliver-with-evidence/"
+for skill in commit deliver-with-evidence design-delivery-plan markitdown; do
+  rsync -a --delete "skills/$skill/" "$HOME/.agents/skills/$skill/"
+done
 ```
 
 For repository-scoped use, copy or link the desired skill directories under
@@ -60,7 +63,11 @@ See the official OpenAI documentation for
 
 ## Usage
 
-Invoke either skill explicitly:
+Invoke a skill explicitly:
+
+```text
+Use $commit to create a focused commit for the current changes.
+```
 
 ```text
 Use $design-delivery-plan to create an approval-ready plan for this refactor.
@@ -70,38 +77,50 @@ Use $design-delivery-plan to create an approval-ready plan for this refactor.
 Use $deliver-with-evidence to execute the approved plan.
 ```
 
-Both skills also allow implicit invocation when the request matches their
+```text
+Use $markitdown to convert this document to Markdown.
+```
+
+These skills also allow implicit invocation when the request matches their
 declared scope.
 
 ## Repository Structure
 
 ```text
 skills/
+├── commit/
+│   ├── SKILL.md
+│   └── agents/openai.yaml
+├── deliver-with-evidence/
+│   ├── SKILL.md
+│   ├── agents/openai.yaml
+│   └── references/
 ├── design-delivery-plan/
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
 │   └── references/plan-template.md
-└── deliver-with-evidence/
+└── markitdown/
     ├── SKILL.md
-    ├── agents/openai.yaml
-    └── references/templates.md
+    └── agents/openai.yaml
 ```
 
 <a id="zh-cn"></a>
 
 ## 简体中文
 
-这是一组可复用的 Codex skill，用于规划和实施多步骤工程任务，避免把局部进展误判为
-整个目标已经完成。
+这是一组可复用的 Codex skill，用于创建聚焦的 Git 提交、转换 Markdown，以及基于
+证据规划和实施多步骤工程任务。
 
 ### 包含的 Skill
 
 | Skill | 用途 |
 |---|---|
+| `commit` | 检查本地改动并创建聚焦、便于 Review 的 Git 提交。 |
 | `design-delivery-plan` | 制定可供审批的计划，明确目标、边界、按依赖排序的工作包以及适度的验收条件。 |
 | `deliver-with-evidence` | 通过可 Review 的 Slice 执行已批准计划，维护可读的证据与 checkpoint，并分别验收 Milestone 和整个 Goal。 |
+| `markitdown` | 将本地文件、标准输入和公开网页转换为 Markdown。 |
 
-### 使用流程
+### 规划与交付流程
 
 1. 使用 `$design-delivery-plan` 检查复杂工程目标并制定可供审批的计划。
 2. Review 并明确批准 Goal、边界、Work Package 和验收条件。
@@ -132,8 +151,9 @@ npx skills add EkkoG/skills -g
 git clone https://github.com/EkkoG/skills.git ekko-skills
 cd ekko-skills
 mkdir -p "$HOME/.agents/skills"
-rsync -a skills/design-delivery-plan/ "$HOME/.agents/skills/design-delivery-plan/"
-rsync -a skills/deliver-with-evidence/ "$HOME/.agents/skills/deliver-with-evidence/"
+for skill in commit deliver-with-evidence design-delivery-plan markitdown; do
+  rsync -a --delete "skills/$skill/" "$HOME/.agents/skills/$skill/"
+done
 ```
 
 如果只希望在某个仓库中使用，可以把所需 skill 复制或链接到
@@ -148,6 +168,10 @@ Codex。
 可以显式调用任意 skill：
 
 ```text
+Use $commit to create a focused commit for the current changes.
+```
+
+```text
 Use $design-delivery-plan to create an approval-ready plan for this refactor.
 ```
 
@@ -155,18 +179,28 @@ Use $design-delivery-plan to create an approval-ready plan for this refactor.
 Use $deliver-with-evidence to execute the approved plan.
 ```
 
-当请求与声明的适用范围匹配时，这两个 skill 也允许被隐式调用。
+```text
+Use $markitdown to convert this document to Markdown.
+```
+
+当请求与声明的适用范围匹配时，这些 skill 也允许被隐式调用。
 
 ### 仓库结构
 
 ```text
 skills/
+├── commit/
+│   ├── SKILL.md
+│   └── agents/openai.yaml
+├── deliver-with-evidence/
+│   ├── SKILL.md
+│   ├── agents/openai.yaml
+│   └── references/
 ├── design-delivery-plan/
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
 │   └── references/plan-template.md
-└── deliver-with-evidence/
+└── markitdown/
     ├── SKILL.md
-    ├── agents/openai.yaml
-    └── references/templates.md
+    └── agents/openai.yaml
 ```

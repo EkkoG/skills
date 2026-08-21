@@ -16,6 +16,33 @@ Inspect existing plans and decisions before creating replacements. Preserve an
 approved plan unless the user asked to revise it or new evidence makes a change
 necessary.
 
+## Converge On The Current Decision
+
+When the user rejects, replaces, or abandons an option, revise the current plan
+and any active specification it updates so they describe only the latest user
+decision and, when chosen, the selected target. Remove the superseded option's
+names, terminology, structure, examples, and implementation details. Do not
+retain it as a warning, non-goal, negative comparison, compatibility note, or
+explanation of why the selected target won. Historical alternatives belong
+only in an artifact whose explicit purpose is history, such as an ADR,
+changelog, retrospective, or delivery record.
+
+If rejection leaves no selected target, remove the rejected option, record the
+remaining decision as unresolved, and keep the plan draft. Do not invent a
+replacement or present the plan as approval-ready until the material decision
+is made.
+
+Keep a boundary from the earlier discussion only when it remains independently
+necessary to the current target, such as a lasting security, permission,
+compatibility, or scope constraint. Express that boundary directly and
+positively without relying on the earlier option for context.
+
+Before presenting a revised plan, perform a first-reader check: assume the
+reader never saw the prior discussion. Every sentence should help explain the
+current target or a current constraint. If a sentence is useful only because a
+superseded option once existed, delete it; if only part remains useful, rewrite
+that part as a self-contained current rule.
+
 ## Stay In Planning
 
 Do not implement the plan, edit production code, record delivery evidence as
@@ -138,7 +165,32 @@ Challenge the draft before presenting it:
 Revise the plan when the answer exposes avoidable complexity. Do not weaken a
 real external requirement merely to make the implementation smaller.
 
-### 7. Prepare The Handoff
+### 7. Challenge The Plan Independently
+
+For a broad or high-risk plan, use an independent read-only review when
+delegation is available, authorized, and proportional. Give the review pass
+the user goal, relevant current-state evidence, draft plan, and raw constraints.
+Do not provide the intended verdict or ask it to confirm the draft.
+
+Ask the review to look for missing scope, unsupported assumptions, dependency
+errors, unverifiable acceptance, compatibility gaps, avoidable design,
+superseded-decision residue, and first-reader failures. The planning agent owns
+the response to those findings and must not delegate plan approval or
+user-facing decisions.
+
+Before treating a delegated review as read-only, confirm that the child's
+effective sandbox is read-only. If a live parent override makes it writable or
+the boundary cannot be established, use a separate read-only turn or session;
+otherwise perform the clean-room fallback and disclose that the review was not
+independently sandboxed. A no-edit prompt alone is not a read-only boundary.
+
+When independent review is unavailable, perform a separate clean-room challenge
+after drafting: reconstruct the Goal contract from the user's latest
+instructions, still-valid approved decisions, and current evidence before
+comparing it with the plan. Disclose that this pass was not independent when
+that limitation is material to approval.
+
+### 8. Prepare The Handoff
 
 Recommend only the first smallest reviewable Slice, including why it should be
 first, the conditions it advances, its local outcome, preserved behavior,
@@ -168,5 +220,9 @@ to find, without inference:
 - unresolved risks, decisions, and approved exceptions;
 - the recommended first Slice.
 
-The planner proposes evidence; the executor records actual results. The planner
-does not create completion status or claim evidence that has not been run.
+After approval, the execution workflow must initialize its persistent delivery
+document before the first production edit. Planning does not create that
+document, record completion status, or claim evidence that has not been run.
+
+The planning workflow proposes evidence; the execution workflow records actual
+results.

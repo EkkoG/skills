@@ -1,14 +1,14 @@
 # Milestone And Final Acceptance Review
 
-Use this procedure when proposing a Work Package, Milestone, phase, or Goal as
+Use this procedure when proposing a Work Package, Milestone boundary, or Goal as
 complete. Apply it proportionally to the current acceptance scope. It is a
 review of the approved outcome and current implementation, not a summary of the
 delivery ledger.
 
 ## Set The Acceptance Scope
 
-For a Milestone, review only the Work Package or phase conditions currently
-being closed, their dependencies, relevant compatibility promises, intentional
+For a Milestone, review only the Work Package conditions currently being
+closed, their dependencies, relevant compatibility promises, intentional
 removals, and approved exceptions. Do not require unrelated later Work Packages
 or whole-Goal checks.
 
@@ -20,8 +20,8 @@ exceptions.
 
 Start from the approved plan and current repository state. Enumerate every
 required condition in the acceptance scope and build a fresh acceptance view
-before relying on checkpoint, commit, Slice, or prior Milestone completion
-labels.
+before relying on delivery-document, commit, Slice, or prior Milestone
+completion labels.
 
 Delivery documents may locate commands, changes, and earlier review notes.
 Treat their status fields as claims requiring current evidence. An acceptance
@@ -102,7 +102,10 @@ the Work Package risk and scope.
 Prefer an independent reviewer for broad or high-risk Final acceptance when
 delegation is available, authorized, and proportional. Give that reviewer the
 approved plan, current state, and raw evidence needed to evaluate the outcome;
-do not provide the intended verdict.
+do not provide the intended verdict. The reviewer may use the delivery document
+to locate evidence, but must treat its status fields as unverified claims and
+must not edit it. Return findings to the coordinating agent for serialized
+recording.
 
 When independent Final review is unavailable, perform a clean-room self-review:
 
@@ -119,7 +122,54 @@ current acceptance mode, and return to the appropriate Slice. After the change
 and its verification, start a new acceptance pass for that boundary; do not
 continue the invalidated pass by editing the verdict in place.
 
-A Work Package, Milestone, phase, or Goal may be complete only when every
+A Work Package, Milestone boundary, or Goal may be complete only when every
 required condition in its scope has sufficient current evidence,
 counterevidence review exposes no unresolved blocker, and all exceptions are
 explicitly approved.
+
+## Acceptance Report
+
+Use this structure only when a durable Milestone or Final report is useful:
+
+```markdown
+# Acceptance
+
+Reviewed state:
+<HEAD and concise worktree state>
+
+Review mode:
+<milestone review, independent Final, or clean-room Final self-review>
+
+| Requirement | Type | Status | Current evidence | Counterevidence checked | Exception |
+|---|---|---|---|---|---|
+| <ID> | behavior/structure/replacement/etc. | verified/partial | <Observation and relevant code> | <Challenge and result> | <ID or none> |
+
+Goal changes reviewed:
+<None, or decision records>
+
+Architecture and dependency review:
+<Added, removed, and remaining edges>
+
+Legacy authority review:
+<What no longer controls behavior and what still does>
+
+Evidence limitations:
+<What major checks establish and what they do not establish>
+
+Completion challenges:
+<Material counterexamples sought, results, and unresolved findings>
+
+Compatibility review:
+<External compatibility versus unfinished internal migration>
+
+Verification summary:
+<Smoke, targeted, negative, architecture, regression, and hygiene>
+
+Status:
+- Slice: complete/partial
+- Work Package or Milestone: complete/partial/not applicable
+- Goal: complete/partial
+
+Blocking items:
+<Exact unresolved requirements>
+```

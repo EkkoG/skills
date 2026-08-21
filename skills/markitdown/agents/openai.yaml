@@ -1,0 +1,4 @@
+interface:
+  display_name: "MarkItDown"
+  short_description: "Convert files and generic web pages to Markdown"
+  default_prompt: "Use $markitdown to retrieve this generic webpage as Markdown."
