@@ -5,346 +5,225 @@ description: Execute explicitly approved multi-step engineering plans with propo
 
 # Deliver With Evidence
 
-Use repository instructions as the project contract. Execute the smallest
-reviewable unit, preserve evidence in readable text, and keep local progress
-separate from whole-goal completion.
+Execute the smallest reviewable unit of an approved multi-step plan, preserve
+reusable evidence, and keep local progress separate from whole-Goal completion.
 
 ## Respect Authority
 
-Apply instructions in this order:
+Apply system, developer, user, repository, and referenced project instructions
+before this skill. Treat natural-language project rules as valid contracts; do
+not require machine-readable acceptance for every condition.
 
-1. system, developer, and user instructions;
-2. the closest applicable `AGENTS.md` files;
-3. project documents referenced by those instructions;
-4. this skill's defaults.
+## Start From An Approved Contract
 
-Use natural-language project rules. Do not require an adapter, schema, test
-graph, or machine-verifiable acceptance for every condition.
+Before production work, confirm that the user approved a plan containing:
 
-## Choose The Smallest Mode
+- the observable final outcome, scope, boundaries, and stable exclusions;
+- dependency-ordered Work Packages with reviewable outcomes;
+- stable labels for every required Work Package and Goal condition;
+- applicable compatibility promises, intentional removals, architecture,
+  negative evidence obligations, risks, and approved exceptions.
 
-Operate in one mode at a time and select the smallest mode for the current
-work. A large surrounding program does not make every bounded change a
-Milestone or Final task.
-
-A turn may transition to another mode only after the current mode finishes, its
-delivery boundary is recorded, and the next acceptance scope is reconstructed.
-Do not blend implementation evidence with Milestone or Final acceptance. If an
-acceptance pass discovers a required production change, leave acceptance,
-select a corrective Slice, and start a fresh acceptance pass after that Slice
-is verified.
-
-| Mode | Use when | Default evidence |
-|---|---|---|
-| Slice | Implementing one independently reviewable change within an approved plan | Affected tests, relevant static checks, repository-required smoke, and agent review |
-| Milestone | Completing a Work Package | Slice evidence plus applicable negative, architecture, regression, and hygiene checks |
-| Final | Proposing the whole Goal `complete` | Complete acceptance conditions, required full and end-to-end checks, and a separate final review pass |
-
-Do not run Milestone or Final acceptance merely to answer a question or finish
-one small Slice.
-
-## Start From An Approved Plan
-
-Before implementation, confirm that the user has seen and approved a plan that
-states:
-
-- the observable final outcome;
-- scope, boundaries, and explicit non-goals;
-- reviewable work packages in dependency order;
-- acceptance conditions for work packages and the whole goal, with a stable ID
-  or unique label for every required condition.
-
-When relevant, also require external compatibility promises, target
-architecture, intentional removals, negative migration evidence, and approved
-exceptions. Do not force migration-specific sections onto unrelated work.
-
-If no approved plan exists or required contract elements are missing, do not
-create or substantially revise it. Report the exact planning gaps, direct the
-task to `$design-delivery-plan`, and stop before changing production code.
-Reuse a sufficient approved plan instead of rebuilding it.
+If the approved contract is absent or materially incomplete, report the exact
+gap, hand planning to `$design-delivery-plan`, and stop before changing
+production content. Reuse a sufficient approved plan instead of rebuilding it.
 
 Treat completion at three levels:
 
-- a Slice is one independently reviewable change;
-- a Milestone is an accepted Work Package boundary;
-- the Goal is complete only after every required work package and Final
-  acceptance pass.
+| Mode | Boundary | Typical evidence |
+|---|---|---|
+| Slice | One independently reviewable change | Focused tests, relevant static checks, necessary smoke, and proportional implementation review |
+| Milestone | One Work Package outcome | Applicable Slice evidence plus structural, compatibility, regression, and hygiene checks |
+| Final | The whole approved Goal | Every acceptance condition, required broad checks, and a distinct whole-Goal review |
 
-Never promote Slice or Milestone success to Goal completion.
+Choose the smallest mode that matches the current work. A large program does
+not make every change a Milestone, and Slice or Milestone success never implies
+Goal completion. If acceptance discovers a required production change, leave
+acceptance mode and return through a corrective Slice.
 
-## Delegate Proportionally And Preserve Authority
+Reserve expensive full-suite, end-to-end, and exhaustive compatibility checks
+for the stable boundary that needs them unless the approved plan, repository
+rules, or immediate risk requires them earlier.
 
-The coordinating agent remains the sole owner of approved-plan interpretation,
-current Slice selection, delivery-document writes, status changes, and any
-claim that a Work Package or Goal is complete.
+## Preserve Coordination Authority
+
+The coordinating agent alone interprets the approved plan, selects the current
+Slice, writes the Delivery document, changes status, approves exceptions, and
+declares Work Package or Goal completion.
 
 When delegation is available, authorized, and proportional:
 
-- delegate bounded read-only discovery that reduces a specific uncertainty;
-- delegate at most one approved Slice contract to an implementation capability;
-- use an independent read-only review for risky implementation boundaries or
+- use bounded read-only discovery only to close a specific uncertainty;
+- delegate one approved Slice contract to one production-writing capability;
+- use independent read-only review for risky implementation boundaries and
   whole-Goal acceptance;
-- give delegated work the approved contract, current state, exact scope, and
-  required evidence, without suggesting a desired review verdict.
+- provide a self-contained packet with workspace, stable state, approved
+  conditions, exact scope and exclusions, preserved behavior, required
+  evidence, and raw-evidence locations;
+- request findings without suggesting the desired verdict.
 
-Delegated work must not expand the Slice, change a Goal or Work Package,
-approve an exception, select later work, update the delivery document, or mark
-any delivery level complete. It returns changes, evidence, findings, and
-blockers to the coordinating agent. If current code requires a material plan
-decision, stop that work instead of guessing.
+Delegated work returns changes, evidence, findings, and blockers. It must not
+expand the Slice, change the plan, choose later work, edit the Delivery
+document, or mark any boundary complete. Keep only one production writer
+active. Parallelize only independent work that cannot invalidate the pending
+result.
 
-When delegation is unavailable, perform the same bounded work sequentially.
-Use a clean-room review where independence would otherwise be useful, and
-disclose the lack of independent review when it affects an acceptance claim.
-
-Before treating delegated exploration or review as read-only, confirm that the
-child's effective sandbox is read-only. A configured default is insufficient
-when a live parent permission override can supersede it. If the effective child
-boundary cannot be guaranteed, run the work from a separate read-only turn or
-session; otherwise use the clean-room fallback and disclose that the review was
-not independently sandboxed. Never silently substitute a no-edit prompt for an
-enforced read-only boundary.
-
-## Handle Plan Changes
-
-Refine Slice boundaries, file scope, order, and local verification during
-execution when doing so does not change an approved Goal condition, Work
-Package outcome, compatibility promise, intentional removal, or exception.
-
-When current evidence requires a material plan change:
-
-1. stop before implementing against the changed target;
-2. record the evidence and exact approved condition it conflicts with;
-3. hand substantial planning or revision to `$design-delivery-plan`;
-4. resume only after the user explicitly approves the revised plan.
-
-Do not design the replacement target or approve it on the user's behalf. After
-approval and before implementing the revised target, update the Delivery
-document's Current approval and Approved Contract so they state the complete
-current target in positive, self-contained language, update any affected status
-and resume fields, and append a Goal Change Record for history. Perform those
-changes as one serialized atomic document update. Keep Initial approval stable.
-Resume from the current contract; do not require later readers to merge
-historical records to discover what is currently approved.
-
-## Select The Current Slice
-
-On start or resume, continue the recorded unfinished Slice when its plan,
-boundaries, and dependencies remain valid. Do not replace valid in-progress
-work merely because another task looks easier.
-
-When no valid Slice is active, choose from dependency-ready Work Packages,
-unmet acceptance conditions, blockers, incomplete authority replacements, and
-required removals. Reject candidates that need a material plan change or lack
-one independently reviewable outcome and clear exit evidence. Prefer work that
-removes a blocker or half-migrated state, then work that advances the earliest
-ready package; break ties with smaller scope and earlier risk reduction. Do not
-pre-plan every later Slice or use a mechanical score.
-
-Before editing, assign a stable local Slice ID and write its selection reason,
-conditions, local outcome, preserved behavior, expected scope, and exit
-evidence to the delivery document. After completion, move it to completed work,
-clear the current pointer, and re-evaluate current code and evidence before
-selecting another Slice. A predicted next direction is not current work until
-revalidated.
+Treat read-only work as independent only when its effective sandbox is
+read-only. Otherwise use a separate read-only turn or a clean-room fallback and
+disclose the limitation when it affects acceptance. When delegation is
+unavailable, perform the same bounded work sequentially without silently
+dropping required review.
 
 ## Maintain The Delivery Document
 
-Read [references/delivery-document.md](references/delivery-document.md)
-completely before initializing or maintaining the Delivery document.
+Every plan executed through this skill requires a private persistent Delivery
+document before the first production edit. Read
+[references/delivery-document.md](references/delivery-document.md) completely
+before initializing or resuming it, and follow that reference for path
+selection, contents, evidence records, permissions, and updates.
 
-Every approved multi-step plan executed through this skill requires a private,
-persistent delivery document. Initialize it before the first production edit.
-Expected same-session completion, single-agent execution, or low interruption
-risk does not waive this requirement. Small tasks outside this skill do not
-create a delivery document.
+Use an explicitly approved path when provided; otherwise use the private
+`$CODEX_HOME/state/delivery/` hierarchy, with `CODEX_HOME` defaulting to
+`~/.codex`. Repository-local Delivery is used only when current instructions
+explicitly require it.
 
-Resolve the path in this order:
+The coordinating agent is the sole writer. Integrate delegated results
+serially and replace the document atomically. Keep one active coordinator for a
+Goal; if concurrent coordination or conflicting Delivery state is detected,
+stop and reconcile the current contract, implementation state, and evidence
+before writing.
 
-1. use a path explicitly required by the user, approved plan, or repository
-   instructions;
-2. for the default root, discover and resume an existing document for the same
-   approved Goal when one exists;
-3. only when no matching document exists, create
-   `$CODEX_HOME/state/delivery/<repo-key>/<goal-id>/delivery.md`, where
-   `CODEX_HOME` defaults to `~/.codex`.
+Record the approved contract and current state before selecting the first
+Slice. Update Delivery when selecting, completing, blocking, resuming, or
+invalidating a Slice and at Milestone or Final acceptance boundaries. Record
+acceptance-linked evidence and the next exact action, not a command transcript.
+Retain the document after completion unless an approved retention rule says
+otherwise.
 
-For the default path:
+## Handle Plan Changes
 
-- form `<repo-key>` from a safe repository or workspace basename plus the first
-  10 lowercase hexadecimal characters of SHA-256 over the UTF-8 resolved
-  absolute root path, so every agent derives the same key and same-named roots
-  remain distinct;
-- before generating a Goal ID, enumerate
-  `$CODEX_HOME/state/delivery/<repo-key>/*/delivery.md`. Resume only when exactly
-  one document's recorded workspace, Goal title, plan source, and initial
-  approval boundary identify the same work. If multiple documents match, stop
-  and reconcile them instead of guessing. If none match, create a new document;
-- form `<goal-id>` from a readable Goal-title slug plus a short random suffix
-  such as 12 UUID hex characters. Generate it once, record it, and never
-  recompute it from plan text. Existing delivery documents keep their current
-  IDs and paths;
-- keep the delivery root outside the target repository. Compare the resolved
-  repository and configured delivery roots before initialization; if the
-  delivery root is inside the repository, require an approved external path.
-  Use a repository-local path only when the user, approved plan, or repository
-  rules explicitly require it;
-- create user-private directories and files where supported, normally `0700`
-  for directories and `0600` for the document.
+Refine local file scope, Slice boundaries, order among dependency-ready work,
+and focused verification when the approved Goal, Work Package outcomes,
+compatibility promises, removals, permissions, and exceptions remain unchanged.
 
-If an explicitly selected candidate document already exists, resume it only
-when its recorded workspace, Goal, plan source, and initial approval boundary
-identify the same work. Otherwise do not overwrite it; reconcile the conflict
-or obtain an approved alternate path.
+When evidence requires a material contract change:
 
-The Markdown document is the sole delivery record. Private delivery state is
-part of local orchestration and may record approved local role or model
-decisions when they are needed to resume; reusable skills remain free of those
-bindings.
+1. stop before implementing the changed target;
+2. record the conflicting evidence and approved condition;
+3. hand substantial revision to `$design-delivery-plan`;
+4. resume only after explicit user approval.
 
-The coordinating agent is the only authorized writer. Delegated discovery,
-implementation, and review return evidence or findings for serialized
-integration and never edit the document. Write through a private temporary
-file in the same directory and replace the document atomically. When another
-coordinating session may update the same document, acquire a cooperative
-sibling lock before reading and writing; if the lock exists, stop and reconcile
-instead of overwriting.
+Before implementing the approved revision, read
+[references/goal-change-record.md](references/goal-change-record.md), update the
+complete current contract and affected status atomically, and append the change
+record. Keep the initial approval stable and make the current target readable
+without reconstructing history.
 
-At initialization, record only what is needed to resume and accept the Goal:
+## Select The Current Slice
 
-- workspace, repository key, Goal title and ID, exact delivery path, plan
-  source, initial and current approval boundaries, current `HEAD` or non-Git
-  baseline, and concise worktree state;
-- the approved final outcome, scope, boundaries, non-goals, Work Package order
-  and full Work Package contracts, every stable acceptance label, and material
-  compatibility promises, removals, decisions, risks, and exceptions;
-- Work Package and Goal status, the current Slice contract, evidence already
-  established, missing evidence, and the exact resume action.
+Resume the recorded unfinished Slice when its contract, dependencies, and code
+state remain valid. Otherwise choose one dependency-ready Work Package outcome
+that removes a blocker or half-migrated state, or advances the earliest ready
+package with the smallest useful risk boundary. Reject work that needs a
+material plan decision or lacks independently reviewable exit evidence.
 
-When the plan has a durable source, point to it and copy only the parts needed
-for safe resumption. When it exists only in conversation, embed the minimum
-approved contract in readable Markdown without copying unnecessary design
-prose.
+A Slice normally contains one cohesive outcome. Keep production changes,
+targeted tests, structural guards, and necessary documentation together when
+they share an authority and acceptance boundary. Split only for a material
+dependency, risk, rollback, ownership, or acceptance difference. Do not
+pre-plan every later Slice.
 
-Update the document when selecting, completing, blocking, resuming, or
-invalidating a Slice, and at Milestone or Final acceptance boundaries. Record
-only evidence that supports an acceptance condition, concise status changes,
-known failures or exceptions, and the next exact action. Do not turn it into a
-command transcript. Retain it after Goal completion unless another approved
-retention rule applies.
+Use immediate independent implementation review for public API, configuration
+or schema, external compatibility, security or permissions, migration,
+concurrency, or data-integrity changes. Related internal authority moves,
+old-path removals, and structural guards may share one stable Work Package or
+Milestone review when they have the same risk and acceptance boundary.
 
-Map evidence explicitly without imposing a file format:
+Before editing, assign a stable local Slice ID and record:
 
-- every required acceptance condition must be stably identifiable;
-- every evidence item must name the condition or conditions it covers;
-- one evidence item may cover multiple conditions;
-- Milestone and Final acceptance must expose every required condition in scope
-  that still lacks evidence.
+- why it is current and which acceptance labels it advances;
+- one local outcome and the behavior it preserves;
+- the expected authority or implementation scope;
+- focused exit evidence and any bounded structural counterexamples required.
 
-Evidence claims must not exceed what the performed check can distinguish.
-Passing behavior checks does not by itself establish structural ownership,
-removal, or maintainability. Exact symbol or path absence does not by itself
-establish that a responsibility was removed or replaced. Delivery documents,
-commit messages, and acceptance reports may index evidence, but they are not
-primary proof of implementation conditions.
-
-Match evidence to the nature of the condition. Behavioral, structural,
-replacement, security, performance, compatibility, and hygiene claims may need
-different checks or review. When an approved condition claims that an
-authority, dependency, fallback, side effect, or implementation is replaced,
-verify that the replacement owns the intended responsibility, relevant
-consumers use it, and the superseded path has the approved disposition. A
-rename, move, or wrapper is not sufficient replacement evidence by itself.
-
-Reuse authoritative project evidence instead of duplicating it in another
-format. On resume, reuse evidence when the relevant code, tests, rules, and
-plan are unchanged. After a clearly unrelated change, retain it by judgment.
-When relevance is uncertain, rerun the related check.
+Revalidate current code and evidence before selecting another Slice.
 
 ## Execute A Slice
 
-After selecting or resuming the current Slice:
+For the selected Slice:
 
-1. inspect the relevant authority boundary and current worktree;
-2. implement the smallest independently reviewable result;
-3. remove superseded implementation when internal compatibility is not part of
-   the approved boundary;
-4. add positive evidence that the new path works;
-5. when replacing an authority, dependency, fallback, or side effect, add
-   negative evidence that the old path is absent, isolated, or no longer
-   authoritative;
-6. run affected checks and repository-required verification commands once;
-7. review scope, architecture, obsolete paths, and maintainability;
-8. update the delivery document and only affected project status, including the
-   stable condition labels, Slice status, and pointer change when applicable.
+1. inspect the relevant authority boundary and worktree;
+2. implement the smallest reviewable result;
+3. remove superseded implementation when the approved compatibility boundary
+   does not retain it;
+4. add positive evidence that the new path works and proportional negative
+   evidence for required replacement or removal;
+5. run focused affected tests, relevant static checks, and necessary smoke;
+6. review the stable implementation boundary at the risk level defined above;
+7. resolve required blockers, run deferred boundary evidence once, and update
+   Delivery with the verified result and next state.
 
-End Slice execution with a verified worktree and recorded Delivery state.
-Commit creation belongs to a separate workflow with its own trigger rules.
+Start an implementation verdict from one stable snapshot and one complete
+packet. A review may gather facts earlier, but it should not issue incremental
+verdicts against moving code.
 
-Do not build compatibility facades, dual tracks, or fallbacks unless the
-approved external compatibility boundary requires them.
+Block a Slice only for an approved-condition violation, demonstrated
+correctness, security, permission, data, concurrency, or external compatibility
+failure, failed required gate, or evidence gap needed for the claimed
+completion. Treat style preferences, hypothetical extensions, and
+stronger-than-contract proof as non-blocking advice.
 
-## Accept A Milestone
+Group blockers from one review boundary into one corrective Slice. Default to
+one correction and targeted closure pass. If the same blocker class survives,
+recheck the Slice contract, counterexample, and scope before further changes;
+do not grow the correction into a general framework beyond the approved claim.
+
+End with a verified worktree and recorded Delivery state. Commit creation is a
+separate workflow. Add compatibility facades, dual tracks, or fallbacks only
+when the approved external boundary requires them.
+
+## Accept Milestones And The Final Goal
 
 Read [references/acceptance-review.md](references/acceptance-review.md)
-completely before changing a Work Package or Milestone boundary to `complete`.
+completely before marking a Work Package, Milestone, or Goal complete. That
+reference is the canonical acceptance, blocker, counterevidence, review, and
+correction procedure.
 
-Apply that procedure to the current Work Package scope and its applicable
-evidence classes. Update Work Package status only when every required condition
-has sufficient current evidence and no unapproved blocker remains. If review
-finds a required production change, leave Milestone acceptance, return to a
-Slice, and start a new Milestone pass after verification. Keep the whole Goal
-`partial` while later required work remains.
+For a Milestone, apply it only to the Work Package conditions being closed and
+their dependencies. Keep the Goal partial while later required work remains.
 
-## Accept The Final Goal
-
-Read [references/acceptance-review.md](references/acceptance-review.md)
-completely before performing Final acceptance.
-
-Apply that procedure to every Goal and Work Package condition. Goal completion
-requires current evidence for every label, unchanged acceptance strength,
-fulfilled compatibility and removal obligations, applicable full and
-end-to-end checks, agreement among plan, implementation, tests, and docs, and
-zero unapproved blockers.
-
-Perform Final as a distinct acceptance pass. Use an independent reviewer when
-delegation is available, authorized, and proportional; otherwise use the
-documented clean-room fallback. Delivery status fields remain claims, not
-proof. If Final finds a required production change, leave Final mode, implement
-and verify a corrective Slice, then start a new Final pass.
-
-A Final pass may also close still-pending Work Package statuses when its
-whole-Goal scope verifies every condition for those packages. Do not require a
-separate, duplicative Milestone pass unless the approved plan or repository
-rules require one.
+For Final, reconstruct every Goal and Work Package condition from the approved
+contract and current implementation. Perform a distinct whole-Goal pass with
+an independent reviewer when available, authorized, and proportional; otherwise
+use the documented clean-room fallback. Delivery status fields locate evidence
+but do not prove completion. A required production correction leaves Final
+mode; complete the correction procedure before a new complete Final pass.
 
 ## Judge Evidence Proportionally
 
-Use machine evidence for externally observable behavior such as CLI, config,
-templates, output, errors, rejection, and data loss. Use agent review for
-architecture, directory responsibility, naming, obsolete API removal, and
-maintainability when machine enforcement would cost more than it proves.
+Match evidence to the claim. Behavior checks do not automatically prove
+structural ownership or removal, and exact-name absence does not prove semantic
+replacement. Delivery records, commits, and acceptance reports index evidence
+but are not primary implementation proof.
 
-Review cannot override a failed required check. Do not repeat a targeted check
-already covered by a broader check on the same state.
+Prefer focused evidence while code may change. Reuse authoritative evidence
+when its relevant code, tests, rules, and contract are unchanged. Establish
+expensive baselines once and rerun them only when their affecting state changes
+or at the stable boundary that requires them. A broader check may subsume a
+narrower check of the same class and state, but review cannot override a failed
+required gate.
 
 Record known baseline failures precisely and require no new failures. Do not
-silently convert a failing gate into review evidence.
+turn a failed check into review evidence or rerun unaffected evidence merely
+because another Slice completed.
 
-## Update And Report Precisely
+## Report Precisely
 
-Update delivery or project status only when a Slice pointer, Work Package,
-Milestone, exception, or Goal status changes. Do not edit status merely
-because a command passed.
-
-Lead reports with the achieved outcome. State verification performed,
-compatibility preserved, remaining blockers, worktree state, and exact Slice,
+Update status only when a Slice pointer, Work Package, Milestone, exception, or
+Goal state changes. Lead reports with the achieved outcome, verification,
+preserved compatibility, remaining blockers, worktree state, and exact Slice,
 Milestone, and Goal status when relevant.
 
-## Load Additional References Only When Needed
-
-- Before recording an approved Goal change, read
-  [references/goal-change-record.md](references/goal-change-record.md).
-- Before writing a handoff, read [references/handoff.md](references/handoff.md).
-
-Do not use these references to author or substantially revise a plan.
+Before writing an explicit execution handoff, read
+[references/handoff.md](references/handoff.md). Do not use execution references
+to author or substantially revise a plan.

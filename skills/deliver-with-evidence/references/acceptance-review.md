@@ -1,135 +1,138 @@
 # Milestone And Final Acceptance Review
 
-Use this procedure when proposing a Work Package, Milestone boundary, or Goal as
-complete. Apply it proportionally to the current acceptance scope. It is a
-review of the approved outcome and current implementation, not a summary of the
-delivery ledger.
+Use this procedure before proposing a Work Package, Milestone, or Goal as
+complete. Review the approved outcome against the current implementation and
+raw evidence rather than summarizing Delivery status.
 
-## Set The Acceptance Scope
+## Set The Scope
 
-For a Milestone, review only the Work Package conditions currently being
-closed, their dependencies, relevant compatibility promises, intentional
-removals, and approved exceptions. Do not require unrelated later Work Packages
-or whole-Goal checks.
+For a Milestone, review the Work Package conditions being closed, their
+dependencies, relevant compatibility promises, intentional removals, and
+approved exceptions.
 
-For Final acceptance, review every required Goal condition, all required Work
-Packages, external compatibility promises, intentional removals, and approved
-exceptions.
+For Final, review every required Goal and Work Package condition, all external
+compatibility promises, intentional removals, and approved exceptions.
+
+Run the pass against one stable implementation snapshot and one complete packet
+containing the approved contract, acceptance labels, current state, and raw
+evidence.
 
 ## Reconstruct The Contract
 
-Start from the approved plan and current repository state. Enumerate every
-required condition in the acceptance scope and build a fresh acceptance view
-before relying on delivery-document, commit, Slice, or prior Milestone
-completion labels.
+Build a fresh condition matrix from the approved plan and current repository
+state before relying on Delivery, commit, Slice, or prior Milestone completion
+labels. Delivery may locate evidence, but its status fields are claims. An
+acceptance report cannot prove itself.
 
-Delivery documents may locate commands, changes, and earlier review notes.
-Treat their status fields as claims requiring current evidence. An acceptance
-report cannot prove itself, and one completion statement cannot prove another.
+For every condition, record:
 
-## Judge Evidence Sufficiency
+- the current evidence and what it can distinguish;
+- a plausible incomplete state or counterexample that was checked;
+- material limitations and any approved exception;
+- `verified` or `partial` status.
 
-For each condition, record what was observed and why that observation can
-distinguish success from a plausible incomplete state. State material limits
-when evidence could otherwise be overread.
+## Match Evidence To The Claim
 
-Common evidence classes include:
+Use evidence appropriate to the condition:
 
-- behavior: externally observable success, errors, rejection, and data shape;
-- structure: responsibility, ownership, dependency direction, and composition;
-- replacement: new ownership, consumer routing, and old-path disposition;
-- security or reliability: adverse inputs, failure boundaries, recovery, and
-  leakage constraints;
-- performance: measured workload, threshold, variance, and comparison state;
-- compatibility: promised inputs, outputs, workflows, and approved breaks;
-- hygiene: static checks, generated content, repository state, and packaging.
+- behavior for observable success, errors, rejection, and data shape;
+- structure for responsibility, ownership, dependency direction, and
+  composition;
+- replacement for new ownership, consumer routing, and old-path disposition;
+- security or reliability for adverse inputs, failure boundaries, recovery, and
+  leakage;
+- performance for measured workload, threshold, variance, and comparison state;
+- compatibility for promised inputs, outputs, and workflows;
+- hygiene for static checks, generated content, packaging, and worktree state.
 
-Evidence from one class does not automatically prove another. In particular:
+One evidence class does not automatically prove another. Existing behavior
+tests do not prove structural migration, aggregate counts do not prove
+architectural completeness, and exact-name absence proves only that searched
+absence. A broader check may subsume a narrower check of the same class and
+state, but it does not replace required architecture or removal review.
 
-- passing existing behavior tests does not prove a structural migration unless
-  the checks can distinguish the old and new structures;
-- aggregate test counts do not establish architectural completeness;
-- exact-name or exact-path negative searches prove only the searched absence;
-- documentation and commit text index evidence but do not prove code state;
-- a broader behavior suite may subsume narrower behavior checks, but it does
-  not subsume a required architecture or removal review.
+For replacement, removal, isolation, or deprecation claims, verify
+proportionally that the replacement owns the responsibility, relevant
+production consumers use it, the superseded path has the approved disposition,
+and the responsibility was not merely renamed, moved, hidden, or wrapped.
 
-## Challenge Completion Claims
+## Challenge Completion
 
-Treat each material completion claim as a hypothesis to challenge. Identify a
-plausible counterexample appropriate to that condition, inspect for it, and
-record the result. Examples of generic questions include:
+Select plausible counterexamples from the approved conditions and observed
+system. Useful questions include whether an old path remains reachable, two
+components still share authority, consumers bypass a replacement, tests cover
+only preserved behavior, or an adverse compatibility or security path remains
+unchecked.
 
-- Could an approved old path, fallback, or dependency still be reachable?
-- Could two components still own the same decision?
-- Could the proposed replacement exist while relevant consumers still bypass
-  it?
-- Could passing tests exercise only preserved behavior rather than the claimed
-  structural change?
-- Could an approved removal have been renamed, moved, wrapped, or made private
-  without changing responsibility?
-- Could a compatibility, security, performance, or operational boundary remain
-  untested on an important adverse path?
+Challenge only the current acceptance scope. Use representative cases that can
+distinguish the approved outcome instead of exhaustive permutations or a
+general-purpose analyzer.
 
-These are prompts, not a fixed checklist. Select counterexamples from the
-approved conditions and observed system. Milestone review needs only challenges
-material to its current scope; Final review challenges the whole Goal.
+## Apply The Blocking Threshold
 
-## Review Replacement Claims
+Block acceptance only for:
 
-Apply this section only when the approved plan requires replacement, removal,
-isolation, or deprecation of an existing authority, dependency, fallback, side
-effect, or implementation.
+- an unsatisfied required condition;
+- a demonstrated correctness, security, permission, data, concurrency, or
+  external compatibility failure;
+- a failed required gate;
+- missing evidence necessary for the claimed completion.
 
-Verify proportionally that:
-
-1. the replacement owns the intended responsibility;
-2. relevant production consumers use the replacement;
-3. the superseded path is removed, isolated, unreachable, or retained exactly
-   as the approved plan allows;
-4. the same responsibility has not merely been renamed, moved, hidden, or
-   wrapped.
-
-Do not require deletion when the approved plan permits another disposition.
-Do not accept exact spelling changes as semantic replacement evidence.
+Treat style preferences, speculative extensions, stronger-than-approved proof,
+and low-impact maintainability suggestions as non-blocking residual risks.
 
 ## Choose The Review Mode
 
-Milestone review may be performed by the coordinating agent unless project or
-higher-level instructions require another reviewer. Keep it proportional to
-the Work Package risk and scope.
+Milestone review may be performed by the coordinating agent unless current
+instructions require independence. Prefer independent review for broad or
+high-risk Milestones when it is proportional.
 
-Prefer an independent reviewer for broad or high-risk Final acceptance when
-delegation is available, authorized, and proportional. Give that reviewer the
-approved plan, current state, and raw evidence needed to evaluate the outcome;
-do not provide the intended verdict. The reviewer may use the delivery document
-to locate evidence, but must treat its status fields as unverified claims and
-must not edit it. Return findings to the coordinating agent for serialized
-recording.
+Use an independent reviewer for Final when delegation is available, authorized,
+and proportional. Give the reviewer the approved contract, stable current
+state, and raw evidence without a desired verdict. The reviewer may read but
+must not edit Delivery, and must independently evaluate its status claims.
 
-When independent Final review is unavailable, perform a clean-room self-review:
+Treat the review as independent only when its effective boundary is read-only.
+Otherwise use a separate read-only turn or this clean-room fallback:
 
-- rebuild the whole-Goal condition matrix from the plan;
-- inspect current implementation before accepting prior status labels;
-- actively search for counterevidence;
-- disclose that the review was not independent.
+1. rebuild the whole-Goal matrix from the approved plan;
+2. inspect current implementation before accepting prior status;
+3. actively search for counterevidence;
+4. disclose that the review was not independent.
 
-## Stop And Restart When Needed
+Ask an initial review for the complete currently discoverable finding set.
+Separate blockers from non-blocking advice and return missing evidence as one
+bounded list rather than incremental findings.
 
-Acceptance runs against a stable implementation state. If review finds a
-required production change, mark the affected conditions partial, leave the
-current acceptance mode, and return to the appropriate Slice. After the change
-and its verification, start a new acceptance pass for that boundary; do not
-continue the invalidated pass by editing the verdict in place.
+## Correct Blocking Findings
 
-A Work Package, Milestone boundary, or Goal may be complete only when every
-required condition in its scope has sufficient current evidence,
-counterevidence review exposes no unresolved blocker, and all exceptions are
-explicitly approved.
+Acceptance runs against stable code. When review requires a production change:
+
+1. mark affected conditions partial and leave acceptance mode;
+2. group blockers from the same boundary into one corrective Slice;
+3. implement and run focused verification;
+4. perform one targeted closure review of the original blockers and direct
+   regression risks;
+5. run deferred broad evidence once on the stable corrected state;
+6. for Final, perform one complete Final pass on that final state.
+
+Additional evidence without a production change does not invalidate the code
+snapshot; return it to the pending verdict when that verdict was conditional on
+the evidence.
+
+Default to one regular corrective cycle. If the same finding class survives,
+reconstruct the contract, counterexample, and Slice boundary before further
+implementation. New advice extends the loop only when it demonstrates a
+required-contract, correctness, security, permission, data, concurrency, or
+external compatibility failure, or a regression introduced by the correction.
+
+Milestone or Goal completion requires sufficient current evidence for every
+condition in scope, no unresolved blocker, and explicit approval for every
+exception.
 
 ## Acceptance Report
 
-Use this structure only when a durable Milestone or Final report is useful:
+Use a durable report only when it helps later acceptance or handoff:
 
 ```markdown
 # Acceptance
@@ -138,32 +141,20 @@ Reviewed state:
 <HEAD and concise worktree state>
 
 Review mode:
-<milestone review, independent Final, or clean-room Final self-review>
+<Milestone, independent Final, or clean-room Final>
 
-| Requirement | Type | Status | Current evidence | Counterevidence checked | Exception |
+| Requirement | Type | Status | Current evidence | Counterexample checked | Exception |
 |---|---|---|---|---|---|
-| <ID> | behavior/structure/replacement/etc. | verified/partial | <Observation and relevant code> | <Challenge and result> | <ID or none> |
-
-Goal changes reviewed:
-<None, or decision records>
-
-Architecture and dependency review:
-<Added, removed, and remaining edges>
-
-Legacy authority review:
-<What no longer controls behavior and what still does>
+| <ID> | behavior/structure/replacement/etc. | verified/partial | <Observation> | <Challenge and result> | <ID or none> |
 
 Evidence limitations:
-<What major checks establish and what they do not establish>
+<Material limits>
 
-Completion challenges:
-<Material counterexamples sought, results, and unresolved findings>
-
-Compatibility review:
-<External compatibility versus unfinished internal migration>
+Compatibility and removal review:
+<Promises, replacement ownership, and remaining paths>
 
 Verification summary:
-<Smoke, targeted, negative, architecture, regression, and hygiene>
+<Focused, negative, structural, broad, and hygiene checks>
 
 Status:
 - Slice: complete/partial

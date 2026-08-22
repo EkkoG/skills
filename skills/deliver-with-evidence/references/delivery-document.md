@@ -1,8 +1,55 @@
 # Delivery Document
 
-Use this reference only when initializing or maintaining the private Delivery
-document. Keep authoritative project documents authoritative and copy only the
-contract and state needed for reliable resumption and acceptance.
+Use this reference when initializing, resuming, or structurally updating the
+private Delivery document. Keep project documents authoritative and copy only
+the contract and state needed for reliable resumption and acceptance.
+
+## Resolve The Path
+
+Use a path explicitly required by the user, approved plan, or repository
+instructions. Otherwise use:
+
+```text
+$CODEX_HOME/state/delivery/<repo-key>/<goal-id>/delivery.md
+```
+
+`CODEX_HOME` defaults to `~/.codex`.
+
+For the default path:
+
+- form `<repo-key>` from a safe resolved workspace basename plus the first 10
+  lowercase hexadecimal characters of SHA-256 over the UTF-8 resolved absolute
+  root path;
+- enumerate existing `<repo-key>/*/delivery.md` files before creating a Goal;
+- resume only when exactly one document's workspace, Goal title, plan source,
+  and initial approval identify the same work;
+- stop and reconcile when multiple documents match or an explicitly selected
+  document belongs to different work;
+- when no document matches, generate `<goal-id>` once from a readable Goal
+  slug plus a short random suffix such as 12 UUID hex characters;
+- retain an existing Goal ID and path across later approved Goal changes.
+
+Keep the default root outside the target repository. Use a repository-local
+path only when current instructions explicitly require it. Create private
+directories and files where supported, normally `0700` for directories and
+`0600` for the document.
+
+## Preserve One Writer
+
+The coordinating agent is the only writer. Delegated discovery,
+implementation, and review return results for serialized integration and never
+edit the document.
+
+Keep one active coordinator per Goal. If another active coordinator, conflicting
+state, or an ambiguous resume candidate is detected, stop and reconcile the
+approved contract, current implementation, evidence, and next action before
+writing.
+
+Write through a private temporary file in the same directory and replace the
+document atomically. Do not overwrite a document whose recorded workspace,
+Goal, plan source, or initial approval identifies different work.
+
+## Template
 
 ```markdown
 # Delivery Document
@@ -10,10 +57,10 @@ contract and state needed for reliable resumption and acceptance.
 - Workspace: `<repository or target workspace root>`
 - Repository key: `<safe basename>-<root hash prefix>`
 - Goal: `<approved Goal title>`
-- Goal ID: `<safe slug>-<generated short random suffix>`
+- Goal ID: `<stable generated ID>`
 - Delivery path: `<exact persistent path>`
 - Plan source: `<path, conversation, issue, or other authority>`
-- Initial approval: `<first approval boundary and date; never rewritten>`
+- Initial approval: `<first approval boundary and date>`
 - Current approval: `<latest approval boundary and date>`
 - Goal status: partial
 - Current Slice: `<ID, or none>`
@@ -23,25 +70,24 @@ contract and state needed for reliable resumption and acceptance.
 
 ## Approved Contract
 
-- Final outcome: <Current externally observable Goal>
-- Scope and boundaries: <Current required work and authority limits>
-- Non-goals: <Current stable exclusions>
+- Final outcome: <Complete current Goal>
+- Scope and boundaries: <Required work and authority limits>
+- Stable exclusions: <Current exclusions>
 - Work Package order: <Stable IDs in dependency order>
 - Required acceptance: <Every current Goal and Work Package label>
-- Material decisions and architecture: <Only current decisions execution must preserve>
-- Compatibility and removals: <Current promises, removals, and negative obligations, or none>
-- Risks, assumptions, and exceptions: <Only material current resume context>
+- Material architecture and decisions: <Resume-critical current decisions>
+- Compatibility and removals: <Promises and negative obligations, or none>
+- Risks, assumptions, and exceptions: <Material current context>
 
 ### `<WP-ID>`
 
 - Status: <pending, in progress, blocked, or complete>
 - Outcome: <Reviewable result>
-- Owned scope: <Responsibilities or surfaces included>
-- Must not expand into: <Stable exclusions>
-- Implementation boundary: <Authority, data flow, or behavioral constraint>
+- Owned scope and exclusions: <Included and prohibited responsibility>
 - Dependencies: <Earlier Work Packages or none>
-- Acceptance: <Stable labels owned by this Work Package>
-- Compatibility, removals, and risks: <Only current applicable details>
+- Implementation boundary: <Authority, data flow, or behavior>
+- Acceptance: <Stable labels>
+- Compatibility, removals, and risks: <Applicable details>
 
 ## Current Slice Contract
 
@@ -50,15 +96,11 @@ contract and state needed for reliable resumption and acceptance.
 - Local outcome: <One reviewable result>
 - Preserved behavior: <External promises or boundaries>
 - Expected scope: <Relevant responsibility or authority>
-- Exit evidence: <Checks or review needed to finish>
+- Exit evidence: <Checks or review needed>
 
 ## Completed
 
-- `<Slice ID>` <Completed result and covered labels>
-
-## Slice Transitions
-
-- `<old pointer> -> <new pointer>` at `<commit>`: <Short reason>
+- `<Slice ID>` <Result and covered labels>
 
 ## Goal Change History
 
@@ -66,39 +108,52 @@ contract and state needed for reliable resumption and acceptance.
 
 ## Evidence
 
-- PASS [G-01] `<command or observation>`
+- PASS [G-01] `<evidence title>`
+  - Method: <Reproducible command, inspection, or review>
   - Observed: <What was established>
   - Supports: <Condition within that observation>
-  - Limits: <Material claims this does not establish>
+  - Limits: <Material claims not established>
   - State: <HEAD or other relevant state>
-- REVIEW [G-02, WP-04-03] <Boundary or quality>
-  - Observed: <Conclusion and relevant paths>
-  - Counterexample checked: <Plausible incomplete state and result>
+  - Artifact: <Persistent location when useful, or none>
 
-## Missing evidence
+## Missing Evidence
 
-- <Required condition with no current evidence, or none>
+- <Required condition without sufficient current evidence, or none>
 
-## Known failures or exceptions
+## Known Failures Or Exceptions
 
 - <Existing failure, baseline, or approved exception>
 
 ## Resume
 
-<Exact continuation point, or where to re-evaluate when no Slice is active>
+<Exact continuation point or re-evaluation action>
 ```
 
-The Approved Contract always describes the complete current target. When a
-material Goal change is approved, update that contract and affected state in
-the same atomic write that appends the historical Goal Change Record. A reader
-must not need to merge history to determine what is currently approved.
+Omit optional fields that do not apply. When a durable plan exists, link it and
+copy only resume-critical details. For a conversation-only plan, embed enough
+of the approved contract to resume every Work Package without guessing.
 
-Generate a Goal ID once and retain the exact path. Omit optional fields and the
-current Slice contract when they do not apply. Record transitions only for
-selection, completion, blocking, resumption, or invalidation; do not use them
-as an activity log or reconstruct unsupported history.
+## Record Useful State And Evidence
 
-When the plan has a durable source, link it and copy only resume-critical
-details. For a conversation-only plan, retain enough readable contract detail
-to resume every Work Package without guessing while avoiding unnecessary
-design prose.
+Initialize the document before the first production edit with the approved
+contract, Work Package status, current implementation state, missing evidence,
+and exact next action.
+
+Update it when selecting, completing, blocking, resuming, or invalidating a
+Slice and at Milestone or Final boundaries. Record concise state transitions,
+condition-linked evidence, known failures or exceptions, and the next action.
+Do not keep a command transcript or reconstruct unsupported history.
+
+Every reusable evidence item names the conditions it supports and retains a
+reproducible method, relevant state, observed result or durable artifact, and
+material limits. One item may support several conditions. Delivery status,
+commit text, and acceptance reports locate evidence but do not prove the
+implementation claim.
+
+Reuse evidence when the relevant code, tests, rules, and contract are unchanged.
+Rerun it when relevance or reproducibility is uncertain. Retain the completed
+document unless another approved retention rule applies.
+
+When a material Goal change is approved, update Current approval, the complete
+current Approved Contract, affected status, and the Goal Change Record in one
+atomic write. Keep Initial approval unchanged.

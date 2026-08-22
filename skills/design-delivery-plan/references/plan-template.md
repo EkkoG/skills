@@ -1,28 +1,23 @@
 # Delivery Plan Template
 
 Use this as a flexible checklist, not a required schema. Omit sections that do
-not apply and add domain-specific detail when it changes the decision.
+not apply. When material current-state evidence is unavailable, return an
+evidence-gap report instead of this template.
 
 ## Status
 
 Draft and unapproved.
 
-Do not use this full template when material current-state evidence is
-unavailable. Return a blocked evidence-gap report without formal Goal, Work
-Package, acceptance, or Slice labels instead.
-
 ## Objective
 
-Describe the externally observable final outcome and the whole-goal completion
+Describe the externally observable final outcome and whole-goal completion
 boundary.
 
 ## Scope And Constraints
 
-- Required scope
-- Stable scope exclusions required by the selected target
-- Compatibility promises
-- Security, performance, operational, or delivery constraints
-- Intentional behavior changes
+- Required scope and stable exclusions
+- Compatibility promises and intentional behavior changes
+- Security, permission, performance, operational, or delivery constraints
 
 ## Current State
 
@@ -31,10 +26,9 @@ known problems, and reusable parts. Separate facts, conclusions, and assumptions
 
 ## Decisions And Target Design
 
-Explain the selected responsibilities, ownership, important data flow, problems
-solved, material costs, and unresolved choices. Compare only options that still
-require a user decision. Describe the selected target in self-contained,
-positive language without preserving superseded options or their rationale.
+Describe current responsibilities, ownership, important data flow, problems
+solved, material costs, and unresolved choices. Keep the target self-contained
+and compare only alternatives that still require a decision.
 
 ## Work Packages
 
@@ -42,18 +36,15 @@ For each dependency-ordered package:
 
 ### WP-01: Outcome
 
-- Problem or capability
-- Owned scope
-- Prohibited scope
+- Owned outcome and scope
+- Prohibited expansion
 - Dependencies
-- Implementation boundary
-- Compatibility impact
-- Intentional removals, if any
+- Implementation or authority boundary
+- Review boundary and rationale
+- Compatibility impact and intentional removals
 - Acceptance conditions: `WP-01-01`, `WP-01-02`, ...
 - Suggested positive, negative, and review evidence
-- Remaining decisions or risks
-
-Repeat only for packages required by the Goal.
+- Remaining risks or decisions
 
 ## Goal Acceptance
 
@@ -61,25 +52,25 @@ Repeat only for packages required by the Goal.
 |---|---|---|---|
 | G-01 | Observable whole-goal condition | Test, inspection, review, or artifact | planned |
 
-Keep Slice completion, Work Package or Milestone completion, and whole-goal
-completion distinct.
+Keep Slice, Work Package or Milestone, and whole-Goal completion distinct.
 
 ## Acceptance Strategy
 
-Describe proportional smoke, targeted, regression, static, security,
-performance, architecture, negative migration, and hygiene checks as applicable.
-Allow review where automation would cost more than it proves.
+Describe the proportional smoke, targeted, regression, structural, security,
+performance, compatibility, and hygiene evidence that applies. For a structural
+or old-path guard, name the representative escape classes and false-positive
+boundary needed for the approved claim.
 
 ## Risks, Assumptions, And Decisions
 
-List known risks, current assumptions, user decisions still required, approved
-exceptions, and the conditions that would require revising the plan.
+List material risks, current assumptions, decisions still required, approved
+exceptions, and conditions that would require plan revision.
 
-## Anti-Overdesign Review
+## Simplification Review
 
-Record conclusions about current necessity, abstraction value, internal
-compatibility, hypothetical extension points, duplicate authority, and whether
-any design can be made more local without weakening the Goal.
+Record any lasting abstraction, compatibility layer, review boundary, or Work
+Package split that needs explanation. Remove structure that lacks a current
+requirement or evidence-backed reason.
 
 ## Recommended First Slice
 
@@ -90,13 +81,8 @@ any design can be made more local without weakening the Goal.
 - Expected scope
 - Exit evidence
 
-Treat this as a recommendation based on the observed state. The execution
-workflow must revalidate it and should not predefine every later Slice.
-
 ## Review And Approval
 
-Highlight the decisions the user should review. State that implementation must
-not begin until the plan is explicitly approved. After approval, the execution
-workflow initializes its persistent delivery document before production edits.
-Before presenting the plan, confirm that a first-time reader can understand the
-selected target and current constraints without any earlier discussion.
+Highlight the decisions the user should review and state that implementation
+begins only after explicit approval. Confirm that a first-time reader can
+understand the target and current constraints without earlier discussion.
