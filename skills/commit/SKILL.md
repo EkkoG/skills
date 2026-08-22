@@ -1,46 +1,37 @@
 ---
 name: commit
-description: Inspect local changes and create focused, reviewable Git commits. Use automatically after completing and verifying implementation work in a Git repository when the current task's changes form a coherent commit; also use when the user explicitly asks to commit. Do not use for read-only work, planning or review, intentionally partial or failing work, non-Git workspaces, or push or pull-request-only requests.
+description: Create focused, reviewable local Git commits requested by the user or active workflow. Provides scope isolation, commit shaping, staging, message, and reporting guidance. Do not use for pushing, branch creation, or pull requests.
 ---
 
 # Commit Changes
 
-Create one or more local commits that are independently understandable and
-verifiable. Commit only; never push, create a branch, or open a pull request
-unless the user separately requests it.
+Create the requested commit from the supplied scope and available validation
+evidence.
 
-When invoked automatically, commit only completed and verified changes owned by
-the current task. Do not create a checkpoint commit for partial work, include
-unrelated changes, or commit when the user or repository instructions require
-the worktree to remain uncommitted. If the current-task changes cannot be
-safely isolated, leave them uncommitted and report the boundary.
+Commit only the requested changes. Never push, create a branch, open a pull
+request, amend, or rewrite history unless the user separately requests that
+operation.
 
 ## Workflow
 
 1. Inspect `git status --short`, staged and unstaged diffs, and recent commit
-   subjects before staging anything.
-2. Determine the intended scope from the user's request. Preserve unrelated
-   user changes. If ownership of a changed file is ambiguous, ask before
-   staging it.
-3. Choose a practical commit shape. Prefer one commit for a single coherent
-   change. If the diff contains clearly independent concerns, briefly suggest
-   a useful split, usually two or three commits, before staging. Treat this as
-   a recommendation: do not insist, block the commit, or over-split when the
-   user prefers one commit or the review benefit is marginal. Never split
-   merely by file type.
-4. Run the relevant available checks for each commit group. Report failures or
-   checks that could not be run; never hide or bypass commit hooks.
-5. Stage explicit paths for the current group. Do not use `git add .`,
-   `git add -A`, or `git add --all` when the worktree contains mixed changes.
-6. Review `git diff --cached` before committing. Follow the repository's recent
-   commit-message convention; if none is clear, use a concise imperative
-   subject.
-7. Add a body when context is useful:
-   - For a bug fix, explain the problem or root cause and the solution.
-   - For a feature, explain the capability and the implementation approach.
-   - Mention meaningful validation, compatibility concerns, or tradeoffs.
-8. After committing, report each commit hash and subject, the validation run,
-   and any remaining uncommitted changes.
-
-Do not amend, rewrite history, or include unrelated changes unless the user
-explicitly asks for that operation.
+   subjects.
+2. Resolve the requested scope and preserve unrelated user changes. If changed
+   files cannot be safely attributed or isolated, report the ambiguity before
+   staging them.
+3. Choose a practical commit shape. Prefer one commit for one coherent change.
+   Split clearly independent concerns when that materially improves review, but
+   do not split by file type or create cosmetic micro-commits.
+4. Use validation evidence supplied by the caller. Run only checks explicitly
+   requested for the commit, required by repository instructions, or enforced
+   by commit hooks; do not repeat an engineering acceptance workflow merely to
+   create the commit. Report failures and never bypass hooks.
+5. Stage explicit paths for each commit group. Avoid `git add .`, `git add -A`,
+   and `git add --all` when the worktree contains changes outside the requested
+   scope.
+6. Review `git diff --cached` before committing.
+7. Follow the repository's recent commit-message convention. Otherwise use a
+   concise imperative subject. Add a body when it helps explain the problem,
+   approach, compatibility impact, tradeoff, or meaningful validation.
+8. After committing, report each commit hash and subject, the evidence relied
+   on or checks run, and any remaining uncommitted changes.

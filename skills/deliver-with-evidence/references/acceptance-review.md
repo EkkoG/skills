@@ -6,9 +6,11 @@ raw evidence rather than summarizing Delivery status.
 
 ## Set The Scope
 
-For a Milestone, review the Work Package conditions being closed, their
+For a Milestone, review one stable acceptance or risk review boundary containing
+one or more Work Packages. Include the conditions being closed, their stable
 dependencies, relevant compatibility promises, intentional removals, and
-approved exceptions.
+approved exceptions. Package numbering and completion order do not define the
+boundary.
 
 For Final, review every required Goal and Work Package condition, all external
 compatibility promises, intentional removals, and approved exceptions.
@@ -84,8 +86,10 @@ and low-impact maintainability suggestions as non-blocking residual risks.
 ## Choose The Review Mode
 
 Milestone review may be performed by the coordinating agent unless current
-instructions require independence. Prefer independent review for broad or
-high-risk Milestones when it is proportional.
+instructions require independence. Use independent review for a risk-bearing
+boundary when later production work will depend on its verdict and delegation
+or a clean-room fallback is available. Genuinely independent stable boundaries
+may be reviewed in parallel.
 
 Use an independent reviewer for Final when delegation is available, authorized,
 and proportional. Give the reviewer the approved contract, stable current
@@ -95,7 +99,8 @@ must not edit Delivery, and must independently evaluate its status claims.
 Treat the review as independent only when its effective boundary is read-only.
 Otherwise use a separate read-only turn or this clean-room fallback:
 
-1. rebuild the whole-Goal matrix from the approved plan;
+1. rebuild the current acceptance matrix from the approved plan, using the
+   whole-Goal matrix for Final;
 2. inspect current implementation before accepting prior status;
 3. actively search for counterevidence;
 4. disclose that the review was not independent.
@@ -126,6 +131,11 @@ implementation. New advice extends the loop only when it demonstrates a
 required-contract, correctness, security, permission, data, concurrency, or
 external compatibility failure, or a regression introduced by the correction.
 
+If later production work changes a reviewed authority, mark only the affected
+conditions and evidence partial. Retain unaffected results, and revalidate the
+changed scope at the next relevant stable boundary or Final instead of reopening
+unrelated Work Packages.
+
 Milestone or Goal completion requires sufficient current evidence for every
 condition in scope, no unresolved blocker, and explicit approval for every
 exception.
@@ -141,7 +151,7 @@ Reviewed state:
 <HEAD and concise worktree state>
 
 Review mode:
-<Milestone, independent Final, or clean-room Final>
+<stable Milestone boundary, independent Final, or clean-room Final>
 
 | Requirement | Type | Status | Current evidence | Counterexample checked | Exception |
 |---|---|---|---|---|---|

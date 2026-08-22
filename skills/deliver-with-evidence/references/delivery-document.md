@@ -73,7 +73,7 @@ Goal, plan source, or initial approval identifies different work.
 - Final outcome: <Complete current Goal>
 - Scope and boundaries: <Required work and authority limits>
 - Stable exclusions: <Current exclusions>
-- Work Package order: <Stable IDs in dependency order>
+- Work Package dependency graph: <Stable IDs and dependency edges>
 - Required acceptance: <Every current Goal and Work Package label>
 - Material architecture and decisions: <Resume-critical current decisions>
 - Compatibility and removals: <Promises and negative obligations, or none>
@@ -81,13 +81,27 @@ Goal, plan source, or initial approval identifies different work.
 
 ### `<WP-ID>`
 
-- Status: <pending, in progress, blocked, or complete>
+- Status: <pending, in progress, review-ready, blocked, or complete>
 - Outcome: <Reviewable result>
 - Owned scope and exclusions: <Included and prohibited responsibility>
-- Dependencies: <Earlier Work Packages or none>
+- Dependencies: <Required Work Packages or none>
 - Implementation boundary: <Authority, data flow, or behavior>
 - Acceptance: <Stable labels>
 - Compatibility, removals, and risks: <Applicable details>
+
+## Review Boundaries
+
+### `<boundary ID>`
+
+- Status: <pending, review-ready, reviewed, or invalidated>
+- Includes: <Work Package and acceptance labels>
+- Authority and risk: <Shared review scope>
+- Stable dependencies: <Required state or none>
+- Dependent work: <Production work that waits for the verdict, or none>
+- Review snapshot: <HEAD and concise worktree state, or pending>
+- Focused evidence: <Condition-linked evidence references, or pending>
+- Verdict: <No blocker, blockers, deferred to Final, or pending>
+- Invalidated evidence: <Affected labels and reason, or none>
 
 ## Current Slice Contract
 
@@ -140,7 +154,8 @@ contract, Work Package status, current implementation state, missing evidence,
 and exact next action.
 
 Update it when selecting, completing, blocking, resuming, or invalidating a
-Slice and at Milestone or Final boundaries. Record concise state transitions,
+Slice; when a review boundary becomes review-ready, reviewed, or invalidated;
+and at Milestone or Final acceptance. Record concise state transitions,
 condition-linked evidence, known failures or exceptions, and the next action.
 Do not keep a command transcript or reconstruct unsupported history.
 
@@ -151,8 +166,11 @@ commit text, and acceptance reports locate evidence but do not prove the
 implementation claim.
 
 Reuse evidence when the relevant code, tests, rules, and contract are unchanged.
-Rerun it when relevance or reproducibility is uncertain. Retain the completed
-document unless another approved retention rule applies.
+When later work changes a reviewed authority, mark the affected evidence and
+conditions invalid without discarding unaffected records. Revalidate the
+changed scope at the next relevant stable boundary or Final. Rerun evidence
+when relevance or reproducibility is uncertain. Retain the completed document
+unless another approved retention rule applies.
 
 When a material Goal change is approved, update Current approval, the complete
 current Approved Contract, affected status, and the Goal Change Record in one

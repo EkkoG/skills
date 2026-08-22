@@ -32,7 +32,8 @@ and compare only alternatives that still require a decision.
 
 ## Work Packages
 
-For each dependency-ordered package:
+Describe each package in the dependency graph. IDs are stable references;
+dependency edges, not numbering, determine readiness.
 
 ### WP-01: Outcome
 
@@ -40,7 +41,10 @@ For each dependency-ordered package:
 - Prohibited expansion
 - Dependencies
 - Implementation or authority boundary
-- Review boundary and rationale
+- Risk review boundary: `<boundary ID or none>` and the shared authority, risk,
+  and acceptance scope
+- Verdict dependency: <Later work that must wait for this boundary's verdict,
+  or none>
 - Compatibility impact and intentional removals
 - Acceptance conditions: `WP-01-01`, `WP-01-02`, ...
 - Suggested positive, negative, and review evidence

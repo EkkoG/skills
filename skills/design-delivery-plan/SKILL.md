@@ -68,13 +68,15 @@ exists; otherwise describe the selected target directly.
 
 ### Decompose Outcome-Based Work Packages
 
-Order Work Packages by dependency and independently reviewable outcome. Each
-package needs:
+Express Work Package dependencies as a directed acyclic graph of independently
+reviewable outcomes. Stable IDs identify packages; numbering does not prescribe
+execution or completion order. Each package needs:
 
 - a stable ID such as `WP-01` and one owned outcome;
 - included scope, prohibited expansion, and dependencies;
 - the intended authority or implementation boundary;
-- the review boundary and why it belongs at Slice, Milestone, or Final level;
+- any stable risk review boundary it shares with other packages, plus the later
+  work that must wait for that verdict;
 - applicable compatibility impact and intentional removals;
 - stable acceptance labels such as `WP-01-01`;
 - proportional evidence suggestions, risks, and unresolved decisions.
@@ -83,6 +85,12 @@ Do not split packages by directory, layer, file type, tests, or documentation
 when those pieces complete one outcome and share an acceptance boundary. Split
 only for a material dependency, risk, rollback, ownership, or acceptance
 difference.
+
+A risk review boundary may contain one package or several packages that share
+the same authority, risk, and acceptance scope. Define the boundary by those
+facts rather than package numbering or expected completion order. Add one only
+when an independent implementation verdict will protect later work; do not
+assign a reviewer to every package by default.
 
 Do not pre-plan every Slice. The execution workflow selects the smallest
 reviewable Slice from current code and evidence. The plan only needs enough
