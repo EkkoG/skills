@@ -63,7 +63,8 @@ Goal, plan source, or initial approval identifies different work.
 - Initial approval: `<first approval boundary and date>`
 - Current approval: `<latest approval boundary and date>`
 - Goal status: partial
-- Current Slice: `<ID, or none>`
+- Current Slice: `<WP-01-S01, or none>`
+- Current Slice title: `<short outcome title, or none>`
 - Slice status: `<in progress, blocked, or none>`
 - Based on HEAD: `<commit or not applicable>`
 - Worktree: `<clean, concise dirty paths, or non-Git baseline>`
@@ -105,6 +106,8 @@ Goal, plan source, or initial approval identifies different work.
 
 ## Current Slice Contract
 
+- Slice ID: `<WP-01-S01>`
+- Title: <Short outcome title>
 - Why now: <Selection reason>
 - Covers: <Stable acceptance labels>
 - Local outcome: <One reviewable result>
@@ -114,7 +117,7 @@ Goal, plan source, or initial approval identifies different work.
 
 ## Completed
 
-- `<Slice ID>` <Result and covered labels>
+- `WP-01-S01` — <Title, result, and covered labels>
 
 ## Goal Change History
 

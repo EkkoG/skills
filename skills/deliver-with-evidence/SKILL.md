@@ -53,23 +53,37 @@ declares Work Package or Goal completion.
 
 When delegation is available, authorized, and proportional:
 
-- use bounded read-only discovery only to close a specific uncertainty;
+- use bounded read-only discovery only when a specific uncertainty must be
+  resolved before selecting or contracting the Slice; leave Slice-local
+  discovery to the production-writing capability;
 - delegate one approved Slice contract to one production-writing capability;
 - use independent read-only review for risky implementation boundaries and
   whole-Goal acceptance;
 - provide a self-contained packet with workspace, stable state, approved
   conditions, exact scope and exclusions, preserved behavior, required
-  evidence, and raw-evidence locations;
+  evidence, and raw-evidence locations; use precise readable references instead
+  of copying long plans, Delivery content, or evidence into the packet;
 - require focused affected checks by default; reserve full-suite, end-to-end,
   and exhaustive compatibility evidence for the coordinating agent at the
   stable boundary described below;
 - request findings without suggesting the desired verdict.
 
-Delegated work returns changes, evidence, findings, and blockers. It must not
+Delegated work returns a concise closure report with the local outcome,
+acceptance labels, changed authorities, reproducible verification, stable
+snapshot, review-boundary signals, blockers, and residual risks. It must not
 expand the Slice, change the plan, choose later work, edit the Delivery
 document, or mark any boundary complete. Keep only one production writer
 active. Parallelize only independent work that cannot invalidate the pending
 result.
+
+On receipt, the coordinating agent checks that the result matches the Slice
+contract, the reported snapshot is still current, the evidence is sufficient
+for the claimed outcome, and no blocker, conflict, or scope expansion remains.
+When those checks pass, reuse the delegated evidence without repeating the same
+exploration, affected checks, or ordinary implementation review. Gather more
+evidence only when the state changed, evidence is missing or contradictory, the
+work exceeded its contract, or the acceptance claim requires a different
+evidence class.
 
 Treat read-only work as independent only when its effective sandbox is
 read-only. Otherwise use a separate read-only turn or a clean-room fallback and
@@ -134,9 +148,19 @@ A Slice normally contains one cohesive outcome. Keep production changes,
 targeted tests, structural guards, and necessary documentation together when
 they share an authority and acceptance boundary. Split only for a material
 dependency, risk, rollback, ownership, or acceptance difference. Do not
-pre-plan every later Slice.
+pre-plan every later Slice. Let the delegated implementation capability handle
+the Slice's bounded local discovery, file-level steps, consumer updates,
+superseded-path cleanup, and focused verification; do not create separate
+Slices merely for those internal steps.
 
-Before editing, assign a stable local Slice ID and record:
+Before editing, assign the next Slice ID under the Work Package that owns the
+outcome. Use `<WP-ID>-S<NN>`, for example `WP-01-S01`, `WP-01-S02`, and
+`WP-02-S01`. Number Slices independently within each Work Package and pad the
+Slice number to at least two digits. Allocate an ID only when selecting the
+Slice; never rename, renumber, or reuse a recorded ID. Keep the Slice title and
+any correction or follow-up relationship outside the ID.
+
+Record:
 
 - why it is current and which acceptance labels it advances;
 - one local outcome and the behavior it preserves;
@@ -202,10 +226,15 @@ authority, risk, and acceptance scope. Package numbering and completion order
 do not control review timing. Genuinely independent review-ready boundaries may
 be reviewed in parallel when neither can invalidate the other's snapshot.
 
-After a no-blocker verdict, run the boundary's deferred broad evidence once on
-the reviewed state. If later work changes a reviewed authority, invalidate only
-the affected conditions and evidence. Revalidate them at the next relevant
-stable boundary or Final; retain unaffected evidence and package status.
+After a no-blocker verdict, run the boundary-specific broad evidence needed for
+its acceptance once on the reviewed state. When the same program-wide suite or
+compatibility baseline applies unchanged to several independent boundaries and
+no downstream decision needs an intermediate result, defer it to their nearest
+shared Milestone and run it once there. Keep a Work Package partial only when
+its own approved contract requires that deferred result. If later work changes
+a reviewed authority, invalidate only the affected conditions and evidence.
+Revalidate them at the next relevant stable boundary or Final; retain
+unaffected evidence and package status.
 
 ## Accept Milestones And The Final Goal
 
@@ -242,6 +271,11 @@ expensive baselines once and rerun them only when their affecting state changes
 or at the stable boundary that requires them. A broader check may subsume a
 narrower check of the same class and state, but review cannot override a failed
 required gate.
+
+Classify broad evidence by scope. Keep evidence unique to a Work Package at its
+own boundary. When several independent Work Packages converge on one downstream
+Milestone, run an unchanged program-wide suite or compatibility comparison once
+at that Milestone rather than after every package.
 
 Do not run broad evidence merely to prepare a still-correctable implementation
 for review. Unless the approved plan, repository rules, or immediate Slice risk

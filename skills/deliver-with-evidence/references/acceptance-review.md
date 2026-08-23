@@ -70,6 +70,13 @@ Challenge only the current acceptance scope. Use representative cases that can
 distinguish the approved outcome instead of exhaustive permutations or a
 general-purpose analyzer.
 
+When a challenge exposes a blocking failure class, test representative
+equivalent forms, entry paths, boundary cases, and direct safe neighbors before
+returning the initial verdict. Report the currently discoverable class as one
+bounded counterexample matrix rather than revealing one example per review
+round. Keep the matrix proportional to the approved claim; do not turn it into
+unrelated exhaustive fuzzing.
+
 ## Apply The Blocking Threshold
 
 Block acceptance only for:
@@ -105,9 +112,10 @@ Otherwise use a separate read-only turn or this clean-room fallback:
 3. actively search for counterevidence;
 4. disclose that the review was not independent.
 
-Ask an initial review for the complete currently discoverable finding set.
-Separate blockers from non-blocking advice and return missing evidence as one
-bounded list rather than incremental findings.
+Ask an initial review for the complete currently discoverable finding set and
+the bounded counterexample matrix for each blocker class. Separate blockers
+from non-blocking advice and return missing evidence as one bounded list rather
+than incremental findings.
 
 ## Correct Blocking Findings
 
@@ -116,8 +124,8 @@ Acceptance runs against stable code. When review requires a production change:
 1. mark affected conditions partial and leave acceptance mode;
 2. group blockers from the same boundary into one corrective Slice;
 3. implement and run focused verification;
-4. perform one targeted closure review of the original blockers and direct
-   regression risks;
+4. perform one targeted closure review of each complete blocker-class matrix
+   and its direct regression risks;
 5. run deferred broad evidence once on the stable corrected state;
 6. for Final, perform one complete Final pass on that final state.
 
