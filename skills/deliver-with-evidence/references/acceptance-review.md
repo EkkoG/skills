@@ -93,10 +93,14 @@ and low-impact maintainability suggestions as non-blocking residual risks.
 ## Choose The Review Mode
 
 Milestone review may be performed by the coordinating agent unless current
-instructions require independence. Use independent review for a risk-bearing
-boundary when later production work will depend on its verdict and delegation
-or a clean-room fallback is available. Genuinely independent stable boundaries
-may be reviewed in parallel.
+instructions require independence. Use independent review before Final when
+later production semantically depends on the boundary's authority, behavior,
+or evidence, or when delaying a high-impact security, permission,
+data-integrity, or migration failure would materially enlarge correction or
+rollback scope. Mere execution order is not dependency. Otherwise record the
+implemented and locally verified boundary accurately and defer its independent
+challenge to Final. Genuinely independent stable boundaries may be reviewed in
+parallel.
 
 Use an independent reviewer for Final when delegation is available, authorized,
 and proportional. Give the reviewer the approved contract, stable current

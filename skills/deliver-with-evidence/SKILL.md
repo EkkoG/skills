@@ -214,12 +214,20 @@ A risk review boundary is review-ready when its owned acceptance conditions are
 implemented, relevant dependencies are stable, focused evidence names one fixed
 snapshot, and no active production writer is changing the same authority.
 
-Use one independent implementation review when a review-ready boundary covers
-public API, configuration or schema, external compatibility, security or
-permissions, migration, concurrency, data integrity, or another approved
-high-risk authority, and before later production work depends on its verdict.
-If no later work depends on it, it may remain for Final unless current
-instructions or the approved plan require earlier review.
+Use an independent implementation review before Final only when:
+
+- later production work semantically depends on the boundary's authority,
+  behavior, or evidence, so a late correction would invalidate or materially
+  rework that downstream work; or
+- an approved security, permission, data-integrity, or migration boundary has a
+  high-impact failure mode whose first discovery at Final would materially
+  enlarge correction or rollback scope.
+
+Merely running another Work Package later does not create a dependency. When
+later work does not consume or rely on the reviewed boundary, preserve its
+focused evidence and defer independent review to Final. Record the boundary as
+implemented and locally verified with independent review deferred; do not claim
+an independent verdict.
 
 The boundary may contain one Work Package or several that share the same
 authority, risk, and acceptance scope. Package numbering and completion order
