@@ -1,13 +1,19 @@
-# Milestone And Final Acceptance Review
+# Work Package, Milestone, And Final Acceptance Review
 
 Use this procedure before proposing a Work Package, Milestone, or Goal as
-complete. Review the approved outcome against the current implementation and
-raw evidence rather than summarizing Delivery status.
+complete. Review the approved outcome against current implementation and raw
+evidence rather than summarizing Delivery status.
 
 ## Set The Scope
 
-For a Milestone, review one stable acceptance or risk review boundary containing
-one or more Work Packages. Include the conditions being closed, their stable
+For a Work Package, review its approved outcome, dependencies, acceptance
+labels, compatibility promises, intentional removals, and approved exceptions.
+The coordinating agent may close it locally when every required condition has
+sufficient current evidence. Independent review is required only when the Work
+Package is also part of a qualifying risk or review boundary.
+
+For a Milestone, review one stable acceptance or risk boundary containing one
+or more Work Packages. Include the conditions being closed, stable
 dependencies, relevant compatibility promises, intentional removals, and
 approved exceptions. Package numbering and completion order do not define the
 boundary.
@@ -15,16 +21,16 @@ boundary.
 For Final, review every required Goal and Work Package condition, all external
 compatibility promises, intentional removals, and approved exceptions.
 
-Run the pass against one stable implementation snapshot and one complete packet
-containing the approved contract, acceptance labels, current state, and raw
-evidence.
+Run each pass against stable repository snapshots and one complete packet
+containing the approved contract, acceptance labels, current state, raw
+evidence, and material limitations.
 
 ## Reconstruct The Contract
 
 Build a fresh condition matrix from the approved plan and current repository
-state before relying on Delivery, commit, Slice, or prior Milestone completion
-labels. Delivery may locate evidence, but its status fields are claims. An
-acceptance report cannot prove itself.
+state before relying on Delivery, commit, Slice, Work Package, or prior
+Milestone completion labels. Delivery may locate evidence, but its status fields
+are claims. An acceptance report cannot prove itself.
 
 For every condition, record:
 
@@ -49,14 +55,19 @@ Use evidence appropriate to the condition:
 
 One evidence class does not automatically prove another. Existing behavior
 tests do not prove structural migration, aggregate counts do not prove
-architectural completeness, and exact-name absence proves only that searched
+architectural completeness, and exact-name absence proves only the searched
 absence. A broader check may subsume a narrower check of the same class and
-state, but it does not replace required architecture or removal review.
+state, but it does not replace required architecture or removal evidence.
 
 For replacement, removal, isolation, or deprecation claims, verify
 proportionally that the replacement owns the responsibility, relevant
 production consumers use it, the superseded path has the approved disposition,
 and the responsibility was not merely renamed, moved, hidden, or wrapped.
+
+Reuse authoritative evidence while its relevant code, tests, rules, contract,
+and repository snapshots remain unchanged. Rerun only evidence whose support
+has become stale, ambiguous, or invalidated. Record known baseline failures
+precisely and require no new failures.
 
 ## Challenge Completion
 
@@ -72,10 +83,9 @@ general-purpose analyzer.
 
 When a challenge exposes a blocking failure class, test representative
 equivalent forms, entry paths, boundary cases, and direct safe neighbors before
-returning the initial verdict. Report the currently discoverable class as one
-bounded counterexample matrix rather than revealing one example per review
-round. Keep the matrix proportional to the approved claim; do not turn it into
-unrelated exhaustive fuzzing.
+returning the verdict. Report the currently discoverable class as one bounded
+counterexample matrix rather than revealing one example per review round. Keep
+the matrix proportional to the approved claim.
 
 ## Apply The Blocking Threshold
 
@@ -92,22 +102,27 @@ and low-impact maintainability suggestions as non-blocking residual risks.
 
 ## Choose The Review Mode
 
+Work Package acceptance is normally a local coordinating decision. Use an
+independent implementation review only when the package participates in a
+qualifying risk or review boundary.
+
 Milestone review may be performed by the coordinating agent unless current
 instructions require independence. Use independent review before Final when
 later production semantically depends on the boundary's authority, behavior,
 or evidence, or when delaying a high-impact security, permission,
 data-integrity, or migration failure would materially enlarge correction or
-rollback scope. Mere execution order is not dependency. Otherwise record the
-implemented and locally verified boundary accurately and defer its independent
-challenge to Final. Genuinely independent stable boundaries may be reviewed in
-parallel.
+rollback scope. Execution order alone is not dependency. Otherwise record the
+boundary as implemented and locally verified and defer independent challenge to
+Final. Independent stable boundaries may be reviewed in parallel when neither
+can invalidate the other's snapshot.
 
 Use an independent reviewer for Final when delegation is available, authorized,
-and proportional. Give the reviewer the approved contract, stable current
-state, and raw evidence without a desired verdict. The reviewer may read but
-must not edit Delivery, and must independently evaluate its status claims.
+and proportional. Give the reviewer the approved contract, stable repository
+snapshots, complete raw evidence, and material limitations without a desired
+verdict. The reviewer may read but must not edit Delivery and must independently
+evaluate its status claims.
 
-Treat the review as independent only when its effective boundary is read-only.
+Treat a review as independent only when its effective boundary is read-only.
 Otherwise use a separate read-only turn or this clean-room fallback:
 
 1. rebuild the current acceptance matrix from the approved plan, using the
@@ -116,10 +131,28 @@ Otherwise use a separate read-only turn or this clean-room fallback:
 3. actively search for counterevidence;
 4. disclose that the review was not independent.
 
-Ask an initial review for the complete currently discoverable finding set and
-the bounded counterexample matrix for each blocker class. Separate blockers
-from non-blocking advice and return missing evidence as one bounded list rather
-than incremental findings.
+Ask an initial review for the complete currently discoverable finding set and a
+bounded counterexample matrix for each blocker class. Separate blockers from
+non-blocking advice and return missing evidence as one bounded list rather than
+incremental findings.
+
+## Order Broad Evidence And Review
+
+At a qualifying pre-Final implementation-risk boundary, a stable implementation
+verdict may precede boundary-wide broad evidence. After a no-blocker verdict,
+run the broad evidence owned by that boundary once on the reviewed state.
+
+For Final, use this order:
+
+1. establish stable final implementation across every repository;
+2. have the coordinating agent run required whole-Goal broad and hygiene
+   evidence once on those snapshots;
+3. provide the complete packet and raw evidence to the Final reviewer;
+4. issue the verdict against that one stable state.
+
+A Final reviewer should not be asked to approve an incomplete evidence packet.
+Additional evidence without a production change can return to a pending verdict
+when the verdict was explicitly conditional on that evidence.
 
 ## Correct Blocking Findings
 
@@ -129,13 +162,10 @@ Acceptance runs against stable code. When review requires a production change:
 2. group blockers from the same boundary into one corrective Slice;
 3. implement and run focused verification;
 4. perform one targeted closure review of each complete blocker-class matrix
-   and its direct regression risks;
-5. run deferred broad evidence once on the stable corrected state;
-6. for Final, perform one complete Final pass on that final state.
-
-Additional evidence without a production change does not invalidate the code
-snapshot; return it to the pending verdict when that verdict was conditional on
-the evidence.
+   and its direct regression risks when that boundary requires independent
+   implementation review;
+5. rerun only broad or hygiene evidence invalidated by the correction;
+6. for Final, perform a new complete Final pass on the corrected stable state.
 
 Default to one regular corrective cycle. If the same finding class survives,
 reconstruct the contract, counterexample, and Slice boundary before further
@@ -144,13 +174,12 @@ required-contract, correctness, security, permission, data, concurrency, or
 external compatibility failure, or a regression introduced by the correction.
 
 If later production work changes a reviewed authority, mark only the affected
-conditions and evidence partial. Retain unaffected results, and revalidate the
-changed scope at the next relevant stable boundary or Final instead of reopening
-unrelated Work Packages.
+conditions and evidence partial. Retain unaffected results and Work Package
+status, and revalidate the changed scope at the next relevant boundary or
+Final.
 
-Milestone or Goal completion requires sufficient current evidence for every
-condition in scope, no unresolved blocker, and explicit approval for every
-exception.
+Completion requires sufficient current evidence for every condition in scope,
+no unresolved blocker, and explicit approval for every exception.
 
 ## Acceptance Report
 
@@ -159,11 +188,11 @@ Use a durable report only when it helps later acceptance or handoff:
 ```markdown
 # Acceptance
 
-Reviewed state:
-<HEAD and concise worktree state>
+Reviewed repository states:
+<Roots, HEADs, and concise worktree states>
 
 Review mode:
-<stable Milestone boundary, independent Final, or clean-room Final>
+<local Work Package, stable Milestone boundary, independent Final, or clean-room Final>
 
 | Requirement | Type | Status | Current evidence | Counterexample checked | Exception |
 |---|---|---|---|---|---|
@@ -179,8 +208,9 @@ Verification summary:
 <Focused, negative, structural, broad, and hygiene checks>
 
 Status:
-- Slice: complete/partial
-- Work Package or Milestone: complete/partial/not applicable
+- Slice: complete/partial/not applicable
+- Work Package: complete/partial/not applicable
+- Milestone: complete/partial/not applicable
 - Goal: complete/partial
 
 Blocking items:

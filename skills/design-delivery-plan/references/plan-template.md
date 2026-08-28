@@ -23,6 +23,8 @@ boundary.
 
 Summarize observed architecture, authority, data flow, tests, documentation,
 known problems, and reusable parts. Separate facts, conclusions, and assumptions.
+For multi-repository work, list each resolved repository root and the Goal
+responsibility it owns.
 
 ## Decisions And Target Design
 
@@ -41,8 +43,8 @@ dependency edges, not numbering, determine readiness.
 - Prohibited expansion
 - Dependencies
 - Implementation or authority boundary
-- Risk review boundary: `<boundary ID or none>` and the shared authority, risk,
-  and acceptance scope
+- Risk review boundary: `<short description or none>`, the shared authority,
+  risk and acceptance scope, and why review is needed before Final
 - Verdict dependency: <Later work that must wait for this boundary's verdict,
   or none>
 - Compatibility impact and intentional removals

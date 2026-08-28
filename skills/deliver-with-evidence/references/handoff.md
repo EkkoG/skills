@@ -1,29 +1,28 @@
 # Handoff
 
 Use only when another agent or session needs an explicit execution handoff.
+Delivery remains the authoritative contract, status, and evidence record; the
+handoff points to it and records only what the recipient needs to resume safely.
 
 ```markdown
-Completed scope:
-<Exact local result>
+Recipient and scope:
+<Who should continue and the bounded responsibility being transferred>
 
-Incomplete scope:
-<Anything not done>
+Delivery document:
+<Exact authoritative path>
 
-Legacy paths still present:
-<Wrappers, duplicate authorities, or compatibility code>
+Stable repository states:
+<Each relevant root, HEAD or commit checkpoint, and concise worktree state>
 
-Positive verification:
-<New-path evidence>
+Current position:
+<Current Slice, Work Package or boundary, and exact status>
 
-Negative verification:
-<Old-path absence evidence>
+Material deltas or limitations:
+<Only changes, blockers, permission limits, invalidated evidence, or risks not obvious from Delivery>
 
-Known failures or exceptions:
-<Exact items>
-
-Cross-module risks:
-<Seams requiring review>
-
-Next action:
-<Exact continuation point>
+Resume action:
+<Exact first action, including any state revalidation or permission needed>
 ```
+
+Do not duplicate the approved contract, evidence matrix, completed-Slice list,
+or full status history already maintained in Delivery.

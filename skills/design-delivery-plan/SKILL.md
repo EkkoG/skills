@@ -49,6 +49,9 @@ supported conclusions, assumptions, and decisions that still need approval.
 Check whether the user's initial implementation idea fits the current system
 before turning it into the target design.
 
+For multi-repository work, identify every participating resolved repository
+root and the Goal responsibility it owns.
+
 ### Define The Goal Contract
 
 State the externally observable final outcome, required scope, stable scope
@@ -75,8 +78,8 @@ execution or completion order. Each package needs:
 - a stable ID such as `WP-01` and one owned outcome;
 - included scope, prohibited expansion, and dependencies;
 - the intended authority or implementation boundary;
-- any stable risk review boundary it shares with other packages, plus the later
-  work that must wait for that verdict;
+- any stable risk review boundary it participates in, the shared authority,
+  risk, and acceptance scope, and any later work that waits for that verdict;
 - applicable compatibility impact and intentional removals;
 - stable acceptance labels such as `WP-01-01`;
 - proportional evidence suggestions, risks, and unresolved decisions.
@@ -88,9 +91,11 @@ difference.
 
 A risk review boundary may contain one package or several packages that share
 the same authority, risk, and acceptance scope. Define the boundary by those
-facts rather than package numbering or expected completion order. Add one only
-when an independent implementation verdict will protect later work; do not
-assign a reviewer to every package by default.
+facts rather than package numbering or expected completion order. Add one when
+later production semantically depends on its verdict, or when first discovering
+a high-impact security, permission, data-integrity, or migration failure at
+Final would materially enlarge correction or rollback scope. Do not assign a
+reviewer to every package by default.
 
 Do not pre-plan every Slice. The execution workflow selects the smallest
 reviewable Slice from current code and evidence. The plan only needs enough
@@ -157,6 +162,8 @@ workflow find without inference:
 - every required acceptance label;
 - intentional removals and required negative evidence;
 - unresolved decisions, risks, and approved exceptions;
+- participating repository roots and their Goal responsibilities when the plan
+  spans multiple repositories;
 - the recommended first Slice.
 
 After approval, the execution workflow initializes its persistent delivery
