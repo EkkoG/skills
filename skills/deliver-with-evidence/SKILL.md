@@ -204,9 +204,46 @@ one correction and targeted closure pass. If the same blocker class survives,
 recheck the Slice contract, counterexample, and scope before further changes;
 do not grow the correction into a general framework beyond the approved claim.
 
-End with a verified worktree and recorded Delivery state. Commit creation is a
-separate workflow. Add compatibility facades, dual tracks, or fallbacks only
-when the approved external boundary requires them.
+End with a verified worktree and recorded Delivery state, then evaluate the
+stable commit boundary below. Add compatibility facades, dual tracks, or
+fallbacks only when the approved external boundary requires them.
+
+## Preserve Stable Commit Boundaries
+
+A commit checkpoint groups one or more completed Slices into a coherent,
+independently understandable and recoverable change. It is not an acceptance
+level, review boundary, or separately identified planning object.
+
+After accepting the Slice evidence and updating Delivery, create a focused
+local commit through an available commit workflow when the completed work is
+focused-verified, contains no half-migration or internally inconsistent state,
+and one of these applies:
+
+- adjacent completed Slices now form one useful behavior or authority outcome;
+- the next production work changes repository, authority, risk, or ownership;
+- continuing would materially complicate attribution, review, or rollback;
+- an interruption or handoff should preserve the stable implementation.
+
+Normally group adjacent Slices within the same authority instead of committing
+each Slice or waiting for the entire Work Package. As a soft checkpoint, avoid
+carrying more than three independently stable completed Slices uncommitted when
+they can form a coherent commit. Ignore the count when a commit would expose an
+invalid intermediate state.
+
+Continue without committing when the next Slice directly completes the same
+unfinished outcome. Do not commit failed, incomplete, or inconsistent state.
+For multi-repository work, commit each repository independently when its own
+coherent checkpoint is stable. The coordinating agent owns commit creation;
+delegated implementation does not commit. Reuse accepted validation evidence
+rather than repeating acceptance for the commit, record resulting hashes in
+Delivery, and keep commit timing independent from review timing.
+
+When a specialized commit workflow is available, use it for scope isolation,
+staging, commit shape, message style, and reporting. Otherwise use native Git
+while preserving the same minimum contract: include only the stable checkpoint,
+preserve unrelated changes, follow repository message conventions, review the
+staged diff, and report the resulting hash and remaining worktree state. Do not
+push, create a branch, amend, or rewrite history as part of checkpoint creation.
 
 ## Review Stable Risk Boundaries
 

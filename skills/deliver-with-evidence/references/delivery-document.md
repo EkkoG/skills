@@ -119,6 +119,10 @@ Goal, plan source, or initial approval identifies different work.
 
 - `WP-01-S01` — <Title, result, and covered labels>
 
+## Commit Checkpoints
+
+- `<commit hash>` — <Repository, included Slice IDs, and stable outcome>
+
 ## Goal Change History
 
 - <References or embedded Goal Change Records, or none>
@@ -158,9 +162,11 @@ and exact next action.
 
 Update it when selecting, completing, blocking, resuming, or invalidating a
 Slice; when a review boundary becomes review-ready, reviewed, or invalidated;
-and at Milestone or Final acceptance. Record concise state transitions,
-condition-linked evidence, known failures or exceptions, and the next action.
-Do not keep a command transcript or reconstruct unsupported history.
+when a stable commit checkpoint is created; and at Milestone or Final
+acceptance. Record concise state transitions, condition-linked evidence, commit
+hashes with their repository and included Slices, known failures or exceptions,
+and the next action. Do not keep a command transcript or reconstruct
+unsupported history.
 
 Every reusable evidence item names the conditions it supports and retains a
 reproducible method, relevant state, observed result or durable artifact, and
