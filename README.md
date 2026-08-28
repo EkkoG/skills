@@ -64,6 +64,25 @@ an update does not appear, restart Codex.
 See the official OpenAI documentation for
 [building and installing skills](https://learn.chatgpt.com/docs/build-skills).
 
+## Repository Maintenance
+
+Preview changes from the local Codex skills directory:
+
+```bash
+./scripts/sync-skills.sh --dry-run
+```
+
+Mirror the four maintained skills into this repository:
+
+```bash
+./scripts/sync-skills.sh
+```
+
+The script reads from `${CODEX_SKILLS_DIR}`, `${CODEX_HOME}/skills`, or
+`$HOME/.codex/skills` in that order. Use `--source <dir>` for a one-time source
+override. It never copies `.system` and removes `__pycache__/` and `*.pyc`
+artifacts from the mirrored skill directories.
+
 ## Usage
 
 Invoke a skill explicitly:
@@ -90,21 +109,24 @@ declared scope.
 ## Repository Structure
 
 ```text
-skills/
-├── commit/
-│   ├── SKILL.md
-│   └── agents/openai.yaml
-├── deliver-with-evidence/
-│   ├── SKILL.md
-│   ├── agents/openai.yaml
-│   └── references/
-├── design-delivery-plan/
-│   ├── SKILL.md
-│   ├── agents/openai.yaml
-│   └── references/plan-template.md
-└── markitdown/
-    ├── SKILL.md
-    └── agents/openai.yaml
+.
+├── scripts/
+│   └── sync-skills.sh
+└── skills/
+    ├── commit/
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
+    ├── deliver-with-evidence/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
+    │   └── references/
+    ├── design-delivery-plan/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
+    │   └── references/plan-template.md
+    └── markitdown/
+        ├── SKILL.md
+        └── agents/openai.yaml
 ```
 
 <a id="zh-cn"></a>
@@ -169,6 +191,24 @@ Codex。
 更多信息参见 OpenAI 官方文档：
 [创建和安装 Skill](https://learn.chatgpt.com/docs/build-skills)。
 
+### 仓库维护
+
+预览本地 Codex skill 目录与仓库之间的差异：
+
+```bash
+./scripts/sync-skills.sh --dry-run
+```
+
+将维护的四个 skill 镜像到本仓库：
+
+```bash
+./scripts/sync-skills.sh
+```
+
+脚本依次从 `${CODEX_SKILLS_DIR}`、`${CODEX_HOME}/skills` 或
+`$HOME/.codex/skills` 读取源文件，也可以用 `--source <dir>` 临时指定来源。脚本不会
+复制 `.system`，并会从镜像目录中清理 `__pycache__/` 和 `*.pyc` 文件。
+
 ### 调用
 
 可以显式调用任意 skill：
@@ -194,19 +234,22 @@ Use $markitdown to convert this document to Markdown.
 ### 仓库结构
 
 ```text
-skills/
-├── commit/
-│   ├── SKILL.md
-│   └── agents/openai.yaml
-├── deliver-with-evidence/
-│   ├── SKILL.md
-│   ├── agents/openai.yaml
-│   └── references/
-├── design-delivery-plan/
-│   ├── SKILL.md
-│   ├── agents/openai.yaml
-│   └── references/plan-template.md
-└── markitdown/
-    ├── SKILL.md
-    └── agents/openai.yaml
+.
+├── scripts/
+│   └── sync-skills.sh
+└── skills/
+    ├── commit/
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
+    ├── deliver-with-evidence/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
+    │   └── references/
+    ├── design-delivery-plan/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
+    │   └── references/plan-template.md
+    └── markitdown/
+        ├── SKILL.md
+        └── agents/openai.yaml
 ```
