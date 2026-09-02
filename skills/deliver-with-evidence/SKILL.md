@@ -1,6 +1,6 @@
 ---
 name: deliver-with-evidence
-description: Execute explicitly approved multi-step engineering plans with proportional Slice, Work Package, Milestone, and Final verification, readable evidence, and whole-goal acceptance. Use automatically when the user asks to implement, continue, finish, or take over an approved architecture migration, broad refactor, multi-work-package plan, or other end-to-end engineering program where local success could be mistaken for whole-goal completion; also use when explicitly invoked as $deliver-with-evidence for such an approved multi-step program. If no approved plan exists or a material plan revision is required, stop and hand planning to design-delivery-plan instead of authoring the plan. Do not use for status or metric questions, explanations, ordinary code review, unapproved planning, small fixes, or a single bounded implementation outside an approved program.
+description: Execute explicitly approved multi-step engineering plans with proportional Slice, Work Package, Milestone, and Final verification, readable evidence, stable local commit checkpoints, and whole-goal acceptance. Use automatically when the user asks to implement, continue, finish, or take over an approved architecture migration, broad refactor, multi-work-package plan, or other end-to-end engineering program where local success could be mistaken for whole-goal completion; also use when explicitly invoked as $deliver-with-evidence for such an approved multi-step program. If no approved plan exists or a material plan revision is required, stop and hand planning to design-delivery-plan instead of authoring the plan. Do not use for status or metric questions, explanations, ordinary code review, unapproved planning, small fixes, or a single bounded implementation outside an approved program.
 ---
 
 # Deliver With Evidence
@@ -197,18 +197,16 @@ and one of these applies:
 Continue without committing when the next Slice directly completes the same
 unfinished outcome. Do not commit failed, incomplete, or inconsistent state.
 
-Create local commits automatically only when current user instructions,
-repository instructions, or an approved workflow explicitly authorize commit
-creation. Approval to implement a plan alone does not authorize changing Git
-history. If authorization is absent, record the coherent state as
-`commit-ready`, preserve its intended scope, and request authorization before
-committing.
+Execution of an explicitly approved plan through this skill authorizes focused
+local commit creation at stable commit boundaries unless current user or
+repository instructions explicitly opt out. This authorization covers only
+accepted, focused-verified work.
 
-When authorized, use an available commit workflow for scope isolation, staging,
-commit shape, message style, and reporting. Otherwise use native Git with the
-same minimum contract: include only the stable checkpoint, preserve unrelated
-changes, follow repository conventions, inspect the staged diff, and report the
-hash and remaining worktree state. Do not push, create branches, amend, or
+Use an available commit workflow for scope isolation, staging, commit shape,
+message style, and reporting. Otherwise use native Git with the same minimum
+contract: include only the stable checkpoint, preserve unrelated changes,
+follow repository conventions, inspect the staged diff, and report the hash and
+remaining worktree state. Do not push, create branches, amend, rebase, or
 rewrite history as part of checkpoint creation.
 
 For multi-repository work, commit each repository's coherent portion
@@ -217,10 +215,11 @@ commits succeed. If only some succeed, atomically record the exact partial
 repository state and blocker in Delivery, do not claim the checkpoint complete,
 and stop before dependent production work.
 
-After the commit decision -- commit, `commit-ready`, or coherent continuation
-without a commit -- update Delivery once with the completed Slice, current
-repository states, commit state, accepted evidence, and next action. Reuse
-accepted verification; a commit does not require another acceptance pass.
+After resolving whether to commit, continue the same unfinished outcome, or
+honor an explicit opt-out, update Delivery once with the completed Slice,
+current repository states, commit state, accepted evidence, and next action.
+Reuse accepted verification; a commit does not require another acceptance
+pass.
 
 ## Review Stable Risk Boundaries
 

@@ -71,7 +71,7 @@ Goal, plan source, or initial approval identifies different work.
 - Goal status: partial
 - Current Slice: `<WP-01-S01, or none>`
 - Current Slice title: `<short outcome title, or none>`
-- Slice status: `<in progress, commit-ready, blocked, or none>`
+- Slice status: `<in progress, blocked, or none>`
 
 ## Repository States
 
@@ -138,7 +138,7 @@ Goal, plan source, or initial approval identifies different work.
 
 | Repository | Commit | Remaining worktree |
 |---|---|---|
-| `<resolved root or name>` | `<hash, commit-ready, or failed>` | `<concise state>` |
+| `<resolved root or name>` | `<hash, deferred by instruction, not applicable, or failed>` | `<concise state>` |
 
 - Blocker: <Exact partial-commit failure or none>
 
@@ -187,15 +187,16 @@ successful hashes, failed repository, current worktrees, exact blocker, and
 resume action as a partial checkpoint. Do not claim a single stable checkpoint
 or continue dependent production work until the partial state is reconciled.
 
-When commit creation is not authorized, record the coherent scope as
-`commit-ready` with its included Slices and current repository states. Do not
-infer Git-history authorization from approval to implement the plan.
+When current user or repository instructions opt out of commit creation, record
+the coherent uncommitted scope, included Slices, current repository states, and
+governing instruction. Continue only when that worktree state is safe for the
+next Slice.
 
 After Slice evidence is accepted and the commit decision is resolved, perform
 one atomic Delivery update containing Slice completion, repository states,
-commit hashes or `commit-ready` status, accepted evidence, and the next action.
-If commit creation fails, use that update to record the exact blocker and any
-partial repository state rather than recording a completed checkpoint.
+commit hashes or explicit opt-out state, accepted evidence, and the next
+action. If commit creation fails, use that update to record the exact blocker
+and any partial repository state rather than recording a completed checkpoint.
 
 ## Record Useful State And Evidence
 
