@@ -32,6 +32,14 @@ Describe current responsibilities, ownership, important data flow, problems
 solved, material costs, and unresolved choices. Keep the target self-contained
 and compare only alternatives that still require a decision.
 
+For each material new implementation boundary, record:
+
+- existing candidates inspected;
+- decision: reuse, extend, compose, or separate;
+- responsibility reused and responsibility kept local;
+- concrete contract difference supporting a separate implementation, when
+  applicable.
+
 ## Work Packages
 
 Describe each package in the dependency graph. IDs are stable references;

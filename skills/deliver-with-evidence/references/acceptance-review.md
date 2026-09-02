@@ -39,6 +39,13 @@ For every condition, record:
 - material limitations and any approved exception;
 - `verified` or `partial` status.
 
+For each approved existing-implementation decision, inspect the complete
+current production scope that can own the responsibility, including relevant
+code added after planning or during integration. Verify the selected reuse,
+extension, composition, or separation; the responsibility intentionally kept
+local; and the absence of an unapproved parallel implementation. A relevant
+snapshot change makes the prior result stale.
+
 ## Match Evidence To The Claim
 
 Use evidence appropriate to the condition:

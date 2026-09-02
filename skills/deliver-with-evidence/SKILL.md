@@ -265,6 +265,13 @@ Accept a Milestone against one stable boundary containing one or more Work
 Packages, their applicable conditions, and stable dependencies. Keep the Goal
 partial while later required work remains.
 
+When the approved plan records an existing-implementation decision, verify it
+against the complete current production snapshot, including relevant code added
+after planning or during integration. A parallel implementation of the assigned
+responsibility blocks Final and requires a corrective Slice. If later
+integration changes that responsibility, invalidate the affected acceptance
+and repeat it on the integrated snapshot before declaring the Goal complete.
+
 For Final:
 
 1. establish the stable final implementation across every repository;

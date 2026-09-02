@@ -69,6 +69,13 @@ flow. Explain the current problem each lasting abstraction solves and its
 meaningful cost. Compare alternatives only when a real unresolved decision
 exists; otherwise describe the selected target directly.
 
+Before introducing a lasting implementation boundary, inspect existing code
+responsible for the same outcome and its representative consumers and tests.
+Choose whether to reuse, extend, compose with, or remain separate from that
+implementation. A separate implementation needs a concrete difference in
+responsibility, ownership, lifecycle, contract, compatibility, or failure
+behavior. Record each material decision and what responsibility remains local.
+
 ### Decompose Outcome-Based Work Packages
 
 Express Work Package dependencies as a directed acyclic graph of independently
