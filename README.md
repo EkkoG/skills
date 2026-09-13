@@ -66,22 +66,24 @@ See the official OpenAI documentation for
 
 ## Repository Maintenance
 
-Preview changes from the local Codex skills directory:
+Preview changes from the local Codex skills and agents directories:
 
 ```bash
 ./scripts/sync-skills.sh --dry-run
 ```
 
-Mirror the four maintained skills into this repository:
+Mirror the four maintained skills and agent role configurations into this
+repository:
 
 ```bash
 ./scripts/sync-skills.sh
 ```
 
-The script reads from `${CODEX_SKILLS_DIR}`, `${CODEX_HOME}/skills`, or
-`$HOME/.codex/skills` in that order. Use `--source <dir>` for a one-time source
-override. It never copies `.system` and removes `__pycache__/` and `*.pyc`
-artifacts from the mirrored skill directories.
+The script reads skills from `${CODEX_SKILLS_DIR}`, `${CODEX_HOME}/skills`, or
+`$HOME/.codex/skills`, and agent roles from `${CODEX_AGENTS_DIR}`,
+`${CODEX_HOME}/agents`, or `$HOME/.codex/agents`. Use `--source <dir>` or
+`--agents-source <dir>` for a one-time override. It never copies `.system` and
+removes `__pycache__/` and `*.pyc` artifacts from mirrored directories.
 
 ## Usage
 
@@ -110,6 +112,12 @@ declared scope.
 
 ```text
 .
+├── agents/
+│   ├── executor.toml
+│   ├── explorer.toml
+│   ├── final_reviewer.toml
+│   ├── implementation_reviewer.toml
+│   └── plan_reviewer.toml
 ├── scripts/
 │   └── sync-skills.sh
 └── skills/
@@ -193,21 +201,23 @@ Codex。
 
 ### 仓库维护
 
-预览本地 Codex skill 目录与仓库之间的差异：
+预览本地 Codex skill 和 agents 目录与仓库之间的差异：
 
 ```bash
 ./scripts/sync-skills.sh --dry-run
 ```
 
-将维护的四个 skill 镜像到本仓库：
+将维护的四个 skill 和 agent 角色配置镜像到本仓库：
 
 ```bash
 ./scripts/sync-skills.sh
 ```
 
-脚本依次从 `${CODEX_SKILLS_DIR}`、`${CODEX_HOME}/skills` 或
-`$HOME/.codex/skills` 读取源文件，也可以用 `--source <dir>` 临时指定来源。脚本不会
-复制 `.system`，并会从镜像目录中清理 `__pycache__/` 和 `*.pyc` 文件。
+脚本从 `${CODEX_SKILLS_DIR}`、`${CODEX_HOME}/skills` 或
+`$HOME/.codex/skills` 读取 skill，并从 `${CODEX_AGENTS_DIR}`、
+`${CODEX_HOME}/agents` 或 `$HOME/.codex/agents` 读取 agent 角色。可以用
+`--source <dir>` 或 `--agents-source <dir>` 临时指定来源。脚本不会复制 `.system`，
+并会从镜像目录中清理 `__pycache__/` 和 `*.pyc` 文件。
 
 ### 调用
 
@@ -235,6 +245,12 @@ Use $markitdown to convert this document to Markdown.
 
 ```text
 .
+├── agents/
+│   ├── executor.toml
+│   ├── explorer.toml
+│   ├── final_reviewer.toml
+│   ├── implementation_reviewer.toml
+│   └── plan_reviewer.toml
 ├── scripts/
 │   └── sync-skills.sh
 └── skills/
