@@ -1,178 +1,103 @@
 ---
 name: design-delivery-plan
-description: Design approval-ready, evidence-aware engineering plans for complex multi-step work. Use when the user asks to plan or substantially revise a broad feature, refactor, migration, cleanup, security, reliability, performance, or other engineering program that needs architecture decisions, dependency-ordered work packages, stable acceptance conditions, and a clean handoff to an execution workflow such as deliver-with-evidence. Also use when explicitly invoked in Plan mode for that purpose. Do not use for implementation, status reporting, ordinary code review, small fixes, or a single bounded task.
+description: Design approval-ready engineering plans for complex multi-step work. Use for broad features, refactors, migrations, cleanup, security, reliability, performance, or other programs needing dependency-aware outcomes and acceptance conditions. Do not use for implementation, status questions, ordinary review, small fixes, or one bounded change.
 ---
 
 # Design Delivery Plan
 
-Create a plan that another agent can execute without inventing scope or
-mistaking local progress for whole-goal completion. Fix outcomes, boundaries,
-and acceptance conditions while leaving Slice-time implementation choices open.
+Produce a self-contained draft that another agent can execute without
+inventing scope or confusing local progress with Goal completion. Stay in
+planning and stop at the user's approval boundary.
 
-## Work From Current Authority
+## Decide Whether To Plan
 
-Apply system, user, repository, and project instructions before this skill.
-Inspect existing plans and decisions before drafting or revising a plan.
+Use this skill when the work has multiple dependent outcomes, meaningful
+architecture or compatibility decisions, or enough breadth that a local fix
+could be mistaken for completion. Handle a single clear change directly.
 
-Maintain the plan as a self-contained statement of the user's latest decisions.
-Keep only alternatives that still require a decision. Put decision history only
-in artifacts whose purpose is historical record, such as an ADR, changelog,
-retrospective, or delivery record. Before presenting a revision, check that a
-first-time reader can understand every current outcome and constraint without
-the earlier discussion.
+Apply system, user, repository, and project instructions first. Inspect current
+implementation, decisions, tests, documents, and worktree state before fixing
+the target. Keep the plan aligned with the user's latest decisions and make it
+understandable to a first-time reader.
 
-Stay in planning. Use read-only inspection, do not edit production code or
-record unperformed evidence, and do not approve the plan for the user. Write a
-project plan file only when the user explicitly requests it and writing is
-authorized. Present the result as draft and stop at the approval boundary.
+## Route Planning Roles
 
-## Require Enough Evidence
+- Use `explorer` only for a bounded, read-only question whose answer can change
+  Goal scope, a Work Package boundary, dependencies, or first Slice selection.
+  Reuse its evidence in the current planning pass.
+- For a broad or high-risk plan, use `plan_reviewer` once before presenting the
+  draft for approval. Give it the latest goal, raw current-state evidence, and
+  draft plan without a desired verdict. Reuse it for targeted closure only
+  after a material plan change affects the reviewed boundary.
+- Treat the draft as one approval candidate. Wording, formatting, evidence
+  additions, and Slice-level refinements do not reopen plan review; rerun it
+  only when the Goal contract, architecture, dependency graph, permissions,
+  compatibility, or acceptance strength changes materially.
+- Treat a plan as broad or high-risk when it changes a public interface,
+  configuration or schema, migration, permission or security boundary,
+  concurrency or data-integrity behavior, cross-module authority, or a
+  compatibility contract. A plan without these signals does not need an
+  independent plan review unless its scope or uncertainty is otherwise large.
+- Start delegated planning work with `fork_turns="none"` and a self-contained
+  task packet; reference exact paths instead of copying long documents.
+- Do not use `executor`, `implementation_reviewer`, or `final_reviewer` while
+  planning. They belong to approved-plan execution.
+- If a required role is unavailable, perform the bounded work in the main
+  thread and disclose the limitation. Reviewers and explorers in writable
+  sandboxes continue under their no-write contracts and disclose the lack of
+  sandbox isolation in their results.
 
-Call a plan approval-ready only when the relevant implementation, existing
-decisions, tests, and external contract can be inspected well enough to support
-its material architecture and decomposition.
+## Build The Contract
 
-When critical facts are unavailable, return an evidence-gap report instead of
-a formal plan. State what was inspected, what remains unknown, and the bounded
-discovery needed. Do not assign Goal, Work Package, acceptance, or Slice labels
-until the evidence supports those contracts. A conceptual direction may be
-included when useful, but label it non-binding. More design detail does not
-compensate for missing evidence.
+Establish current reality and separate facts, conclusions, assumptions, and
+pending decisions. Define:
 
-## Build The Plan
+- one observable final outcome and the condition for Whole Goal completion;
+- required scope, stable exclusions, intentional behavior changes, and
+  compatibility, security, performance, permission, and delivery constraints;
+- outcome-based Work Packages with stable IDs, owned boundaries, exclusions,
+  dependency edges, acceptance labels, risks, and proportional evidence;
+- material reuse, extension, composition, or separation decisions, including
+  the responsibility that remains local.
 
-### Establish Current Reality
+Use IDs such as `G-01`, `WP-01`, and `WP-01-01`. Dependencies form a DAG;
+numbering does not prescribe execution order. Do not pre-plan every Slice.
+Execution chooses the smallest reviewable Slice from current code and
+evidence.
 
-Inspect the relevant entry points, authority boundaries, data flow, tests,
-documents, recent decisions, and worktree state. Separate observed facts,
-supported conclusions, assumptions, and decisions that still need approval.
-Check whether the user's initial implementation idea fits the current system
-before turning it into the target design.
+Define a risk review boundary only when later work depends on its authority,
+behavior, or evidence, or when a high-impact security, permission,
+data-integrity, or migration failure would be materially more costly to find
+at Final. A boundary may contain one or more Work Packages sharing the same
+authority, risk, and acceptance scope.
 
-For multi-repository work, identify every participating resolved repository
-root and the Goal responsibility it owns.
+## Keep Acceptance Proportional
 
-### Define The Goal Contract
+Match evidence to the claim: behavior, structure, replacement/removal,
+security or reliability, performance, compatibility, and hygiene each prove
+different things. State positive evidence for replacements and proportional
+negative evidence for an approved old-path disposition. Do not design a
+general analyzer or exhaustive test matrix when representative cases prove the
+contract.
 
-State the externally observable final outcome, required scope, stable scope
-exclusions, intentional behavior changes, and the condition under which the
-whole Goal is complete. Include applicable compatibility, security,
-performance, operational, permission, and delivery constraints.
-
-Give every required whole-goal condition a stable label such as `G-01`.
-Describe outcomes rather than implementation activity.
-
-### Design Only What The Goal Needs
-
-Describe material responsibility boundaries, authority, ownership, and data
-flow. Explain the current problem each lasting abstraction solves and its
-meaningful cost. Compare alternatives only when a real unresolved decision
-exists; otherwise describe the selected target directly.
-
-Before introducing a lasting implementation boundary, inspect existing code
-responsible for the same outcome and its representative consumers and tests.
-Choose whether to reuse, extend, compose with, or remain separate from that
-implementation. A separate implementation needs a concrete difference in
-responsibility, ownership, lifecycle, contract, compatibility, or failure
-behavior. Record each material decision and what responsibility remains local.
-
-### Decompose Outcome-Based Work Packages
-
-Express Work Package dependencies as a directed acyclic graph of independently
-reviewable outcomes. Stable IDs identify packages; numbering does not prescribe
-execution or completion order. Each package needs:
-
-- a stable ID such as `WP-01` and one owned outcome;
-- included scope, prohibited expansion, and dependencies;
-- the intended authority or implementation boundary;
-- any stable risk review boundary it participates in, the shared authority,
-  risk, and acceptance scope, and any later work that waits for that verdict;
-- applicable compatibility impact and intentional removals;
-- stable acceptance labels such as `WP-01-01`;
-- proportional evidence suggestions, risks, and unresolved decisions.
-
-Do not split packages by directory, layer, file type, tests, or documentation
-when those pieces complete one outcome and share an acceptance boundary. Split
-only for a material dependency, risk, rollback, ownership, or acceptance
-difference.
-
-A risk review boundary may contain one package or several packages that share
-the same authority, risk, and acceptance scope. Define the boundary by those
-facts rather than package numbering or expected completion order. Add one when
-later production semantically depends on its verdict, or when first discovering
-a high-impact security, permission, data-integrity, or migration failure at
-Final would materially enlarge correction or rollback scope. Do not assign a
-reviewer to every package by default.
-
-Do not pre-plan every Slice. The execution workflow selects the smallest
-reviewable Slice from current code and evidence. The plan only needs enough
-dependency and boundary information to make that choice safely.
-
-### Design Proportional Acceptance
-
-Use machine evidence for observable behavior, errors, rejection, data loss,
-security boundaries, performance thresholds, and enforceable dependency rules.
-Use review for architecture, ownership, obsolete path removal, abstraction
-value, and maintainability when automation would cost more than it proves.
-
-When replacing an authority, dependency, fallback, side effect, or old path,
-state the positive evidence for the replacement and the negative evidence for
-the approved disposition of the old path. For structural guards, describe only
-the representative escape classes and false-positive boundary needed to test
-the approved claim; do not design a general analyzer in the plan.
-
-## Simplify And Challenge The Draft
-
-Before presentation, remove avoidable structure:
-
-- abstractions without a current evidenced problem;
-- hypothetical extension points or internal compatibility layers;
-- duplicate authorities, one-call wrappers, and unnecessary adapters;
-- Work Packages that only mirror repository organization;
-- separate orchestration for implementation, tests, guards, or documentation
-  that share one outcome;
-- repeated review or verification that does not increase acceptance confidence.
-
-Keep real external requirements even when they make the implementation larger.
-
-For a broad or high-risk plan, use one independent read-only review when
-delegation is available, authorized, and proportional. Give the reviewer the
-user goal, raw constraints, current-state evidence, and draft plan without a
-desired verdict. Ask for missing scope, unsupported assumptions, dependency
-errors, unverifiable acceptance, compatibility gaps, and avoidable design.
-
-Separate approval blockers from optional simplification advice. Re-review only
-when resolving a blocker materially changes the Goal contract, architecture,
-dependency order, compatibility, permissions, or acceptance strength, and then
-scope the pass to that changed boundary and direct regressions. When independent
-review is unavailable, perform the same challenge as a clean-room pass and
-disclose the limitation when it matters. Treat a review as independent only
-when its effective boundary is read-only.
+Before presentation, remove unsupported abstractions, hypothetical extension
+points, package splits that only mirror directories, and repeated checks that
+do not increase confidence. Keep real external requirements.
 
 ## Prepare Approval And Handoff
 
-Read [references/plan-template.md](references/plan-template.md) completely when
-creating or substantially revising a full plan. Use only sections relevant to
-the work; stable labels and semantic content are the contract, not exact
-formatting.
+Read [references/plan-template.md](references/plan-template.md) when creating
+or substantially revising a full plan, using only the sections needed for the
+current work. Recommend the first smallest reviewable Slice, subject to
+execution-time revalidation.
 
-Recommend the first smallest reviewable Slice with its reason, conditions,
-local outcome, preserved behavior, expected scope, and exit evidence. Present
-it as a recommendation that execution must revalidate, not a frozen script.
+The handoff must expose the final outcome, boundaries, dependency graph,
+acceptance labels, compatibility promises, intentional removals, required
+negative evidence, risks, approved exceptions, participating repositories,
+and first-Slice recommendation. Planning proposes evidence; execution records
+actual results.
 
-Highlight material decisions, assumptions, exceptions, and risks for the user.
-End with an explicit approval boundary. The handoff must let an execution
-workflow find without inference:
-
-- the final outcome and compatibility promises;
-- Goal and Work Package boundaries and dependencies;
-- every required acceptance label;
-- intentional removals and required negative evidence;
-- unresolved decisions, risks, and approved exceptions;
-- participating repository roots and their Goal responsibilities when the plan
-  spans multiple repositories;
-- the recommended first Slice.
-
-After approval, the execution workflow initializes its persistent delivery
-document before the first production edit. Planning proposes evidence; execution
-records actual results.
+Do not edit production code, record unperformed evidence, approve the plan, or
+create a project plan file unless the user explicitly requests it and writing
+is authorized. After approval, `deliver-with-evidence` creates the persistent
+Delivery document before the first production edit.

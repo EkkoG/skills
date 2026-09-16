@@ -10,7 +10,7 @@ Use a path explicitly required by the user, approved plan, or repository
 instructions. Otherwise use:
 
 ```text
-$CODEX_HOME/state/delivery/<repo-key>/<goal-id>/delivery.md
+$CODEX_HOME/state/delivery/<repo-key>/<goal-key>/delivery.md
 ```
 
 `CODEX_HOME` defaults to `~/.codex`.
@@ -26,16 +26,19 @@ For the default path:
   plan source, and initial approval identify the same work;
 - stop and reconcile when multiple documents match or an explicitly selected
   document belongs to different work;
-- when no document matches, generate `<goal-id>` once from a readable Goal slug
-  plus a short random suffix such as 12 UUID hex characters;
-- retain an existing Goal ID and path across later approved Goal changes.
+- when no document matches, generate `<goal-key>` once from a safe Goal-title
+  slug plus the first 10 lowercase hexadecimal characters of SHA-256 over a
+  canonical UTF-8 serialization of the initially approved Goal contract;
+- retain the existing Goal key and path across later approved Goal changes.
 
 Keep the default root outside every target repository. Use a repository-local
-path only when current instructions explicitly require it. If the required
-external path is not writable, request permission for that exact path or ask
-for an approved alternate and stop before the first production edit. Plan
-approval does not authorize sandbox escalation, and lack of access does not
-authorize silently moving Delivery into a repository.
+path only when current instructions explicitly require it. Plan approval
+defines the work scope; obtain any additional filesystem permissions through
+the runtime's normal approval mechanism. If the required Delivery path is not
+writable, request the minimum necessary permission for that exact path, or
+ask for an approved alternate. After permission is granted, initialize Delivery
+before the first production edit. If permission is denied or unavailable, stop
+the dependent writes and report the blocker.
 
 Create private directories and files where supported, normally `0700` for
 directories and `0600` for the document.
@@ -63,7 +66,7 @@ Goal, plan source, or initial approval identifies different work.
 - Coordinating workspace: `<primary repository or target workspace root>`
 - Repository key: `<safe basename>-<root hash prefix>`
 - Goal: `<approved Goal title>`
-- Goal ID: `<stable generated ID>`
+- Goal key: `<safe Goal-title slug>-<initial contract hash prefix>`
 - Delivery path: `<exact persistent path>`
 - Plan source: `<path, conversation, issue, or other authority>`
 - Initial approval: `<first approval boundary and date>`

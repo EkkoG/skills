@@ -123,20 +123,26 @@ boundary as implemented and locally verified and defer independent challenge to
 Final. Independent stable boundaries may be reviewed in parallel when neither
 can invalidate the other's snapshot.
 
-Use an independent reviewer for Final when delegation is available, authorized,
-and proportional. Give the reviewer the approved contract, stable repository
-snapshots, complete raw evidence, and material limitations without a desired
-verdict. The reviewer may read but must not edit Delivery and must independently
-evaluate its status claims.
+Final must complete an independent acceptance pass. When delegation is
+available and authorized, use a fresh `final_reviewer`; give it the approved
+contract, stable repository snapshots, complete raw evidence, and material
+limitations without a desired verdict. The reviewer must not edit code, tests,
+plans, Delivery, or project status and must independently evaluate Delivery's
+status claims. Use only non-mutating reads and return checks requiring writes
+to the coordinator.
 
-Treat a review as independent only when its effective boundary is read-only.
-Otherwise use a separate read-only turn or this clean-room fallback:
+Independence comes from a separate reviewer context and evaluation of raw
+evidence, not sandbox isolation. A writable sandbox does not block review:
+follow the no-write contract and disclose the effective sandbox and lack of
+isolation in the result. If delegation is unavailable or unauthorized, use this
+clean-room fallback:
 
 1. rebuild the current acceptance matrix from the approved plan, using the
    whole-Goal matrix for Final;
 2. inspect current implementation before accepting prior status;
 3. actively search for counterevidence;
-4. disclose that the review was not independent.
+4. disclose that the review was not delegated and therefore lacks a separate
+   reviewer context.
 
 Ask an initial review for the complete currently discoverable finding set and a
 bounded counterexample matrix for each blocker class. Separate blockers from
@@ -149,7 +155,9 @@ At a qualifying pre-Final implementation-risk boundary, a stable implementation
 verdict may precede boundary-wide broad evidence. After a no-blocker verdict,
 run the broad evidence owned by that boundary once on the reviewed state.
 
-For Final, use this order:
+For Final, open the review only after known production changes, required
+documentation, and the evidence packet are stable. Final review is an
+acceptance gate rather than an iterative debugging pass. Use this order:
 
 1. establish stable final implementation across every repository;
 2. have the coordinating agent run required whole-Goal broad and hygiene
@@ -161,18 +169,30 @@ A Final reviewer should not be asked to approve an incomplete evidence packet.
 Additional evidence without a production change can return to a pending verdict
 when the verdict was explicitly conditional on that evidence.
 
+Use a bounded evidence budget: run focused checks once per stable snapshot for
+the Slice that owns them, boundary-wide checks once per stable snapshot for the
+Work Package or risk boundary, and Whole-Goal broad and hygiene checks once per
+stable final snapshot before Final. Reuse evidence while
+its relevant code, tests, rules, contract, and repository snapshots are
+unchanged. Documentation-only, formatting-only, and unrelated changes do not
+invalidate production evidence.
+
 ## Correct Blocking Findings
 
 Acceptance runs against stable code. When review requires a production change:
 
 1. mark affected conditions partial and leave acceptance mode;
-2. group blockers from the same boundary into one corrective Slice;
+2. group all blockers from the same boundary into one corrective Slice;
 3. implement and run focused verification;
 4. perform one targeted closure review of each complete blocker-class matrix
    and its direct regression risks when that boundary requires independent
    implementation review;
 5. rerun only broad or hygiene evidence invalidated by the correction;
 6. for Final, perform a new complete Final pass on the corrected stable state.
+
+Do not start another reviewer between findings from the same pass and the
+corrective Slice. A new Final pass is justified only after the correction is
+stable and the affected evidence has been refreshed.
 
 Default to one regular corrective cycle. If the same finding class survives,
 reconstruct the contract, counterexample, and Slice boundary before further
