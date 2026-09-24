@@ -134,8 +134,9 @@ to the coordinator.
 Independence comes from a separate reviewer context and evaluation of raw
 evidence, not sandbox isolation. A writable sandbox does not block review:
 follow the no-write contract and disclose the effective sandbox and lack of
-isolation in the result. If delegation is unavailable or unauthorized, use this
-clean-room fallback:
+isolation in the result. Once unavailability or lack of authorization is
+established under the [role-routing criteria](../SKILL.md#route-execution-roles),
+use this clean-room fallback:
 
 1. rebuild the current acceptance matrix from the approved plan, using the
    whole-Goal matrix for Final;

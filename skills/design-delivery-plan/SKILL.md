@@ -29,10 +29,21 @@ understandable to a first-time reader.
   draft for approval. Give it the latest goal, raw current-state evidence, and
   draft plan without a desired verdict. Reuse it for targeted closure only
   after a material plan change affects the reviewed boundary.
+- For the same broad or high-risk candidate, incorporate the review findings
+  into a stable draft, then use a fresh `plan_challenger` once before user
+  approval. Use its configured model, distinct from `plan_reviewer`, to
+  challenge assumptions, design choices, and avoidable complexity. Supply the
+  latest goal, constraints, settled decisions, current draft, raw-evidence
+  locations, and unresolved facts without prior reviewer verdicts or an
+  expected conclusion. Keep both passes on stable drafts in this order.
+- The coordinator resolves the combined findings; simplification advice does
+  not become a new requirement automatically. Surface material tradeoffs and
+  unresolved blockers for user decision rather than starting a reviewer debate.
 - Treat the draft as one approval candidate. Wording, formatting, evidence
-  additions, and Slice-level refinements do not reopen plan review; rerun it
-  only when the Goal contract, architecture, dependency graph, permissions,
-  compatibility, or acceptance strength changes materially.
+  additions, and Slice-level refinements do not reopen either pass. Only a
+  material change to the Goal contract, architecture, dependency graph,
+  permissions, compatibility, or acceptance strength warrants targeted closure
+  by the affected role; do not automatically rerun the full review chain.
 - Treat a plan as broad or high-risk when it changes a public interface,
   configuration or schema, migration, permission or security boundary,
   concurrency or data-integrity behavior, cross-module authority, or a
@@ -42,10 +53,17 @@ understandable to a first-time reader.
   task packet; reference exact paths instead of copying long documents.
 - Do not use `executor`, `implementation_reviewer`, or `final_reviewer` while
   planning. They belong to approved-plan execution.
-- If a required role is unavailable, perform the bounded work in the main
-  thread and disclose the limitation. Reviewers and explorers in writable
-  sandboxes continue under their no-write contracts and disclose the lack of
-  sandbox isolation in their results.
+- Use main-thread fallback for a required role only after an explicit tool or
+  policy restriction, or an actual start/resume failure that remains after one
+  applicable recovery attempt. Judge availability separately for each role;
+  task listings describe existing tasks, not which roles can be started.
+  Recover invocation conflicts by reusing an eligible agent or choosing a
+  unique task name. Disclose the restriction or error, recovery outcome, and
+  lack of independent reviewer context before doing the bounded work locally.
+  For `plan_challenger` fallback, also disclose the loss of cross-model review;
+  preserve its configured model unless the user authorizes a change.
+- Reviewers, challengers, and explorers in writable sandboxes continue under
+  their no-write contracts and disclose the lack of sandbox isolation.
 
 ## Build The Contract
 

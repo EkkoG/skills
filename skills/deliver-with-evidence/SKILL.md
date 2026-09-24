@@ -22,13 +22,30 @@ Delivery document before the first production edit. Read the relevant parts of
 permissions, fields, repository state, and atomic updates. The coordinating
 agent is its only writer. Keep the document after completion.
 
+## Keep Implementation Minimal
+
+Implement only the current approved outcome. Prefer the simplest, most direct,
+verifiable and maintainable option with the smallest necessary change. Add
+complexity only when a simpler option cannot meet an explicit requirement,
+and explain that requirement. Keep scope within the approved contract.
+
+Before adding a module, abstraction, state, workflow, dependency, or resilience
+mechanism, identify its concrete value for the current goal; omit additions
+without one. For known, stable inputs, environments, and usage, rely on explicit
+contracts and focused tests rather than compatibility for hypothetical changes.
+Preserve the contract's required security, reliability, and compatibility.
+
+The coordinator asks the user to resolve material requirement tradeoffs before
+implementing the affected choice. Delegated roles return such decisions to the
+coordinator; routine in-scope implementation choices remain local.
+
 ## Route Execution Roles
 
 - Use `explorer` only before Slice selection when a bounded unknown can change
   Slice scope, authority, dependencies, or acceptance. The `executor` owns
   ordinary Slice-local discovery.
-- Use `executor` for a non-trivial approved Slice that benefits from an
-  isolated execution context. The main agent may implement a simple low-risk
+- Delegate every non-trivial approved production Slice to `executor`, including
+  resumed and corrective Slices. The main agent may implement a simple low-risk
   Slice directly. Treat a Slice as non-trivial when it crosses files or
   modules, changes a shared authority, needs isolated write context, or has
   acceptance evidence that the main thread cannot safely own. Reuse an executor
@@ -53,9 +70,20 @@ agent is its only writer. Keep the document after completion.
   self-contained packet; reference exact paths rather than copying long
   documents.
 
+Before falling back for a required role, establish an explicit tool or policy
+restriction, or an actual start/resume failure that remains after one applicable
+recovery attempt. Judge availability separately for each role; task listings
+describe existing tasks, not which roles can be started. Recover invocation
+conflicts by reusing an eligible agent or choosing a unique task name. Disclose
+the restriction or error and recovery outcome, and record them in Delivery.
+If `executor` remains unavailable, the coordinator may take over the authorized
+Slice only after the previous writer has stopped, retaining the same
+verification and review gates.
+
 Give delegated roles a self-contained packet with the workspace, stable
 repository states, approved conditions, exact scope and exclusions, preserved
-behavior, required evidence, and raw-evidence locations. Do not suggest a
+behavior, required evidence, and raw-evidence locations. Include the constraints
+from Keep Implementation Minimal in every executor packet. Do not suggest a
 desired verdict. Delegated roles return evidence and findings; they do not edit
 Delivery, change the plan, select later work, create commits, or declare a
 formal boundary complete. Keep one production writer. Parallelize only work
