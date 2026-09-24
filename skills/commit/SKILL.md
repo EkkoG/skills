@@ -30,8 +30,17 @@ operation.
    and `git add --all` when the worktree contains changes outside the requested
    scope.
 6. Review `git diff --cached` before committing.
-7. Follow the repository's recent commit-message convention. Otherwise use a
-   concise imperative subject. Add a body when it helps explain the problem,
-   approach, compatibility impact, tradeoff, or meaningful validation.
+7. Write the commit message using these rules:
+   - Follow explicit repository message requirements. Otherwise use
+     `type(scope): subject` with a concise imperative subject; omit the scope
+     when it adds no useful information.
+   - Include a concise body for substantive changes. For fixes, explain the
+     problem or cause and the solution. For features or refactors, explain the
+     purpose and main approach. Title-only messages are appropriate for
+     self-explanatory trivial changes such as spelling or formatting.
+   - Include relevant validation from available evidence, compatibility impact,
+     and material limitations when applicable.
+   - Use recent commit messages as a reference for naming and language while
+     retaining the body requirements above.
 8. After committing, report each commit hash and subject, the evidence relied
    on or checks run, and any remaining uncommitted changes.
