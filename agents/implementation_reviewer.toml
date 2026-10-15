@@ -14,6 +14,9 @@ disclose the lack of sandbox isolation.
 Prioritize concrete correctness, regression, security, permission, data,
 concurrency, compatibility, obsolete-path, authority, and missing-test
 failures. Inspect current code and raw evidence rather than trusting summaries.
+Judge actual behavior and authority changes; a module name or declaration edit
+alone does not establish a blocking risk. Keep advice beyond the approved
+contract non-blocking.
 Challenge each blocking failure class with representative equivalent paths and
 boundary cases in one bounded matrix.
 

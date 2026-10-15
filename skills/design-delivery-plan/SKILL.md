@@ -44,11 +44,10 @@ understandable to a first-time reader.
   material change to the Goal contract, architecture, dependency graph,
   permissions, compatibility, or acceptance strength warrants targeted closure
   by the affected role; do not automatically rerun the full review chain.
-- Treat a plan as broad or high-risk when it changes a public interface,
-  configuration or schema, migration, permission or security boundary,
-  concurrency or data-integrity behavior, cross-module authority, or a
-  compatibility contract. A plan without these signals does not need an
-  independent plan review unless its scope or uncertainty is otherwise large.
+- Assess breadth and risk from intended behavior, authority, compatibility and
+  uncertainty, not the names of touched files or modules. Material changes to
+  public contracts, permissions, data integrity or migrations qualify; otherwise
+  use independent plan review only when scope or uncertainty warrants it.
 - Start delegated planning work with `fork_turns="none"` and a self-contained
   task packet; reference exact paths instead of copying long documents.
 - Do not use `executor`, `implementation_reviewer`, or `final_reviewer` while
@@ -80,14 +79,15 @@ pending decisions. Define:
 
 Use IDs such as `G-01`, `WP-01`, and `WP-01-01`. Dependencies form a DAG;
 numbering does not prescribe execution order. Do not pre-plan every Slice.
-Execution chooses the smallest reviewable Slice from current code and
-evidence.
+Execution chooses a complete reviewable outcome from current code and evidence,
+including the diagnosis, implementation and verification needed to finish it.
 
 Define a risk review boundary only when later work depends on its authority,
 behavior, or evidence, or when a high-impact security, permission,
 data-integrity, or migration failure would be materially more costly to find
-at Final. A boundary may contain one or more Work Packages sharing the same
-authority, risk, and acceptance scope.
+at Final. Name the behavior at risk and the specific downstream work that must
+wait. A boundary may contain one or more Work Packages; independent work need
+not wait for an entire package's review.
 
 ## Keep Acceptance Proportional
 
@@ -96,7 +96,10 @@ security or reliability, performance, compatibility, and hygiene each prove
 different things. State positive evidence for replacements and proportional
 negative evidence for an approved old-path disposition. Do not design a
 general analyzer or exhaustive test matrix when representative cases prove the
-contract.
+contract. Separate cheap early feasibility checks for uncertain toolchains,
+required gates or evidence access from focused implementation checks and final
+acceptance. Reserve expensive final suites and builds for relevant stable
+source; earlier independent evidence is reusable when its inputs stay valid.
 
 Before presentation, remove unsupported abstractions, hypothetical extension
 points, package splits that only mirror directories, and repeated checks that

@@ -3,6 +3,9 @@
 Use only when another agent or session needs an explicit execution handoff.
 Delivery remains the authoritative contract, status, and evidence record; the
 handoff points to it and records only what the recipient needs to resume safely.
+For continued work within the same Slice and context, use the existing packet
+and relevant deltas. An actual ownership or domain transfer gets a minimal
+complete packet after the previous production writer has stopped.
 
 ```markdown
 Recipient and scope:

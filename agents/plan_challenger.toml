@@ -1,6 +1,6 @@
 name = "plan_challenger"
 description = "Independent read-only challenger of plan assumptions, design choices, and avoidable complexity."
-model = "grok-4.7"
+model = "gpt-6.1-sol"
 model_reasoning_effort = "xhigh"
 sandbox_mode = "read-only"
 

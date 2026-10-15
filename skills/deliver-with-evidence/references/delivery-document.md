@@ -216,9 +216,11 @@ history.
 
 Every reusable evidence item names the conditions it supports and retains a
 reproducible method, relevant repository state, observed result or durable
-artifact, and material limits. One item may support several conditions.
-Delivery status, commit text, and acceptance reports locate evidence but do not
-prove the implementation claim.
+artifact, and material limits. Link existing logs and result packets; one item
+may support several conditions. HEAD and the relevant worktree scope normally
+identify the state; add a separate report or snapshot manifest only for a
+specific reproducibility, recovery or concurrency need. Delivery status,
+commit text and acceptance reports locate evidence but do not prove the claim.
 
 Reuse evidence when the relevant code, tests, rules, contract, and repository
 snapshots are unchanged. When later work changes a reviewed authority, mark

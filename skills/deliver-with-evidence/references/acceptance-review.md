@@ -27,10 +27,16 @@ evidence, and material limitations.
 
 ## Reconstruct The Contract
 
-Build a fresh condition matrix from the approved plan and current repository
-state before relying on Delivery, commit, Slice, Work Package, or prior
-Milestone completion labels. Delivery may locate evidence, but its status fields
-are claims. An acceptance report cannot prove itself.
+For local Work Package or Milestone acceptance, the coordinator matches the
+required conditions to current raw evidence, limits and blockers. Reuse the
+existing condition mapping and deepen inspection where evidence is missing,
+contradictory or stale. This is an acceptance decision, not a second execution
+or independent review pass.
+
+An independent reviewer reconstructs the contract for its assigned boundary;
+Final reconstructs every Goal and Work Package condition from the approved
+plan and current implementation. Delivery and prior reports locate evidence;
+their completion labels are claims, not proof.
 
 For every condition, record:
 
@@ -39,12 +45,11 @@ For every condition, record:
 - material limitations and any approved exception;
 - `verified` or `partial` status.
 
-For each approved existing-implementation decision, inspect the complete
-current production scope that can own the responsibility, including relevant
-code added after planning or during integration. Verify the selected reuse,
-extension, composition, or separation; the responsibility intentionally kept
-local; and the absence of an unapproved parallel implementation. A relevant
-snapshot change makes the prior result stale.
+Within the review scope, inspect current owners and consumers for each approved
+reuse, extension, composition or separation decision, including integration
+changes. Verify the intended local responsibility and absence of unapproved
+parallel implementations. Local acceptance may reuse this evidence while its
+relevant scope remains unchanged.
 
 ## Match Evidence To The Claim
 
@@ -109,19 +114,14 @@ and low-impact maintainability suggestions as non-blocking residual risks.
 
 ## Choose The Review Mode
 
-Work Package acceptance is normally a local coordinating decision. Use an
-independent implementation review only when the package participates in a
-qualifying risk or review boundary.
-
-Milestone review may be performed by the coordinating agent unless current
-instructions require independence. Use independent review before Final when
-later production semantically depends on the boundary's authority, behavior,
-or evidence, or when delaying a high-impact security, permission,
-data-integrity, or migration failure would materially enlarge correction or
-rollback scope. Execution order alone is not dependency. Otherwise record the
-boundary as implemented and locally verified and defer independent challenge to
-Final. Independent stable boundaries may be reviewed in parallel when neither
-can invalidate the other's snapshot.
+Work Package and Milestone acceptance are normally coordinating decisions.
+Use pre-Final review only for the actual behavior or authority risks defined
+by the [execution role criteria](../SKILL.md#route-execution-roles), not a
+module name, declaration edit or package completion event. Record the specific
+downstream work that needs the verdict; independent work can continue. Otherwise
+retain focused verification and defer independent challenge to Final. Reuse
+the same reviewer for a boundary's corrective closure and a fresh reviewer for
+a different boundary.
 
 Final must complete an independent acceptance pass. When delegation is
 available and authorized, use a fresh `final_reviewer`; give it the approved
@@ -152,6 +152,11 @@ incremental findings.
 
 ## Order Broad Evidence And Review
 
+Resolve material toolchain, gate or evidence-access unknowns with cheap early
+preflight. Its purpose is to reveal feasibility problems before expensive work,
+not to replace required verification or trigger a review. Keep ordinary
+in-scope diagnosis and correction with the implementation owner.
+
 At a qualifying pre-Final implementation-risk boundary, a stable implementation
 verdict may precede boundary-wide broad evidence. After a no-blocker verdict,
 run the broad evidence owned by that boundary once on the reviewed state.
@@ -161,8 +166,9 @@ documentation, and the evidence packet are stable. Final review is an
 acceptance gate rather than an iterative debugging pass. Use this order:
 
 1. establish stable final implementation across every repository;
-2. have the coordinating agent run required whole-Goal broad and hygiene
-   evidence once on those snapshots;
+2. have the coordinator ensure required broad, build and hygiene evidence is
+   current on those snapshots; the implementation owner may run it and valid
+   existing results are reused;
 3. provide the complete packet and raw evidence to the Final reviewer;
 4. issue the verdict against that one stable state.
 
@@ -170,12 +176,11 @@ A Final reviewer should not be asked to approve an incomplete evidence packet.
 Additional evidence without a production change can return to a pending verdict
 when the verdict was explicitly conditional on that evidence.
 
-Use a bounded evidence budget: run focused checks once per stable snapshot for
-the Slice that owns them, boundary-wide checks once per stable snapshot for the
-Work Package or risk boundary, and Whole-Goal broad and hygiene checks once per
-stable final snapshot before Final. Reuse evidence while
-its relevant code, tests, rules, contract, and repository snapshots are
-unchanged. Documentation-only, formatting-only, and unrelated changes do not
+During implementation, rerun affected focused checks on corrected states as
+needed to complete the outcome. Run expensive boundary-wide checks and final
+builds on their relevant stable source, and required Whole-Goal evidence before
+Final. Reuse evidence whose code, inputs, tests, rules and contract remain
+unchanged. Documentation-only, formatting-only and unrelated changes do not
 invalidate production evidence.
 
 ## Correct Blocking Findings

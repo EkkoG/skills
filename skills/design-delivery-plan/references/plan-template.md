@@ -70,10 +70,11 @@ Keep Slice, Work Package or Milestone, and whole-Goal completion distinct.
 
 ## Acceptance Strategy
 
-Describe the proportional smoke, targeted, regression, structural, security,
-performance, compatibility, and hygiene evidence that applies. For a structural
-or old-path guard, name the representative escape classes and false-positive
-boundary needed for the approved claim.
+Describe cheap preflight for material feasibility unknowns, focused checks
+during implementation, and final acceptance on stable source. Identify the
+owner and required input state for expensive checks so independent evidence
+can be reused. Cover only applicable behavior, structure, security,
+compatibility, performance and hygiene claims with representative cases.
 
 ## Risks, Assumptions, And Decisions
 
@@ -90,7 +91,7 @@ requirement or evidence-backed reason.
 
 - Why first
 - Acceptance conditions advanced
-- Smallest reviewable local outcome
+- Complete reviewable local outcome, including its diagnosis and verification
 - Preserved behavior
 - Expected scope
 - Exit evidence
