@@ -27,31 +27,36 @@ understandable to a first-time reader.
   Reuse its evidence in the current planning pass.
 - For a broad or high-risk plan, use `plan_reviewer` once before presenting the
   draft for approval. Give it the latest goal, raw current-state evidence, and
-  draft plan without a desired verdict. Reuse it for targeted closure only
-  after a material plan change affects the reviewed boundary.
+  draft plan without a desired verdict. Reuse it for targeted closure of
+  material plan changes or disputed findings.
 - For the same broad or high-risk candidate, incorporate the review findings
   into a stable draft, then use a fresh `plan_challenger` once before user
-  approval. Use its configured model, distinct from `plan_reviewer`, to
-  challenge assumptions, design choices, and avoidable complexity. Supply the
+  approval. It invokes the local Grok CLI for the cross-model challenge of
+  assumptions, design choices, and avoidable complexity. Supply the
   latest goal, constraints, settled decisions, current draft, raw-evidence
   locations, and unresolved facts without prior reviewer verdicts or an
   expected conclusion. Keep both passes on stable drafts in this order.
-- The coordinator resolves the combined findings; simplification advice does
-  not become a new requirement automatically. Surface material tradeoffs and
-  unresolved blockers for user decision rather than starting a reviewer debate.
-- Treat the draft as one approval candidate. Wording, formatting, evidence
-  additions, and Slice-level refinements do not reopen either pass. Only a
-  material change to the Goal contract, architecture, dependency graph,
-  permissions, compatibility, or acceptance strength warrants targeted closure
-  by the affected role; do not automatically rerun the full review chain.
+- Complete paired review under
+  [references/review-agreement.md](references/review-agreement.md). Both roles
+  must agree on the current draft's verdict and material finding dispositions.
+  If incorporating findings changes the design, obtain targeted confirmation
+  from the original reviewer on that draft before recording agreement. The
+  coordinator relays disputes and records results; optional simplifications
+  remain advice. An agreed pass makes the draft ready for user approval.
+- Treat the draft as one approval candidate. Wording, formatting, and Slice-level
+  refinements reuse unaffected conclusions. Material changes to the Goal
+  contract, architecture, dependency graph, permissions, compatibility, or
+  acceptance strength require targeted closure by the affected role. Evidence
+  closing a required gap and disputed findings return to the existing pair;
+  do not automatically rerun the full review chain.
 - Assess breadth and risk from intended behavior, authority, compatibility and
   uncertainty, not the names of touched files or modules. Material changes to
   public contracts, permissions, data integrity or migrations qualify; otherwise
   use independent plan review only when scope or uncertainty warrants it.
 - Start delegated planning work with `fork_turns="none"` and a self-contained
   task packet; reference exact paths instead of copying long documents.
-- Do not use `executor`, `implementation_reviewer`, or `final_reviewer` while
-  planning. They belong to approved-plan execution.
+- Planning uses `plan_reviewer` and `plan_challenger`; execution roles belong
+  to approved-plan execution.
 - Use main-thread fallback for a required role only after an explicit tool or
   policy restriction, or an actual start/resume failure that remains after one
   applicable recovery attempt. Judge availability separately for each role;
@@ -59,8 +64,10 @@ understandable to a first-time reader.
   Recover invocation conflicts by reusing an eligible agent or choosing a
   unique task name. Disclose the restriction or error, recovery outcome, and
   lack of independent reviewer context before doing the bounded work locally.
-  For `plan_challenger` fallback, also disclose the loss of cross-model review;
-  preserve its configured model unless the user authorizes a change.
+  For paired review, local fallback is diagnostic only: an unavailable
+  `plan_reviewer`, `plan_challenger`, or Grok invocation leaves agreement
+  pending under the shared agreement contract. Disclose the limitation and
+  ask the user how to proceed; Main cannot substitute its own agreement.
 - Reviewers, challengers, and explorers in writable sandboxes continue under
   their no-write contracts and disclose the lack of sandbox isolation.
 

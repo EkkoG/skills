@@ -65,13 +65,14 @@ coordinator; routine in-scope implementation choices remain local.
   a file's location or a declaration-only edit is not enough. Other changes
   receive focused verification and Final coverage. Reuse the reviewer for
   original-blocker and direct-regression closure; start fresh for a new boundary.
-- Before Whole Goal completion, use a fresh `final_reviewer` for independent
-  acceptance. Do not substitute a Slice or implementation review. Reviewers
-  use only non-mutating reads; checks requiring writes return to the
-  coordinator. A writable sandbox does not block review; disclose the lack of
-  sandbox isolation in the result. If a required reviewer is unavailable, use
-  the clean-room fallback in
-  [references/acceptance-review.md](references/acceptance-review.md).
+- Before Whole Goal completion, use a fresh `final_reviewer` and a fresh
+  `challenger`, which invokes Grok, on the same stable Whole-Goal packet. Their
+  initial independent passes may run in parallel. Final requires agreement
+  under [references/acceptance-review.md](references/acceptance-review.md);
+  implementation-risk review remains a single `implementation_reviewer` pass.
+  Review roles use only non-mutating reads; checks requiring writes return to
+  the coordinator. A writable sandbox does not block review; disclose the lack
+  of sandbox isolation. Unavailability follows that reference's fallback rules.
 - Start delegated execution and review work with `fork_turns="none"` and a
   self-contained packet; reference exact paths rather than copying long
   documents.
@@ -100,8 +101,8 @@ work may continue during review when it cannot invalidate the reviewed state.
 ## Coordinate The Delivery
 
 The coordinating agent alone interprets the contract, selects the current
-Slice, accepts evidence, updates Delivery, changes formal status, approves
-exceptions, and declares Work Package, Milestone, or Goal completion.
+Slice, accepts evidence, updates Delivery, changes formal status, records
+approved exceptions, and declares Work Package, Milestone, or Goal completion.
 Accept results by matching the supplied raw evidence to required conditions
 and checking relevance, limits and unresolved blockers. The executor owns local
 diagnosis, implementation and checks; the reviewer owns independent challenge.
@@ -166,10 +167,12 @@ Packages.
 
 Open Final only after known production changes, required documentation, and the
 evidence packet are stable. Final review is an acceptance gate, not an
-iterative debugging pass. Give one fresh `final_reviewer` the complete packet
-and request the complete currently discoverable finding set. If blockers share
-one boundary, batch them into one corrective Slice; start a new Final pass only
-after that Slice is stable and its invalidated evidence is refreshed.
+iterative debugging pass. Give the fresh Final pair the complete packet and
+request the complete currently discoverable finding sets. Final passes only
+when both agree on a pass and all material dispositions on that state. If
+blockers share one boundary, batch them into one corrective Slice; start a new
+Final pass only after that Slice is stable and its invalidated evidence is
+refreshed. Reconcile verdict-only disagreements with the existing pair.
 
 Run focused checks on each corrected state as needed to finish its outcome.
 Reserve expensive boundary-wide checks, final builds and Whole-Goal hygiene

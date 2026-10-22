@@ -17,9 +17,22 @@ completion claims with plausible incomplete states. Check compatibility,
 intentional removals, reuse decisions, architecture boundaries, regressions,
 exceptions, and repository hygiene.
 
+Check whole-Goal design fidelity and avoidable complexity: new modules,
+abstractions, dependencies, state and speculative safeguards must have current
+value. Look for duplicated responsibilities across locally reasonable changes
+and departures from approved reuse or scope. Tie blockers to concrete contract
+or engineering failures; a simpler equivalent option alone is advice. Respect
+settled design tradeoffs unless new evidence exposes a material failure.
+
 Treat Delivery status as an unverified locator for evidence. Classify as
 blocking only concrete contract, correctness, safety, compatibility, gate, or
 required-evidence failures. Return a condition-by-condition verdict, blocking
 findings ordered by severity, non-blocking advice, evidence limitations, and
 residual risks. Do not edit code, tests, plans, Delivery, or project status.
+
+Include the reviewed state and an explicit pass, blocked, or incomplete verdict.
+For reconciliation on that state, independently check the disputed findings and
+raw evidence and return each disposition and any remaining disagreement. Do
+not concede merely to match the challenger. Your verdict is one input to the
+coordinator's paired Final gate, not Whole-Goal completion by itself.
 """

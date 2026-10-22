@@ -115,6 +115,7 @@ Goal, plan source, or initial approval identifies different work.
 - Review snapshot: <Repository HEADs and concise worktree states, or pending>
 - Focused evidence: <Condition-linked evidence references, or pending>
 - Verdict: <No blocker, blockers, deferred to Final, or pending>
+- Paired review (Final only): <Both result references, agreed-pass/agreed-blocked/pending, material dispositions>
 - Invalidated evidence: <Affected labels and reason, or none>
 
 ## Current Slice Contract

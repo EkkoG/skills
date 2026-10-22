@@ -20,6 +20,13 @@ contract non-blocking.
 Challenge each blocking failure class with representative equivalent paths and
 boundary cases in one bounded matrix.
 
+Within this boundary, check unnecessary abstractions, state, dependencies,
+speculative guards, duplicated responsibilities, and scope expansion against
+current requirements and approved reuse decisions. Block only for a concrete
+contract or engineering failure; equivalent simpler alternatives are advice.
+Preserve necessary safeguards and settled user tradeoffs unless new evidence
+exposes a material failure. Keep this check within the existing review pass.
+
 Return blocking findings first, then non-blocking advice, evidence limitations,
 and residual risks. For corrective closure, recheck the original blocker
 classes and direct regression risks without reopening unrelated scope. Do not

@@ -112,6 +112,14 @@ Block acceptance only for:
 Treat style preferences, speculative extensions, stronger-than-approved proof,
 and low-impact maintainability suggestions as non-blocking residual risks.
 
+Within the assigned scope, check that new abstractions, modules, dependencies,
+state and safeguards serve current requirements, reuse existing capabilities
+where appropriate, and avoid unapproved parallel implementations. The reviewer
+checks fidelity to approved design; the challenger independently tests the
+necessity of complexity and simpler alternatives. Block overdesign only for a
+concrete failure under the threshold above. A preference for a simpler design
+does not justify reopening settled tradeoffs or starting another correction.
+
 ## Choose The Review Mode
 
 Work Package and Milestone acceptance are normally coordinating decisions.
@@ -123,20 +131,22 @@ retain focused verification and defer independent challenge to Final. Reuse
 the same reviewer for a boundary's corrective closure and a fresh reviewer for
 a different boundary.
 
-Final must complete an independent acceptance pass. When delegation is
-available and authorized, use a fresh `final_reviewer`; give it the approved
-contract, stable repository snapshots, complete raw evidence, and material
-limitations without a desired verdict. The reviewer must not edit code, tests,
-plans, Delivery, or project status and must independently evaluate Delivery's
-status claims. Use only non-mutating reads and return checks requiring writes
-to the coordinator.
+Final uses a fresh `final_reviewer` and fresh Grok-backed `challenger`. Give
+both the approved contract, the same stable repository snapshots, complete raw
+evidence, and material limitations without the other's initial verdict or a
+desired conclusion. Both independently evaluate Delivery's status claims and
+use only non-mutating reads; checks requiring writes return to the coordinator.
+Read and apply the shared
+[review-agreement contract](../../design-delivery-plan/references/review-agreement.md)
+before closing Final. Implementation-risk review retains a single reviewer.
 
 Independence comes from a separate reviewer context and evaluation of raw
 evidence, not sandbox isolation. A writable sandbox does not block review:
 follow the no-write contract and disclose the effective sandbox and lack of
 isolation in the result. Once unavailability or lack of authorization is
 established under the [role-routing criteria](../SKILL.md#route-execution-roles),
-use this clean-room fallback:
+use this clean-room fallback for an implementation-risk review, or to collect
+diagnostic evidence while a Final participant is unavailable:
 
 1. rebuild the current acceptance matrix from the approved plan, using the
    whole-Goal matrix for Final;
@@ -144,6 +154,11 @@ use this clean-room fallback:
 3. actively search for counterevidence;
 4. disclose that the review was not delegated and therefore lacks a separate
    reviewer context.
+
+For Final, this fallback does not complete the paired gate. Keep agreement
+pending and report the blocker; any different completion path needs an
+explicit user revision of the gate, recorded as an exception rather than
+agreement. A failed or incomplete Grok invocation is also an unavailable result.
 
 Ask an initial review for the complete currently discoverable finding set and a
 bounded counterexample matrix for each blocker class. Separate blockers from
@@ -169,8 +184,9 @@ acceptance gate rather than an iterative debugging pass. Use this order:
 2. have the coordinator ensure required broad, build and hygiene evidence is
    current on those snapshots; the implementation owner may run it and valid
    existing results are reused;
-3. provide the complete packet and raw evidence to the Final reviewer;
-4. issue the verdict against that one stable state.
+3. provide the complete packet and raw evidence to the fresh Final pair;
+4. reconcile material disagreements and record the agreed verdict against
+   that one stable state.
 
 A Final reviewer should not be asked to approve an incomplete evidence packet.
 Additional evidence without a production change can return to a pending verdict
@@ -194,7 +210,8 @@ Acceptance runs against stable code. When review requires a production change:
    and its direct regression risks when that boundary requires independent
    implementation review;
 5. rerun only broad or hygiene evidence invalidated by the correction;
-6. for Final, perform a new complete Final pass on the corrected stable state.
+6. for Final, perform a new complete Final pass with a fresh pair on the
+   corrected stable state.
 
 Do not start another reviewer between findings from the same pass and the
 corrective Slice. A new Final pass is justified only after the correction is
@@ -212,7 +229,8 @@ status, and revalidate the changed scope at the next relevant boundary or
 Final.
 
 Completion requires sufficient current evidence for every condition in scope,
-no unresolved blocker, and explicit approval for every exception.
+no unresolved blocker, and explicit approval for every exception. Final also
+requires the pair's agreed pass under the shared agreement contract.
 
 ## Acceptance Report
 
@@ -225,7 +243,10 @@ Reviewed repository states:
 <Roots, HEADs, and concise worktree states>
 
 Review mode:
-<local Work Package, stable Milestone boundary, independent Final, or clean-room Final>
+<local Work Package, stable Milestone boundary, paired Final, or diagnostic fallback>
+
+Paired review (when applicable):
+<Both result references, agreed-pass/agreed-blocked/pending, material dispositions>
 
 | Requirement | Type | Status | Current evidence | Counterexample checked | Exception |
 |---|---|---|---|---|---|
