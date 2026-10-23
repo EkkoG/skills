@@ -58,6 +58,9 @@ user tradeoffs; reopen them only when new evidence exposes a material failure.
 
 ## Availability And Recording
 
+Grok-backed roles use the [shared invocation helper](grok-cli.md). Keep runtime
+failures separate from substantive verdicts; CLI completion alone is not a pass.
+
 After one applicable recovery attempt, an unavailable reviewer or failed Grok
 invocation leaves the paired gate pending. A disclosed local diagnostic
 fallback can identify work to do, but cannot replace either participant or count

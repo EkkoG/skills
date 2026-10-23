@@ -8,6 +8,10 @@ evidence-gap report instead of this template.
 
 Draft and unapproved.
 
+- Plan path: `<persistent absolute path>`
+- Coordinating workspace: `<resolved primary root>`
+- User approval: `<pending, or approval reference and date>`
+
 ## Objective
 
 Describe the externally observable final outcome and whole-goal completion

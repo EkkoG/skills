@@ -20,6 +20,33 @@ implementation, decisions, tests, documents, and worktree state before fixing
 the target. Keep the plan aligned with the user's latest decisions and make it
 understandable to a first-time reader.
 
+## Persist The Plan
+
+Save the first complete draft before delegated review or presentation. Use an
+explicitly required plan path; otherwise keep it outside target repositories at:
+
+```text
+$CODEX_HOME/state/plans/<repo-key>/<plan-id>/plan.md
+```
+
+`CODEX_HOME` defaults to `~/.codex`. Form `<repo-key>` from the safe basename of
+the resolved coordinating workspace plus the first 10 lowercase hex characters
+of SHA-256 over its UTF-8 absolute path, matching Delivery's repository key.
+Choose an unused `<plan-id>` once, such as `YYYYMMDD-HHMMSS-goal-slug`, and retain
+that path through revisions, approval, execution, and resumption.
+
+The coordinator alone updates the plan. Record the coordinating workspace,
+draft or approved status, and the user's approval reference when given. Give
+reviewers this persistent path; keep recovery-critical supporting material and
+review results alongside it, using `reviews/` for review artifacts. Reuse durable
+sources by reference. On resume, read the saved plan and latest user decisions
+before continuing; keep the plan after delivery.
+
+Use private directories and files, normally `0700` and `0600`. Obtain any
+missing write permission through normal approval; if unavailable, report the
+blocker before delegated review or formal handoff. Saving a draft does not
+authorize implementation. Small direct tasks do not create plan files.
+
 ## Route Planning Roles
 
 - Use `explorer` only for a bounded, read-only question whose answer can change
@@ -36,6 +63,8 @@ understandable to a first-time reader.
   latest goal, constraints, settled decisions, current draft, raw-evidence
   locations, and unresolved facts without prior reviewer verdicts or an
   expected conclusion. Keep both passes on stable drafts in this order.
+  Supply the installed [Grok invocation reference](references/grok-cli.md)
+  and its helper path in the challenger packet.
 - Complete paired review under
   [references/review-agreement.md](references/review-agreement.md). Both roles
   must agree on the current draft's verdict and material finding dispositions.
@@ -125,7 +154,7 @@ negative evidence, risks, approved exceptions, participating repositories,
 and first-Slice recommendation. Planning proposes evidence; execution records
 actual results.
 
-Do not edit production code, record unperformed evidence, approve the plan, or
-create a project plan file unless the user explicitly requests it and writing
-is authorized. After approval, `deliver-with-evidence` creates the persistent
-Delivery document before the first production edit.
+Keep production code unchanged and distinguish proposed checks from observed
+results. User approval authorizes execution. After approval, `deliver-with-evidence`
+creates the persistent Delivery document before the first production edit and
+links this plan as its source.

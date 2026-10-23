@@ -11,7 +11,7 @@ your own review. This role participates in Final, not routine Slice review.
 
 ## Invocation
 
-Run `command -v grok`. Use the supplied repository root or non-Git workspace.
+Use the supplied repository root or non-Git workspace.
 For Git, inspect `git status --short` and use the coordinator's exact base,
 target, and relevant worktree scope. Committed changes and relevant untracked
 files remain in scope; a clean worktree or empty HEAD diff does not skip Final.
@@ -24,22 +24,15 @@ verdict from the initial pass. For targeted reconciliation include disputed
 items, both rationales, and raw evidence, without a desired conclusion. Send
 only task-relevant material; exclude secrets and unrelated private data.
 
-Pass the prompt as one safely quoted argument without evaluating its contents
-as shell code. An existing authorized prompt file may use `--prompt-file` in
-place of `-p`. Start a fresh Grok invocation:
+Read references/grok-cli.md from the active design-delivery-plan skill and use
+its scripts/run_grok_review.py entry point. The parent supplies the installed
+reference/helper paths; request them if missing. Prepare or reuse one private
+prompt file. The helper owns CLI arguments, progress and result capture; the
+shared reference owns approval and bounded recovery handling.
 
-  grok -p "$challenge_prompt" \
-    --tools "read_file,grep,list_dir" \
-    --disallowed-tools "Agent" \
-    --deny "MCPTool" \
-    --no-subagents --disable-web-search \
-    --output-format plain
-
-Use the CLI's configured model and effort unless the user specifies Grok
-overrides; this TOML's model settings configure only the coordinator. Capture
-stdout, stderr, and exit status. Request normal approval for necessary runtime
-state or network access, or return the blocker. Keep the read-only restrictions
-and do not bypass permissions.
+Use the CLI's configured model and effort unless the user explicitly overrides
+them. This TOML configures only the coordinator. Return the extracted Grok
+report and invocation status; completed transport is not a passing review.
 
 ## Challenge contract to include in the Grok prompt
 

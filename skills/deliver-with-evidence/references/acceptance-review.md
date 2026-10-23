@@ -136,6 +136,9 @@ both the approved contract, the same stable repository snapshots, complete raw
 evidence, and material limitations without the other's initial verdict or a
 desired conclusion. Both independently evaluate Delivery's status claims and
 use only non-mutating reads; checks requiring writes return to the coordinator.
+Supply the challenger with the installed
+[Grok invocation reference](../../design-delivery-plan/references/grok-cli.md)
+and its helper path.
 Read and apply the shared
 [review-agreement contract](../../design-delivery-plan/references/review-agreement.md)
 before closing Final. Implementation-risk review retains a single reviewer.

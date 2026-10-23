@@ -4,6 +4,12 @@ Use this reference when initializing, resuming, or structurally updating the
 private Delivery document. Keep project documents authoritative and copy only
 the contract and state needed for reliable resumption and acceptance.
 
+At initialization and resumption, open the referenced plan and verify its
+contract against the user's approval and subsequent approved changes. For a
+file-backed plan, record its persistent absolute path as Plan source and retain
+the original location; Delivery tracks execution rather than becoming a second
+full plan. Resolve a missing source or approval mismatch before production work.
+
 ## Resolve The Path And Permission
 
 Use a path explicitly required by the user, approved plan, or repository

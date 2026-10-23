@@ -11,8 +11,8 @@ Grok performs the substantive challenge; do not substitute your own review.
 
 ## Invocation
 
-- Run `command -v grok`. Use the supplied repository root as the working
-  directory and inspect `git status --short` when it is a Git repository.
+- Use the supplied repository root as the working directory and inspect
+  `git status --short` when it is a Git repository.
   For a non-Git task, use the supplied workspace. The review input is the plan,
   including chat-only plans; a clean worktree does not skip the challenge.
 - Assemble a self-contained prompt containing the challenge contract below,
@@ -23,22 +23,15 @@ Grok performs the substantive challenge; do not substitute your own review.
   reconciliation include disputed items, both rationales, and raw evidence as
   claims to check. Send only task-relevant material; exclude credentials and
   unrelated private data.
-- Pass this prompt as a single safely quoted argument, without evaluating its
-  contents as shell code. If the parent already supplied an authorized prompt
-  file, `--prompt-file` may replace `-p`. Start a fresh Grok invocation with:
+- Read references/grok-cli.md from the active design-delivery-plan skill and
+  use its scripts/run_grok_review.py entry point. The parent supplies the
+  installed reference/helper paths; request them if missing. Prepare or reuse
+  one private prompt file. The helper owns CLI arguments, progress and result
+  capture; the shared reference owns approval and bounded recovery handling.
 
-  grok -p "$challenge_prompt" \
-    --tools "read_file,grep,list_dir" \
-    --disallowed-tools "Agent" \
-    --deny "MCPTool" \
-    --no-subagents --disable-web-search \
-    --output-format plain
-
-Use the CLI's configured model and effort unless the user explicitly specifies
-Grok overrides. The model fields in this TOML configure only this coordinator.
-Capture stdout, stderr, and the exit status. CLI runtime-state or network access
-may need normal approval; request only the required access or return the blocker
-to the parent. Keep the read-only tool restrictions; do not bypass permissions.
+Use the CLI's configured model and effort unless the user explicitly overrides
+them. This TOML configures only the coordinator. Return the extracted Grok
+report and invocation status; completed transport is not a passing review.
 
 ## Challenge contract to include in the Grok prompt
 
