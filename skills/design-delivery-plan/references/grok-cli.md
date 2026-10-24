@@ -18,8 +18,9 @@ Initial input excludes prior verdicts and review history; give current-contract
 excerpts when a source document mixes them. Let Grok inspect bounded raw evidence
 through its read tools instead of performing another full review in Codex first.
 
-The user must authorize sending these task materials to the CLI's configured
-service. Keep secrets and unrelated material out of the packet. Use the existing
+The user's explicit request to use Grok authorizes sending the necessary
+task-relevant review materials to the CLI's configured service. Proceed within
+that scope. Keep secrets and unrelated material out of the packet. Use the existing
 CLI environment and configuration; model and effort come from that configuration
 unless the user explicitly overrides them. Obtain model identity from result
 metadata when available, not from credential/configuration files.
@@ -39,10 +40,10 @@ retains a unique private output folder inside that persistent review directory.
 Files are user-private. The script does not read credentials, alter Grok
 configuration, grant permissions or retry.
 
-Grok needs network access and writes its own runtime/session state. When that
-access is already known to be required, request normal approval for this exact
-helper invocation up front, identifying the material and configured destination.
-User consent and effective execution permissions are separate prerequisites.
+Grok needs network access and writes its own runtime/session state. If the active
+execution environment requires approval for that access, use its normal approval
+mechanism for this exact helper invocation, identifying the material and configured
+destination.
 Read-only tool limits are behavioral constraints, not OS sandbox isolation.
 
 ## Observe And Recover
