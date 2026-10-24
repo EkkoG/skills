@@ -31,16 +31,23 @@ else
   agents_source_root="${HOME:?HOME is required when CODEX_HOME is unset}/.codex/agents"
 fi
 
+if [[ -n "${CODEX_HOME:-}" ]]; then
+  instructions_source_file="$CODEX_HOME/AGENTS.md"
+else
+  instructions_source_file="${HOME:?HOME is required when CODEX_HOME is unset}/.codex/AGENTS.md"
+fi
+
 usage() {
   printf '%s\n' \
-    "Usage: $(basename "$0") [--dry-run] [--source DIR] [--agents-source DIR]" \
+    "Usage: $(basename "$0") [--dry-run] [--source DIR] [--agents-source DIR] [--instructions-source FILE]" \
     "" \
-    "Mirror the repository's maintained skills and agent roles from Codex directories." \
+    "Mirror maintained skills, agent roles, and user instructions into the repository." \
     "" \
     "Options:" \
     "  --dry-run           Show changes without modifying the repository." \
     "  --source DIR        Override the source skills directory." \
     "  --agents-source DIR Override the source agents directory." \
+    "  --instructions-source FILE Override the source user AGENTS.md." \
     "  -h, --help          Show this help message."
 }
 
@@ -64,6 +71,14 @@ while (($#)); do
         exit 2
       fi
       agents_source_root="$1"
+      ;;
+    --instructions-source)
+      shift
+      if (($# == 0)); then
+        printf 'error: --instructions-source requires a file\n' >&2
+        exit 2
+      fi
+      instructions_source_file="$1"
       ;;
     -h|--help)
       usage
@@ -106,6 +121,11 @@ done
   exit 1
 }
 
+[[ -f "$instructions_source_file" ]] || {
+  printf 'error: user instructions file not found: %s\n' "$instructions_source_file" >&2
+  exit 1
+}
+
 rsync_args=(
   -a
   -i
@@ -116,13 +136,16 @@ rsync_args=(
   --exclude
   '*.pyc'
 )
+instructions_rsync_args=(-a -i)
 
 if [[ "$dry_run" == true ]]; then
   rsync_args+=(-n)
+  instructions_rsync_args+=(-n)
 fi
 
 printf 'Skills source: %s\n' "$skills_source_root"
 printf 'Agents source: %s\n' "$agents_source_root"
+printf 'User instructions source: %s\n' "$instructions_source_file"
 printf 'Repository: %s\n' "$repo_root"
 
 for skill in "${skills[@]}"; do
@@ -132,6 +155,11 @@ done
 
 printf '\n[agents]\n'
 rsync "${rsync_args[@]}" "$agents_source_root/" "$agents_destination_root/"
+
+printf '\n[user-AGENTS.md]\n'
+if ! cmp -s "$instructions_source_file" "$repo_root/user-AGENTS.md"; then
+  rsync "${instructions_rsync_args[@]}" "$instructions_source_file" "$repo_root/user-AGENTS.md"
+fi
 
 if [[ "$dry_run" == true ]]; then
   printf '\nDry run complete.\n'

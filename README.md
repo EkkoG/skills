@@ -66,14 +66,14 @@ See the official OpenAI documentation for
 
 ## Repository Maintenance
 
-Preview changes from the local Codex skills and agents directories:
+Preview changes from the local Codex skills, agents, and user instructions:
 
 ```bash
 ./scripts/sync-skills.sh --dry-run
 ```
 
-Mirror the four maintained skills and agent role configurations into this
-repository:
+Mirror the four maintained skills, agent role configurations, and user-level
+`AGENTS.md` into this repository:
 
 ```bash
 ./scripts/sync-skills.sh
@@ -84,6 +84,15 @@ The script reads skills from `${CODEX_SKILLS_DIR}`, `${CODEX_HOME}/skills`, or
 `${CODEX_HOME}/agents`, or `$HOME/.codex/agents`. Use `--source <dir>` or
 `--agents-source <dir>` for a one-time override. It never copies `.system` and
 removes `__pycache__/` and `*.pyc` artifacts from mirrored directories.
+
+User instructions come from `${CODEX_HOME}/AGENTS.md` or `$HOME/.codex/AGENTS.md`
+and are stored as `user-AGENTS.md`. Use `--instructions-source <file>` to override
+the source. This filename keeps the snapshot separate from repository-scoped
+instructions. Review it for private or machine-specific content before publishing
+or merging it into another machine's user-level `AGENTS.md`.
+
+The script updates this repository only. Remote installation is a separate step;
+`config.toml`, credentials, plans, Delivery records, and sessions are not mirrored.
 
 ## Usage
 
@@ -112,6 +121,7 @@ declared scope.
 
 ```text
 .
+├── user-AGENTS.md
 ├── agents/
 │   ├── executor.toml
 │   ├── explorer.toml
@@ -201,13 +211,13 @@ Codex。
 
 ### 仓库维护
 
-预览本地 Codex skill 和 agents 目录与仓库之间的差异：
+预览本地 Codex skills、agents 和用户级指令与仓库之间的差异：
 
 ```bash
 ./scripts/sync-skills.sh --dry-run
 ```
 
-将维护的四个 skill 和 agent 角色配置镜像到本仓库：
+将维护的四个 skill、agent 角色配置和用户级 `AGENTS.md` 镜像到本仓库：
 
 ```bash
 ./scripts/sync-skills.sh
@@ -218,6 +228,14 @@ Codex。
 `${CODEX_HOME}/agents` 或 `$HOME/.codex/agents` 读取 agent 角色。可以用
 `--source <dir>` 或 `--agents-source <dir>` 临时指定来源。脚本不会复制 `.system`，
 并会从镜像目录中清理 `__pycache__/` 和 `*.pyc` 文件。
+
+用户级指令来自 `${CODEX_HOME}/AGENTS.md` 或 `$HOME/.codex/AGENTS.md`，保存为
+`user-AGENTS.md`，可用 `--instructions-source <file>` 覆盖来源。该文件名将同步
+副本与仓库自身的指令区分开。发布或合并到其他机器的用户级 `AGENTS.md` 前，
+应检查是否包含私密或机器专属内容。
+
+脚本只更新本仓库，远端安装单独执行；不会镜像 `config.toml`、凭据、计划、
+Delivery 记录或会话数据。
 
 ### 调用
 
@@ -245,6 +263,7 @@ Use $markitdown to convert this document to Markdown.
 
 ```text
 .
+├── user-AGENTS.md
 ├── agents/
 │   ├── executor.toml
 │   ├── explorer.toml
