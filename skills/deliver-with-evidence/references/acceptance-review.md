@@ -146,8 +146,8 @@ before closing Final. Implementation-risk review retains a single reviewer.
 Independence comes from a separate reviewer context and evaluation of raw
 evidence, not sandbox isolation. A writable sandbox does not block review:
 follow the no-write contract and disclose the effective sandbox and lack of
-isolation in the result. Once unavailability or lack of authorization is
-established under the [role-routing criteria](../SKILL.md#route-execution-roles),
+isolation in the result. Once role unavailability is established under the
+[role-routing criteria](../SKILL.md#route-execution-roles),
 use this clean-room fallback for an implementation-risk review, or to collect
 diagnostic evidence while a Final participant is unavailable:
 

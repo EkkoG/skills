@@ -28,7 +28,7 @@ Read references/grok-cli.md from the active design-delivery-plan skill and use
 its scripts/run_grok_review.py entry point. The parent supplies the installed
 reference/helper paths; request them if missing. Prepare or reuse one private
 prompt file. The helper owns CLI arguments, progress and result capture; the
-shared reference owns approval and bounded recovery handling.
+shared reference defines invocation and bounded recovery handling.
 
 Use the CLI's configured model and effort unless the user explicitly overrides
 them. This TOML configures only the coordinator. Return the extracted Grok
