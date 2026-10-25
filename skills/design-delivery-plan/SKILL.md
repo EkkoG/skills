@@ -137,9 +137,14 @@ required gates or evidence access from focused implementation checks and final
 acceptance. Reserve expensive final suites and builds for relevant stable
 source; earlier independent evidence is reusable when its inputs stay valid.
 
-Before presentation, remove unsupported abstractions, hypothetical extension
-points, package splits that only mirror directories, and repeated checks that
-do not increase confidence. Keep real external requirements.
+Start from the smallest change to the existing implementation that meets the
+outcome. Add abstractions, layers, or recovery mechanisms only for a current
+requirement or a concrete failure under the actual input, trust, and deployment
+boundaries. For material hardening beyond scope, present the failure scenario,
+likelihood, impact, and complexity cost for the user's decision. Preserve
+required security, reliability, and compatibility. Before presentation, remove
+hypothetical extension points, package splits that only mirror directories,
+and repeated checks that add no confidence.
 
 ## Prepare Approval And Handoff
 

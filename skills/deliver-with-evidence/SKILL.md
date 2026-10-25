@@ -34,15 +34,21 @@ verifiable and maintainable option with the smallest necessary change. Add
 complexity only when a simpler option cannot meet an explicit requirement,
 and explain that requirement. Keep scope within the approved contract.
 
-Before adding a module, abstraction, state, workflow, dependency, or resilience
-mechanism, identify its concrete value for the current goal; omit additions
-without one. For known, stable inputs, environments, and usage, rely on explicit
-contracts and focused tests rather than compatibility for hypothetical changes.
+Keep simple logic at its call site. Extract a helper or abstraction for actual
+reuse, a genuinely complex boundary, or a clear concept that improves readability.
+Follow existing project idioms. Add state, dependencies, fallback paths, or
+compatibility layers only for current requirements or concrete failure modes.
 Preserve the contract's required security, reliability, and compatibility.
+
+Validate unknown input at its owning input or trust boundary. Within that
+boundary, rely on guarantees already established by validation, construction,
+or types; reassess when data or trust boundaries change.
 
 The coordinator asks the user to resolve material requirement tradeoffs before
 implementing the affected choice. Delegated roles return such decisions to the
-coordinator; routine in-scope implementation choices remain local.
+coordinator; routine in-scope implementation choices remain local. For material
+hardening beyond scope, explain the failure scenario, likelihood, impact, and
+complexity cost before requesting a decision.
 
 ## Route Execution Roles
 
@@ -175,6 +181,8 @@ Final pass only after that Slice is stable and its invalidated evidence is
 refreshed. Reconcile verdict-only disagreements with the existing pair.
 
 Run focused checks on each corrected state as needed to finish its outcome.
+Exercise the actual implementation rather than copies of its logic; prefer
+fixtures and real code paths, using test doubles where isolation requires them.
 Reserve expensive boundary-wide checks, final builds and Whole-Goal hygiene
 for their relevant stable source. Preflight is not a substitute for these
 required gates. Reuse valid evidence; rerun only checks affected by changed
