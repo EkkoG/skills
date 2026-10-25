@@ -27,5 +27,8 @@ result:
 Outcome and scope: result, acceptance labels and changed files or authority.
 Evidence: commands or methods, results, raw locations and material limits.
 State: HEAD, relevant worktree scope and whether production writing has stopped.
+For uncommitted evidence intended for later reuse, include a scoped content
+fingerprint or existing immutable snapshot reference captured at verification,
+including relevant untracked inputs.
 Remaining: missing evidence, blockers, decisions and residual risks, or none.
 """

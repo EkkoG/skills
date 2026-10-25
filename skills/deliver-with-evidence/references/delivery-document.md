@@ -118,7 +118,7 @@ Goal, plan source, or initial approval identifies different work.
 - Authority and risk: <Shared review scope>
 - Stable dependencies: <Required state or none>
 - Dependent work: <Production work that waits for the verdict, or none>
-- Review snapshot: <Repository HEADs and concise worktree states, or pending>
+- Review snapshot: <Verified commits or scoped content references, or pending>
 - Focused evidence: <Condition-linked evidence references, or pending>
 - Verdict: <No blocker, blockers, deferred to Final, or pending>
 - Paired review (Final only): <Both result references, agreed-pass/agreed-blocked/pending, material dispositions>
@@ -144,13 +144,13 @@ Goal, plan source, or initial approval identifies different work.
 ### <Stable outcome and date>
 
 - Included Slices: `<Slice IDs>`
-- Status: <complete or partial>
+- Status: <deferred, complete, or partial>
 
 | Repository | Commit | Remaining worktree |
 |---|---|---|
-| `<resolved root or name>` | `<hash, deferred by instruction, not applicable, or failed>` | `<concise state>` |
+| `<resolved root or name>` | `<hash, deferred to next Slice, opted out by instruction, not applicable, or failed>` | `<concise state>` |
 
-- Blocker: <Exact partial-commit failure or none>
+- Reason or blocker: <Deferral reason and next Slice/outcome, governing instruction, failure, or none>
 
 ## Goal Change History
 
@@ -163,7 +163,7 @@ Goal, plan source, or initial approval identifies different work.
   - Observed: <What was established>
   - Supports: <Condition within that observation>
   - Limits: <Material claims not established>
-  - State: <Repository HEADs or other relevant state>
+  - State: <Commit(s) or equivalent baseline, plus scoped uncommitted content reference when applicable>
   - Artifact: <Persistent location when useful, or none>
 
 ## Missing Evidence
@@ -197,6 +197,11 @@ successful hashes, failed repository, current worktrees, exact blocker, and
 resume action as a partial checkpoint. Do not claim a single stable checkpoint
 or continue dependent production work until the partial state is reconciled.
 
+When adjacent Slices share one unfinished outcome under the checkpoint rule,
+record `deferred` with the included Slices, reason, and next Slice or outcome.
+Record each accepted Slice as complete with its evidence while the checkpoint
+remains deferred; continue when the worktree is safe for that next Slice.
+
 When current user or repository instructions opt out of commit creation, record
 the coherent uncommitted scope, included Slices, current repository states, and
 governing instruction. Continue only when that worktree state is safe for the
@@ -204,7 +209,7 @@ next Slice.
 
 After Slice evidence is accepted and the commit decision is resolved, perform
 one atomic Delivery update containing Slice completion, repository states,
-commit hashes or explicit opt-out state, accepted evidence, and the next
+commit results or a reasoned deferral/opt-out, accepted evidence, and the next
 action. If commit creation fails, use that update to record the exact blocker
 and any partial repository state rather than recording a completed checkpoint.
 
@@ -224,10 +229,15 @@ history.
 Every reusable evidence item names the conditions it supports and retains a
 reproducible method, relevant repository state, observed result or durable
 artifact, and material limits. Link existing logs and result packets; one item
-may support several conditions. HEAD and the relevant worktree scope normally
-identify the state; add a separate report or snapshot manifest only for a
-specific reproducibility, recovery or concurrency need. Delivery status,
-commit text and acceptance reports locate evidence but do not prove the claim.
+may support several conditions. Identify committed inputs by commit. For
+uncommitted evidence intended for reuse across Slices, review, or resumption,
+the evidence producer captures a scoped content fingerprint or existing
+immutable snapshot reference at verification, including relevant untracked
+inputs. Compare the relevant content before reuse; HEAD and dirty path lists
+alone do not identify an uncommitted version. Keep this identity in the existing
+result packet and Evidence entry; add a separate manifest only for a specific
+reproducibility, recovery, or concurrency need. Delivery status, commit text
+and acceptance reports locate evidence but do not prove the claim.
 
 Reuse evidence when the relevant code, tests, rules, contract, and repository
 snapshots are unchanged. When later work changes a reviewed authority, mark

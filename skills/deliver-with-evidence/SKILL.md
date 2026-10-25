@@ -44,6 +44,9 @@ Validate unknown input at its owning input or trust boundary. Within that
 boundary, rely on guarantees already established by validation, construction,
 or types; reassess when data or trust boundaries change.
 
+Exercise the actual implementation rather than copies of its logic; prefer
+fixtures and real code paths, using test doubles where isolation requires them.
+
 The coordinator asks the user to resolve material requirement tradeoffs before
 implementing the affected choice. Delegated roles return such decisions to the
 coordinator; routine in-scope implementation choices remain local. For material
@@ -100,9 +103,10 @@ from Keep Implementation Minimal in every executor packet. Do not suggest a
 desired verdict. Delegated roles return evidence and findings; they do not edit
 Delivery, change the plan, select later work, create commits, or declare a
 formal boundary complete. Return one compact result with changed scope,
-outcome, reproducible evidence and locations, relevant state, limitations and
-whether production writing has stopped. Keep one production writer; independent
-work may continue during review when it cannot invalidate the reviewed state.
+outcome, reproducible evidence and locations, verification-state references,
+limitations and whether production writing has stopped. Keep one production
+writer; independent work may continue during review when it cannot invalidate
+the reviewed state.
 
 ## Coordinate The Delivery
 
@@ -181,8 +185,6 @@ Final pass only after that Slice is stable and its invalidated evidence is
 refreshed. Reconcile verdict-only disagreements with the existing pair.
 
 Run focused checks on each corrected state as needed to finish its outcome.
-Exercise the actual implementation rather than copies of its logic; prefer
-fixtures and real code paths, using test doubles where isolation requires them.
 Reserve expensive boundary-wide checks, final builds and Whole-Goal hygiene
 for their relevant stable source. Preflight is not a substitute for these
 required gates. Reuse valid evidence; rerun only checks affected by changed
