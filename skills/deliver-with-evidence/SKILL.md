@@ -82,20 +82,20 @@ impact, and complexity cost in the decision request.
   for continuing work and corrections within one domain, authority and
   acceptance context. Start a fresh executor for an independent domain with a
   minimal complete packet; stop the prior writer before transferring ownership.
-- Use `implementation_reviewer` only at a stable risk boundary where later
-  work depends on the boundary's authority, behavior, or evidence, or where a
-  high-impact security, permission, data-integrity, or migration failure would
-  be materially more costly to discover at Final. State the behavior or
-  authority at risk and the concrete dependency or delayed-discovery cost;
-  a file's location or a declaration-only edit is not enough. Other changes
-  receive focused verification and Final coverage. Reuse the reviewer for
-  original-blocker and direct-regression closure; start fresh for a new boundary.
-- Before Whole Goal completion, use a fresh `final_reviewer` on the stable
-  Whole-Goal packet. After its report is available, use a fresh `challenger`,
-  which invokes Grok to challenge that report and consequential omissions
-  against the same state and raw evidence. Final requires agreement
-  under [references/acceptance-review.md](references/acceptance-review.md);
-  implementation-risk review remains a single `implementation_reviewer` pass.
+- Use `implementation_reviewer` only at a stable pre-Final boundary with a
+  concrete failure risk whose discovery at Final would materially increase
+  harm or rework. Explain the failure scenario and delayed-discovery cost using
+  actual behavior or authority. Dependencies identify downstream work that must
+  wait for this verdict. Other changes receive focused verification and Final
+  coverage. Reuse the reviewer for original-blocker and direct-regression
+  closure; start fresh for a new boundary.
+- Start Final with a fresh `final_reviewer` on the stable Whole-Goal packet.
+  After its report is available, use a fresh `challenger`, which invokes Grok
+  to challenge that report and consequential omissions against the same state
+  and raw evidence. Reuse the pair for local corrective closure; the criteria
+  for a fresh full review and required agreement are in
+  [references/acceptance-review.md](references/acceptance-review.md).
+  Implementation-risk review remains a single `implementation_reviewer` pass.
   Review roles use only non-mutating reads; checks requiring writes return to
   the coordinator. A writable sandbox does not block review; disclose the lack
   of sandbox isolation. Unavailability follows that reference's fallback rules.
@@ -193,14 +193,14 @@ evidence. Use a Milestone for one stable boundary containing one or more Work
 Packages.
 
 Open Final only after known production changes, required documentation, and the
-evidence packet are stable. Final review is an acceptance gate, not an
-iterative debugging pass. Request the full review from `final_reviewer`, then
-give its report and the same packet to `challenger` for focused challenge.
+evidence packet are stable. Request the initial full review from `final_reviewer`,
+then give its report and the same packet to `challenger` for focused challenge.
 Final passes only when both agree on a pass and all material dispositions on
-that state. If blockers share one boundary, batch them into one corrective
-Slice; start a new
-Final pass only after that Slice is stable and its invalidated evidence is
-refreshed. Reconcile verdict-only disagreements with the existing pair.
+that state. Batch blockers from one boundary into a corrective Slice. Once it
+is stable and invalidated evidence is refreshed, use the correction procedure
+in the acceptance reference to close affected conditions with the existing pair
+or restart full review when its criteria apply. Reconcile verdict-only
+disagreements with the existing pair.
 
 Run focused checks on each corrected state as needed to finish its outcome.
 Reserve expensive boundary-wide checks, final builds and Whole-Goal hygiene

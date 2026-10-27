@@ -117,12 +117,12 @@ numbering does not prescribe execution order. Do not pre-plan every Slice.
 Execution chooses a complete reviewable outcome from current code and evidence,
 including the diagnosis, implementation and verification needed to finish it.
 
-Define a risk review boundary only when later work depends on its authority,
-behavior, or evidence, or when a high-impact security, permission,
-data-integrity, or migration failure would be materially more costly to find
-at Final. Name the behavior at risk and the specific downstream work that must
-wait. A boundary may contain one or more Work Packages; independent work need
-not wait for an entire package's review.
+Define a pre-Final risk review boundary only for a concrete failure risk whose
+discovery at Final would materially increase harm or rework. Explain the failure
+scenario and delayed-discovery cost using the actual behavior or authority at
+risk. Dependencies identify the specific downstream work that must wait for
+this verdict. A boundary may contain one or more Work Packages; independent
+work can continue.
 
 ## Keep Acceptance Proportional
 

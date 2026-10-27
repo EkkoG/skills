@@ -55,8 +55,9 @@ dependency edges, not numbering, determine readiness.
 - Prohibited expansion
 - Dependencies
 - Implementation or authority boundary
-- Risk review boundary: `<short description or none>`, the shared authority,
-  risk and acceptance scope, and why review is needed before Final
+- Risk review boundary: `<short description or none>`, the concrete failure
+  scenario, materially greater harm or rework if found at Final, and acceptance
+  scope
 - Verdict dependency: <Later work that must wait for this boundary's verdict,
   or none>
 - Compatibility impact and intentional removals

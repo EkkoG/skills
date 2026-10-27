@@ -33,19 +33,24 @@ existing condition mapping and deepen inspection where evidence is missing,
 contradictory or stale. This is an acceptance decision, not a second execution
 or independent review pass.
 
-An independent reviewer reconstructs the contract for its assigned boundary;
-`final_reviewer` reconstructs every Goal and Work Package condition from the
-approved plan and current implementation. The Final challenger uses that
-report to probe its judgments and consequential omissions against raw evidence.
-Delivery and prior reports locate evidence; their completion labels are claims,
-not proof.
+An independent reviewer reconstructs the contract for its assigned boundary.
+For an initial or restarted full Final review, `final_reviewer` reconstructs
+every Goal and Work Package condition from the approved plan and current
+implementation. Local corrective closure follows Correct Blocking Findings
+below. The Final challenger probes the report's judgments and consequential
+omissions against raw evidence. Delivery and prior reports locate evidence;
+their completion labels are claims, not proof.
 
 For every condition, record:
 
 - the current evidence and what it can distinguish;
-- a plausible incomplete state or counterexample that was checked;
 - material limitations and any approved exception;
 - `verified` or `partial` status.
+
+For material behavior, permission, migration, compatibility, or similar claims,
+also record representative counterexamples checked. Direct inspection can
+suffice for straightforward document, artifact, or configuration conditions.
+One evidence item or counterexample may support several conditions.
 
 Within the review scope, inspect current owners and consumers for each approved
 reuse, extension, composition or separation decision, including integration
@@ -183,9 +188,9 @@ At a qualifying pre-Final implementation-risk boundary, a stable implementation
 verdict may precede boundary-wide broad evidence. After a no-blocker verdict,
 run the broad evidence owned by that boundary once on the reviewed state.
 
-For Final, open the review only after known production changes, required
-documentation, and the evidence packet are stable. Final review is an
-acceptance gate rather than an iterative debugging pass. Use this order:
+For an initial or restarted full Final review, open the review only after known
+production changes, required documentation, and the evidence packet are stable.
+Use this order:
 
 1. establish stable final implementation across every repository;
 2. have the coordinator ensure required broad, build and hygiene evidence is
@@ -214,16 +219,24 @@ Acceptance runs against stable code. When review requires a production change:
 1. mark affected conditions partial and leave acceptance mode;
 2. group all blockers from the same boundary into one corrective Slice;
 3. implement and run focused verification;
-4. perform one targeted closure review of each complete blocker-class matrix
-   and its direct regression risks when that boundary requires independent
-   implementation review;
-5. rerun only broad or hygiene evidence invalidated by the correction;
-6. for Final, obtain a new full review from a fresh reviewer, then a focused
-   challenge from a fresh challenger on the corrected stable state.
+4. at a pre-Final risk boundary, use its reviewer for targeted closure of the
+   blocker classes and direct regression risks;
+5. rerun only broad or hygiene evidence invalidated by the correction, then
+   perform Final paired closure when applicable.
 
-Do not start another reviewer between findings from the same pass and the
-corrective Slice. A new Final pass is justified only after the correction is
-stable and the affected evidence has been refreshed.
+For a local Final correction, reuse the original reviewer and challenger. Give
+them the prior reports, corrected state, change scope, and refreshed evidence.
+The reviewer checks the fixes, direct regression risks, and affected conditions,
+retaining conclusions whose supporting inputs remain valid. Then the challenger
+checks that updated report and its reuse of prior conclusions. Both return
+verdicts covering the corrected Whole Goal through the retained review and
+targeted closure, with material findings resolved under the agreement contract.
+
+Restart full Final review with a fresh pair only when the correction changes
+the approved contract, changes design across responsibility or authority
+boundaries, or broadly invalidates the prior review's basis. Contract changes
+follow the existing approval rules. Start either closure or full review after
+the correction is stable and affected evidence is current.
 
 Default to one regular corrective cycle. If the same finding class survives,
 reconstruct the contract, counterexample, and Slice boundary before further
@@ -257,9 +270,9 @@ Review mode:
 Paired review (when applicable):
 <Both result references, agreed-pass/agreed-blocked/pending, material dispositions>
 
-| Requirement | Type | Status | Current evidence | Counterexample checked | Exception |
+| Requirement | Type | Status | Current evidence | Counterexample when applicable | Exception |
 |---|---|---|---|---|---|
-| <ID> | behavior/structure/replacement/etc. | verified/partial | <Observation> | <Challenge and result> | <ID or none> |
+| <ID> | behavior/structure/replacement/etc. | verified/partial | <Observation> | <Representative challenge and result, or not applicable> | <ID or none> |
 
 Evidence limitations:
 <Material limits>
