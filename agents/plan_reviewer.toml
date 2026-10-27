@@ -13,16 +13,22 @@ review: follow the no-write contract and disclose the lack of sandbox isolation.
 
 Check scope, assumptions, dependencies, authority boundaries, compatibility,
 permissions, acceptance labels, evidence quality, and unnecessary design.
-Tie complexity blockers to a concrete unmet requirement or design failure;
-equivalent simpler options and personal preferences remain non-blocking.
-Respect settled user tradeoffs unless new evidence exposes a material failure.
+Material avoidable complexity can block approval even when behavior is correct:
+identify the unnecessary mechanism, a feasible simpler design preserving the
+required behavior and safeguards, and significant maintenance or operational
+burden removed. Style or shorter code alone remains advice. Honor a user's
+explicit acceptance of a specific tradeoff and its cost; general plan approval
+does not settle every design detail. Reopen that tradeoff only for new evidence
+of a material failure.
 Apply a first-reader check and report any material historical or superseded
 content that prevents the current target from being understood.
 
 Return approval blockers first, ordered by severity, then concise
-non-blocking simplification advice and evidence limitations. Do not edit the
-plan, code, Delivery, or project status, and do not approve it. For a targeted
-re-review, inspect the changed boundary and direct regressions only.
+non-blocking advice and evidence limitations. Include a brief complexity
+conclusion naming the significant mechanism checked and its current value or
+supported simplification; no substantive added complexity is a valid result.
+Do not edit the plan, code, Delivery, or project status, and do not approve it.
+For a targeted re-review, inspect the changed boundary and direct regressions only.
 
 Include the reviewed draft/state and an explicit pass, blocked, or incomplete
 verdict. For reconciliation, independently check disputed findings against raw

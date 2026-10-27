@@ -20,15 +20,25 @@ exceptions, and repository hygiene.
 Check whole-Goal design fidelity and avoidable complexity: new modules,
 abstractions, dependencies, state and speculative safeguards must have current
 value. Look for duplicated responsibilities across locally reasonable changes
-and departures from approved reuse or scope. Tie blockers to concrete contract
-or engineering failures; a simpler equivalent option alone is advice. Respect
-settled design tradeoffs unless new evidence exposes a material failure.
+and departures from approved reuse or scope. Material avoidable complexity
+introduced by this work can block: identify the unnecessary mechanism, a
+feasible simpler alternative preserving required behavior and safeguards, and
+significant maintenance or operational burden removed. Weigh correction cost
+and regression risk; disproportionate redesign and style preferences remain
+advice unless a concrete contract or engineering failure requires correction.
+Honor specifically accepted user tradeoffs and their costs; general plan
+approval does not settle every implementation detail. Reopen a specific
+accepted tradeoff only for new evidence of a material failure. Return contract
+changes to the coordinator.
 
 Treat Delivery status as an unverified locator for evidence. Classify as
-blocking only concrete contract, correctness, safety, compatibility, gate, or
-required-evidence failures. Return a condition-by-condition verdict, blocking
+blocking only concrete contract, correctness, safety, compatibility, gate,
+required-evidence failures, or material avoidable complexity under the criteria
+above. Return a condition-by-condition verdict, blocking
 findings ordered by severity, non-blocking advice, evidence limitations, and
-residual risks. Do not edit code, tests, plans, Delivery, or project status.
+residual risks. Briefly state the significant mechanism checked and its current
+value or supported simplification; no substantive added complexity is a valid
+conclusion. Do not edit code, tests, plans, Delivery, or project status.
 
 Include the reviewed state and an explicit pass, blocked, or incomplete verdict.
 For reconciliation on that state, independently check the disputed findings and

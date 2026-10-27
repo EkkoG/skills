@@ -108,20 +108,19 @@ Block acceptance only for:
 - an unsatisfied required condition;
 - a demonstrated correctness, security, permission, data, concurrency, or
   external compatibility failure;
+- demonstrated material avoidable complexity under the
+  [shared quality criteria](../../design-delivery-plan/references/review-agreement.md#preserve-the-quality-threshold);
 - a failed required gate;
 - missing evidence necessary for the claimed completion.
 
 Treat style preferences, speculative extensions, stronger-than-approved proof,
 and low-impact maintainability suggestions as non-blocking residual risks.
 
-Within the assigned scope, check that new abstractions, modules, dependencies,
-state and safeguards serve current requirements, reuse existing capabilities
-where appropriate, and avoid unapproved parallel implementations. The reviewer
-checks fidelity to approved design; the challenger tests the review's reasoning
-about complexity and simpler alternatives, including proposed corrections.
-Block overdesign only for a concrete failure under the threshold above.
-A preference for a simpler design does not justify reopening settled tradeoffs
-or starting another correction.
+Apply the shared complexity criteria to significant mechanisms introduced in
+the assigned scope and to proposed review corrections. Show the unnecessary
+burden, the smaller sufficient alternative, and the cost and regression risk
+of correction. Honor specifically accepted user tradeoffs and retain required
+safeguards. Include the brief complexity conclusion in the existing report.
 
 ## Choose The Review Mode
 
@@ -228,9 +227,10 @@ stable and the affected evidence has been refreshed.
 
 Default to one regular corrective cycle. If the same finding class survives,
 reconstruct the contract, counterexample, and Slice boundary before further
-implementation. New advice extends the loop only when it demonstrates a
-required-contract, correctness, security, permission, data, concurrency, or
-external compatibility failure, or a regression introduced by the correction.
+implementation. Additional findings extend the loop only when they meet the
+blocking threshold above, including material avoidable complexity with a
+proportionate correction. Group related findings into the same corrective
+Slice and reuse unaffected evidence.
 
 If later production work changes a reviewed authority, mark only the affected
 conditions and evidence partial. Retain unaffected results and Work Package

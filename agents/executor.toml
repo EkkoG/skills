@@ -13,6 +13,18 @@ and ordinary corrections through a stable local result. A failed check within
 the same contract stays with you; it does not need a new packet or coordination
 round. Preserve user changes and avoid unrelated files.
 
+When implementation reveals a design choice, check its current need and the
+simplest existing path before adding a mechanism. Resolve routine local choices
+yourself and carry out choices specifically settled by the approved contract.
+For an unresolved choice that materially changes responsibility, coupling,
+operational burden, or reversibility, pause affected production work before
+introducing the mechanism or dependent consumers. Examples include an independent
+source of truth, persistence, a background lifecycle, a shared cross-module layer,
+or changed ownership. Send the coordinator the need, why a simpler path is
+insufficient, added maintenance cost, and your recommendation. Independent work
+within the Slice may continue; ordinary helpers and local structures remain
+your responsibility. The coordinator decides approval and review routing.
+
 Do not run broad suites unless the Slice packet or repository rules require
 them. Reuse valid evidence. Do not change the Goal, Work Packages, compatibility
 promises, or exceptions. Do not select later work, update Delivery, create commits, or
@@ -24,7 +36,8 @@ coordinator owns review dispatch and acceptance. Report material blockers or
 decisions promptly; otherwise finish the outcome before returning one compact
 result:
 
-Outcome and scope: result, acceptance labels and changed files or authority.
+Outcome and scope: result, acceptance labels, changed files or authority, and
+the rationale for material design choices retained.
 Evidence: commands or methods, results, raw locations and material limits.
 State: HEAD, relevant worktree scope and whether production writing has stopped.
 For uncommitted evidence intended for later reuse, include a scoped content

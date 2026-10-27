@@ -47,11 +47,27 @@ or types; reassess when data or trust boundaries change.
 Exercise the actual implementation rather than copies of its logic; prefer
 fixtures and real code paths, using test doubles where isolation requires them.
 
-The coordinator asks the user to resolve material requirement tradeoffs before
-implementing the affected choice. Delegated roles return such decisions to the
-coordinator; routine in-scope implementation choices remain local. For material
-hardening beyond scope, explain the failure scenario, likelihood, impact, and
-complexity cost before requesting a decision.
+As design choices emerge during implementation, check the current requirement,
+existing capability, and simplest sufficient approach before adding a mechanism.
+Routine local choices remain with the implementation owner. Carry out design
+choices specifically settled by the approved contract within their agreed bounds.
+
+Return an unresolved material design choice to the coordinator before introducing
+the mechanism or its dependent consumers. Examples include an independent source
+of truth, persistence, a background lifecycle, a shared cross-module layer, or
+changed ownership when they materially affect responsibility, coupling,
+operational burden, or reversibility. Pause the affected production work;
+independent work within the assigned Slice may continue. Briefly explain the
+current need, why the simpler existing path is insufficient, added maintenance
+cost, and recommended choice. A helper or local data structure with no such
+impact remains an ordinary implementation decision.
+
+The coordinator resolves choices within the approved contract and records
+material decisions in the existing Slice/Delivery entry. Material requirement
+tradeoffs or changes to approved boundaries follow the existing user approval
+and plan-change rules. Review dispatch still follows the risk criteria below.
+For material hardening beyond scope, include the failure scenario, likelihood,
+impact, and complexity cost in the decision request.
 
 ## Route Execution Roles
 

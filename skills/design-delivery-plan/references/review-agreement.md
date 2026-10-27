@@ -59,13 +59,35 @@ current state before recording agreement; valid unaffected evidence is reusable.
 
 Reviewers prioritize correctness and acceptance; challengers test the review's
 reasoning, critical omissions, and whether the design or proposed corrections
-add avoidable complexity.
-Both check unnecessary abstractions, dependencies, state, speculative guards,
-duplicate responsibilities, and unapproved scope. A complexity finding blocks
-only when tied to an unmet requirement or a concrete correctness, security,
-compatibility, authority, or other required-condition failure. An equivalent
-simpler option alone is non-blocking. Preserve necessary safeguards and settled
-user tradeoffs; reopen them only when new evidence exposes a material failure.
+add avoidable complexity. Apply these complexity criteria within existing plan,
+implementation-risk, and Final reviews.
+
+A material complexity finding identifies a specific mechanism without current
+value, a feasible simpler alternative preserving required behavior and
+safeguards, and a significant avoidable maintenance or operational burden.
+Support it with current consumers, responsibilities, or state transitions;
+examples of concrete burden include duplicate state synchronization, extra
+configuration ownership, or unnecessary dependency lifecycles. Style, line
+counts, or a merely shorter alternative remain non-blocking.
+
+In planning, demonstrated material avoidable complexity can block approval
+even when the proposed behavior is correct. Implementation and Final apply the
+same standard to complexity introduced by the work under review, weighing the
+smallest correction's cost and regression risk. A disproportionate redesign
+remains advice unless a required condition or concrete engineering failure
+independently requires it. Changes to the approved contract return to the
+coordinator under the existing approval rules.
+
+Honor a user's explicit acceptance of a specific design tradeoff and its cost;
+general plan approval alone is not acceptance of every implementation choice.
+Reopen that specific tradeoff only when new evidence exposes a material failure.
+Preserve required security, reliability, compatibility, and recovery behavior.
+
+Include a brief complexity conclusion in the existing review or challenge
+report: name the consequential mechanisms examined and their current value,
+or identify the supported simplification and burden removed. A report may
+conclude that the scope adds no substantive complexity. Findings follow the
+evidence; no inventory, separate review round, or finding quota is required.
 
 ## Availability And Recording
 

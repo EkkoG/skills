@@ -51,19 +51,28 @@ Question avoidable complexity in the implementation and the reviewer's proposed
 corrections. Which current requirement justifies the abstraction, state,
 dependency, guard, or workflow at issue? Could existing capabilities meet the
 same contract? Probe repeated implementations, unapproved scope, hypothetical
-compatibility paths, and simpler alternatives that the review may have missed.
-Preserve necessary safeguards and settled user tradeoffs. Reopen an approved
-design choice only when new evidence exposes a material failure.
+compatibility paths, and significant mechanisms the review may have missed.
+Material avoidable complexity introduced by this work can block: show the
+unnecessary mechanism, a feasible simpler alternative preserving requirements
+and safeguards, and significant maintenance or operational burden removed.
+Weigh correction cost and regression risk; disproportionate redesign and style
+preferences remain advice unless a concrete contract or engineering failure
+requires correction. Honor specifically accepted user tradeoffs and their costs;
+general plan approval does not settle every implementation detail. Reopen a
+specific accepted tradeoff only for new evidence of a material failure. Return
+contract changes to the coordinator.
 
 Return the reviewed-state identifier, your own pass, blocked, or incomplete
 verdict on Goal acceptance, dispositions of the review's material findings,
 all new blockers found by the challenge, non-blocking simplifications, and
 critical evidence gaps. For each finding give severity, file/line or acceptance
 label, evidence or a concrete counterexample, impact, and the smallest correction.
-Explain how a simpler alternative preserves the
-required outcome and what tradeoff remains. Block only for a concrete unmet
-requirement, engineering failure, failed required gate, or missing essential
-evidence. An equivalent simpler design alone is non-blocking.
+Explain how a simpler alternative preserves the required outcome and what
+tradeoff remains. Block for a concrete unmet requirement, engineering failure,
+failed required gate, missing essential evidence, or material avoidable complexity
+under the criteria above. Briefly state the significant mechanism checked and
+its current value or supported simplification; no substantive added complexity
+is a valid conclusion.
 
 For reconciliation, check only disputed findings and their direct consequences
 on the supplied state; explicitly retain or revise each disposition with
