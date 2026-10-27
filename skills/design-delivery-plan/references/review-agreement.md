@@ -3,18 +3,27 @@
 Use this contract for paired plan and Final reviews. The calling skill defines
 when to review and which roles participate; pairing adds no review boundaries.
 
-## Establish Comparable Results
+## Review Then Challenge
 
-Give both roles the same goal, constraints, review scope, draft revision or
-repository snapshots (including relevant worktree changes), raw evidence, and
-limitations. Initial assessments are independent: omit the other role's verdict
-and any desired conclusion. Each role returns the reviewed state, a verdict of
-`pass`, `blocked`, or `incomplete`, material findings with evidence, and critical
-evidence gaps. Missing required evidence prevents a pass.
+The reviewer first evaluates the goal, constraints, review scope, stable draft
+or repository snapshots, and raw evidence. Its report identifies the reviewed
+state, verdict, material findings and proposed corrections, supporting reasons
+and evidence, and coverage limitations.
 
-The challenger actively examines assumptions, avoidable complexity, and
-counterexamples; it is not an endorsement step. Both roles retain their own
-evidence-based judgment. Treat peer reports as claims to check.
+After the report is available, give the challenger that report and access to
+the same contract, reviewed state (including worktree changes), and raw evidence.
+Require a report covering the supplied state before starting the challenge.
+The challenger checks findings, blocker severity, the verdict's support, and
+consequential omissions. It also challenges unnecessary complexity in both the
+solution and the reviewer's proposed corrections. Scope evidence reads to
+these judgments and plausible critical omissions; expand when concrete
+counterevidence requires it. The reviewer owns full review coverage.
+
+Both roles retain independent evidence-based judgment; supply no desired
+conclusion. The challenger treats the report as claims to verify and returns
+its own `pass`, `blocked`, or `incomplete` verdict on the reviewed state,
+agreement or disagreement with material findings, new findings, and evidence
+limitations. Missing required evidence prevents a pass.
 
 ## Decide Agreement
 
@@ -29,9 +38,10 @@ wording, optional advice, or severity labels that do not change disposition.
 | Conflicting verdicts or material finding dispositions | pending | Reconcile disputed items |
 | Missing role, failed CLI, incomplete evidence, or incompatible snapshots | pending | Restore the missing prerequisite |
 
-If initial results already establish agreement, do not add a confirmation
-round. Two blocked verdicts with different findings do not by themselves
-establish agreement on the combined blocker set.
+When the challenger confirms the verdict and material dispositions with no
+new blocker or consequential gap, record agreement directly. New or disputed
+material findings return to the original reviewer for targeted response.
+Two blocked verdicts alone do not establish agreement on different blocker sets.
 
 For a disagreement, the coordinator relays only the disputed items, both
 rationales, and the relevant raw evidence to the same pair. Ask for explicit
@@ -47,8 +57,9 @@ current state before recording agreement; valid unaffected evidence is reusable.
 
 ## Preserve The Quality Threshold
 
-Reviewers prioritize correctness and acceptance; challengers emphasize design
-assumptions and whether a simpler implementation meets the same contract.
+Reviewers prioritize correctness and acceptance; challengers test the review's
+reasoning, critical omissions, and whether the design or proposed corrections
+add avoidable complexity.
 Both check unnecessary abstractions, dependencies, state, speculative guards,
 duplicate responsibilities, and unapproved scope. A complexity finding blocks
 only when tied to an unmet requirement or a concrete correctness, security,

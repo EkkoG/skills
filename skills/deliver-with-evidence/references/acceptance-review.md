@@ -34,9 +34,11 @@ contradictory or stale. This is an acceptance decision, not a second execution
 or independent review pass.
 
 An independent reviewer reconstructs the contract for its assigned boundary;
-Final reconstructs every Goal and Work Package condition from the approved
-plan and current implementation. Delivery and prior reports locate evidence;
-their completion labels are claims, not proof.
+`final_reviewer` reconstructs every Goal and Work Package condition from the
+approved plan and current implementation. The Final challenger uses that
+report to probe its judgments and consequential omissions against raw evidence.
+Delivery and prior reports locate evidence; their completion labels are claims,
+not proof.
 
 For every condition, record:
 
@@ -115,10 +117,11 @@ and low-impact maintainability suggestions as non-blocking residual risks.
 Within the assigned scope, check that new abstractions, modules, dependencies,
 state and safeguards serve current requirements, reuse existing capabilities
 where appropriate, and avoid unapproved parallel implementations. The reviewer
-checks fidelity to approved design; the challenger independently tests the
-necessity of complexity and simpler alternatives. Block overdesign only for a
-concrete failure under the threshold above. A preference for a simpler design
-does not justify reopening settled tradeoffs or starting another correction.
+checks fidelity to approved design; the challenger tests the review's reasoning
+about complexity and simpler alternatives, including proposed corrections.
+Block overdesign only for a concrete failure under the threshold above.
+A preference for a simpler design does not justify reopening settled tradeoffs
+or starting another correction.
 
 ## Choose The Review Mode
 
@@ -131,10 +134,12 @@ retain focused verification and defer independent challenge to Final. Reuse
 the same reviewer for a boundary's corrective closure and a fresh reviewer for
 a different boundary.
 
-Final uses a fresh `final_reviewer` and fresh Grok-backed `challenger`. Give
-both the approved contract, the same stable repository snapshots, complete raw
-evidence, and material limitations without the other's initial verdict or a
-desired conclusion. Both independently evaluate Delivery's status claims and
+Final starts with a fresh `final_reviewer` given the approved contract, stable
+repository snapshots, complete raw evidence, and material limitations. After
+it returns, give its report and the same packet to a fresh Grok-backed
+`challenger`. The challenger probes findings, blocker severity, verdict support,
+proposed corrections, and critical omissions, with raw reads focused on those
+questions. Both retain independent judgment without a desired conclusion and
 use only non-mutating reads; checks requiring writes return to the coordinator.
 Supply the challenger with the installed
 [Grok invocation reference](../../design-delivery-plan/references/grok-cli.md)
@@ -187,8 +192,9 @@ acceptance gate rather than an iterative debugging pass. Use this order:
 2. have the coordinator ensure required broad, build and hygiene evidence is
    current on those snapshots; the implementation owner may run it and valid
    existing results are reused;
-3. provide the complete packet and raw evidence to the fresh Final pair;
-4. reconcile material disagreements and record the agreed verdict against
+3. obtain the fresh reviewer's full report, then give it and the same packet
+   to the fresh challenger;
+4. reconcile substantive disputes and record the agreed verdict against
    that one stable state.
 
 A Final reviewer should not be asked to approve an incomplete evidence packet.
@@ -213,8 +219,8 @@ Acceptance runs against stable code. When review requires a production change:
    and its direct regression risks when that boundary requires independent
    implementation review;
 5. rerun only broad or hygiene evidence invalidated by the correction;
-6. for Final, perform a new complete Final pass with a fresh pair on the
-   corrected stable state.
+6. for Final, obtain a new full review from a fresh reviewer, then a focused
+   challenge from a fresh challenger on the corrected stable state.
 
 Do not start another reviewer between findings from the same pass and the
 corrective Slice. A new Final pass is justified only after the correction is

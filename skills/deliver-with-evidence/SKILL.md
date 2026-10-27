@@ -74,9 +74,10 @@ complexity cost before requesting a decision.
   a file's location or a declaration-only edit is not enough. Other changes
   receive focused verification and Final coverage. Reuse the reviewer for
   original-blocker and direct-regression closure; start fresh for a new boundary.
-- Before Whole Goal completion, use a fresh `final_reviewer` and a fresh
-  `challenger`, which invokes Grok, on the same stable Whole-Goal packet. Their
-  initial independent passes may run in parallel. Final requires agreement
+- Before Whole Goal completion, use a fresh `final_reviewer` on the stable
+  Whole-Goal packet. After its report is available, use a fresh `challenger`,
+  which invokes Grok to challenge that report and consequential omissions
+  against the same state and raw evidence. Final requires agreement
   under [references/acceptance-review.md](references/acceptance-review.md);
   implementation-risk review remains a single `implementation_reviewer` pass.
   Review roles use only non-mutating reads; checks requiring writes return to
@@ -177,10 +178,11 @@ Packages.
 
 Open Final only after known production changes, required documentation, and the
 evidence packet are stable. Final review is an acceptance gate, not an
-iterative debugging pass. Give the fresh Final pair the complete packet and
-request the complete currently discoverable finding sets. Final passes only
-when both agree on a pass and all material dispositions on that state. If
-blockers share one boundary, batch them into one corrective Slice; start a new
+iterative debugging pass. Request the full review from `final_reviewer`, then
+give its report and the same packet to `challenger` for focused challenge.
+Final passes only when both agree on a pass and all material dispositions on
+that state. If blockers share one boundary, batch them into one corrective
+Slice; start a new
 Final pass only after that Slice is stable and its invalidated evidence is
 refreshed. Reconcile verdict-only disagreements with the existing pair.
 

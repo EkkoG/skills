@@ -56,22 +56,21 @@ authorize implementation. Small direct tasks do not create plan files.
   draft for approval. Give it the latest goal, raw current-state evidence, and
   draft plan without a desired verdict. Reuse it for targeted closure of
   material plan changes or disputed findings.
-- For the same broad or high-risk candidate, incorporate the review findings
-  into a stable draft, then use a fresh `plan_challenger` once before user
-  approval. It invokes the local Grok CLI for the cross-model challenge of
-  assumptions, design choices, and avoidable complexity. Supply the
-  latest goal, constraints, settled decisions, current draft, raw-evidence
-  locations, and unresolved facts without prior reviewer verdicts or an
-  expected conclusion. Keep both passes on stable drafts in this order.
+- After `plan_reviewer` returns its report, use a fresh `plan_challenger` once
+  before user approval. It invokes the local Grok CLI to challenge the report's
+  findings, verdict, proposed corrections, and consequential omissions,
+  including avoidable complexity. Supply the report with its reasons and
+  limitations, the same reviewed draft, latest goal, constraints, settled
+  decisions, and raw-evidence locations, without an expected conclusion.
   Supply the installed [Grok invocation reference](references/grok-cli.md)
   and its helper path in the challenger packet.
 - Complete paired review under
   [references/review-agreement.md](references/review-agreement.md). Both roles
   must agree on the current draft's verdict and material finding dispositions.
-  If incorporating findings changes the design, obtain targeted confirmation
-  from the original reviewer on that draft before recording agreement. The
-  coordinator relays disputes and records results; optional simplifications
-  remain advice. An agreed pass makes the draft ready for user approval.
+  Close material revisions with the affected roles on the updated draft. The
+  coordinator relays substantive disputes and records results; optional
+  simplifications remain advice. An agreed pass makes the draft ready for
+  user approval.
 - Treat the draft as one approval candidate. Wording, formatting, and Slice-level
   refinements reuse unaffected conclusions. Material changes to the Goal
   contract, architecture, dependency graph, permissions, compatibility, or

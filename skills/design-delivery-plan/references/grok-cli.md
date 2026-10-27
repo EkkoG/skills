@@ -12,10 +12,11 @@ Create it with user-only permissions, normally `0700`. Prepare one private
 UTF-8 prompt file there, or reuse the coordinator's existing packet. The
 coordinator can supply this file when the role lacks scratch-write permission.
 Include the role's challenge contract, current plan or approved Goal, reviewed
-state, necessary evidence and limits.
-Initial input excludes prior verdicts and review history; give current-contract
-excerpts when a source document mixes them. Let Grok inspect bounded raw evidence
-through its read tools instead of performing another full review in Codex first.
+state, and the matching reviewer report with its verdict, findings, reasons,
+proposed corrections, evidence references and limits. Treat the report as claims
+for Grok to challenge. Let Grok inspect bounded raw evidence through its read
+tools, focusing on disputed reasoning and consequential omissions. The Codex
+coordinator prepares the packet and returns Grok's assessment faithfully.
 
 Invoke Grok directly when requested by the user or triggered by the active
 workflow's review step. Send only the necessary task-relevant review materials
