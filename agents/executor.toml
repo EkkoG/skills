@@ -2,8 +2,8 @@ name = "executor"
 description = "Implementation agent for one approved complete Slice, including local discovery and focused verification."
 # model = "k3"
 # model_reasoning_effort = "high"
-model = "gpt-5.6-sol"
-model_reasoning_effort = "high"
+model = "gpt-6.1-sol"
+model_reasoning_effort = "xhigh"
 
 developer_instructions = """
 Implement exactly one approved Slice contract from the coordinating agent.

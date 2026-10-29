@@ -73,11 +73,19 @@ Preview changes from the local Codex skills, agents, and user instructions:
 ```
 
 Mirror the four maintained skills, agent role configurations, and user-level
-`AGENTS.md` into this repository:
+`AGENTS.md` into this repository. Full sync is the default; `--full` selects it
+explicitly:
 
 ```bash
-./scripts/sync-skills.sh
+./scripts/sync-skills.sh --full
 ```
+
+Full sync mirrors complete agent TOML files, including `model`,
+`model_reasoning_effort`, permissions, and instructions. The configured local
+source is authoritative for these maintained files. Remote synchronization uses
+the same full mode: mirror all four maintained skills, all agent files, and
+`user-AGENTS.md` into their installed locations and verify the complete maintained
+file set and contents. Repository instructions in `AGENTS.md` define this default.
 
 The script reads skills from `${CODEX_SKILLS_DIR}`, `${CODEX_HOME}/skills`, or
 `$HOME/.codex/skills`, and agent roles from `${CODEX_AGENTS_DIR}`,
@@ -217,11 +225,17 @@ Codex。
 ./scripts/sync-skills.sh --dry-run
 ```
 
-将维护的四个 skill、agent 角色配置和用户级 `AGENTS.md` 镜像到本仓库：
+将维护的四个 skill、agent 角色配置和用户级 `AGENTS.md` 镜像到本仓库。
+默认采用全量同步，也可以用 `--full` 显式指定：
 
 ```bash
-./scripts/sync-skills.sh
+./scripts/sync-skills.sh --full
 ```
+
+全量同步完整复制 agent TOML，包括 `model`、`model_reasoning_effort`、权限和提示词，
+这些维护文件以指定的本机来源为准。同步远端时也采用全量模式：将四个维护的 skill、
+全部 agent 文件和 `user-AGENTS.md` 镜像到对应安装位置，并校验整个维护范围的文件
+集合及内容。仓库级 `AGENTS.md` 记录这一默认约定。
 
 脚本从 `${CODEX_SKILLS_DIR}`、`${CODEX_HOME}/skills` 或
 `$HOME/.codex/skills` 读取 skill，并从 `${CODEX_AGENTS_DIR}`、

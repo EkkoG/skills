@@ -1,6 +1,6 @@
 name = "final_reviewer"
 description = "Independent read-only reviewer that reconstructs Whole-Goal acceptance from the approved contract and raw evidence."
-model = "gpt-5.6-sol"
+model = "gpt-6.1-sol"
 model_reasoning_effort = "xhigh"
 sandbox_mode = "read-only"
 

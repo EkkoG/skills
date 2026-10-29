@@ -39,11 +39,13 @@ fi
 
 usage() {
   printf '%s\n' \
-    "Usage: $(basename "$0") [--dry-run] [--source DIR] [--agents-source DIR] [--instructions-source FILE]" \
+    "Usage: $(basename "$0") [--full] [--dry-run] [--source DIR] [--agents-source DIR] [--instructions-source FILE]" \
     "" \
     "Mirror maintained skills, agent roles, and user instructions into the repository." \
+    "Full sync is the default: complete agent files include model and reasoning settings." \
     "" \
     "Options:" \
+    "  --full              Explicitly select the default full sync mode." \
     "  --dry-run           Show changes without modifying the repository." \
     "  --source DIR        Override the source skills directory." \
     "  --agents-source DIR Override the source agents directory." \
@@ -53,6 +55,8 @@ usage() {
 
 while (($#)); do
   case "$1" in
+    --full)
+      ;;
     --dry-run)
       dry_run=true
       ;;
@@ -143,6 +147,7 @@ if [[ "$dry_run" == true ]]; then
   instructions_rsync_args+=(-n)
 fi
 
+printf 'Sync mode: full (including agent model and reasoning settings)\n'
 printf 'Skills source: %s\n' "$skills_source_root"
 printf 'Agents source: %s\n' "$agents_source_root"
 printf 'User instructions source: %s\n' "$instructions_source_file"

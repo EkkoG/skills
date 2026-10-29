@@ -1,6 +1,6 @@
 name = "plan_reviewer"
 description = "Independent read-only reviewer for plan completeness, evidence quality, dependencies, and overdesign."
-model = "gpt-5.6-sol"
+model = "gpt-6.1-sol"
 model_reasoning_effort = "xhigh"
 sandbox_mode = "read-only"
 
