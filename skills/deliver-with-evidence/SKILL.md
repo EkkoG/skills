@@ -36,18 +36,25 @@ to the coordinator before affected implementation. Explain why a smaller change
 is insufficient, the proposed scope, and principal costs and risks so the
 coordinator can obtain the user's decision through the existing approval path.
 Continue within explicitly approved bounds. Add complexity only when a simpler
-option cannot meet an explicit requirement, and explain that requirement.
+option cannot meet an in-scope need established below, and explain that need.
 
 Keep simple logic at its call site. Extract a helper or abstraction for actual
 reuse, a genuinely complex boundary, or a clear concept that improves readability.
 Follow existing project idioms. Add state, dependencies, fallback paths, or
-compatibility layers only for current requirements or concrete failure modes.
-Preserve the contract's required security, reliability, and compatibility.
+compatibility layers only for approved requirements, existing commitments, or
+failure paths supported by current code, callers, inputs, trust boundaries,
+and deployment conditions. Establish that scope basis before designing the
+handling; prior incidents are not required. Scenarios based only on unsupported
+future changes, imagined usage, or speculative failure combinations generate
+no new implementation work, tests, acceptance conditions, or user confirmation
+questions.
+Preserve required security, data integrity, reliability, and compatibility.
 
-For low-frequency scenarios, prefer simple handling, weighing likelihood and
-impact against implementation and maintenance cost. Return material unresolved
-tradeoffs, such as manual recovery, slower recovery, or limits on supported
-scenarios, to the coordinator for the user's decision.
+For in-scope low-frequency scenarios, prefer simple, explicit handling, weighing
+likelihood and impact against implementation and maintenance cost. Return only
+material unresolved tradeoffs affecting current use, reliability, or operations
+to the coordinator for the user's decision, such as manual recovery or limits
+on supported scenarios.
 
 Validate unknown input at its owning input or trust boundary. Within that
 boundary, rely on guarantees already established by validation, construction,
@@ -75,8 +82,6 @@ The coordinator resolves choices within the approved contract and records
 material decisions in the existing Slice/Delivery entry. Material requirement
 tradeoffs or changes to approved boundaries follow the existing user approval
 and plan-change rules. Review dispatch still follows the risk criteria below.
-For material hardening beyond scope, include the failure scenario, likelihood,
-impact, and complexity cost in the decision request.
 
 ## Route Execution Roles
 

@@ -105,7 +105,14 @@ authorize implementation. Small direct tasks do not create plan files.
 ## Build The Contract
 
 Establish current reality and separate facts, conclusions, assumptions, and
-pending decisions. Define:
+pending decisions. Determine whether a scenario belongs in the current goal
+before designing its handling. Ground exception handling, compatibility,
+recovery, and extension work in explicit requirements, existing commitments,
+or failure paths supported by current code, callers, inputs, trust boundaries,
+and deployment conditions. Prior incidents are not required. Scenarios based
+only on unsupported future changes, imagined usage, or speculative failure
+combinations stay outside the current plan, work items, acceptance conditions,
+and user confirmation questions. Define:
 
 - one observable final outcome and the condition for Whole Goal completion;
 - required scope, stable exclusions, intentional behavior changes, and
@@ -143,17 +150,13 @@ Default to the smallest complete change to the existing implementation that
 meets the current outcome. When a large-scale change is necessary and not
 already explicitly authorized, explain why a smaller change is insufficient,
 the proposed scope, and principal costs and risks in the plan's approval request.
-Add abstractions, layers, or recovery mechanisms only for a current
-requirement or a concrete failure under the actual input, trust, and deployment
-boundaries. For low-frequency scenarios, prefer simple handling, weighing
-likelihood and impact against implementation and maintenance cost. Surface
-material unresolved tradeoffs, such as manual recovery, slower recovery, or limits
-on supported scenarios, for the user's decision. For material hardening beyond
-scope, present the failure scenario, likelihood, impact, and complexity cost for
-the user's decision. Preserve required security, reliability, and compatibility.
-Before presentation, remove
-hypothetical extension points, package splits that only mirror directories,
-and repeated checks that add no confidence.
+For in-scope low-frequency scenarios, prefer simple, explicit handling, weighing
+likelihood and impact against implementation and maintenance cost. Ask the user
+only about material unresolved tradeoffs affecting current use, reliability, or
+operations, such as manual recovery or limits on supported scenarios. Preserve
+required security, data integrity, reliability, and compatibility. Before
+presentation, remove work lacking the scope basis above, unnecessary package
+splits, and repeated checks that add no confidence.
 
 ## Prepare Approval And Handoff
 

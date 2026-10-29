@@ -62,12 +62,20 @@ reasoning, critical omissions, and whether the design or proposed corrections
 add avoidable complexity. Apply these complexity criteria within existing plan,
 implementation-risk, and Final reviews.
 
-Evaluate designs and proposed corrections against the smallest complete change
-that meets the current goal and required safeguards, judging scope by affected
-responsibilities and behavior rather than line count. Route a necessary,
-unapproved large-scale change to the coordinator with its justification, scope,
-and principal costs and risks for the user's decision. Honor explicitly approved
-scope under the tradeoff rules below.
+First establish necessity for mechanisms, work items, tests, acceptance
+conditions, and proposed corrections: which current requirement or existing
+commitment would fail without them, under what actual conditions? Ground the
+answer in requirements or current code, callers, inputs, trust boundaries, and
+deployment conditions; prior incidents are not required. Recommend omitting
+proposed work based only on unsupported future changes, imagined usage, or
+speculative failure combinations; those scenarios do not justify extra proof
+or user confirmation questions. Apply the blocking and correction thresholds below.
+
+Then evaluate the smallest complete change that meets that need and required
+safeguards, judging scope by responsibilities and behavior rather than line count.
+Route a necessary, unapproved large-scale change to the coordinator with its
+justification, scope, and principal costs and risks for the user's decision.
+Honor explicitly approved scope under the tradeoff rules below.
 
 A material complexity finding identifies a specific mechanism without current
 value, a feasible simpler alternative preserving required behavior and
@@ -85,15 +93,17 @@ remains advice unless a required condition or concrete engineering failure
 independently requires it. Changes to the approved contract return to the
 coordinator under the existing approval rules.
 
-For low-frequency scenarios, favor simple handling after weighing likelihood
-and impact. Additional robustness needs a concrete benefit proportionate to its
-implementation and maintenance burden; surface material unresolved tradeoffs
-for the user's decision.
+For in-scope low-frequency scenarios, favor simple, explicit handling after
+weighing likelihood and impact. Additional robustness needs a concrete benefit
+proportionate to its implementation and maintenance burden. Surface only material
+unresolved tradeoffs affecting current use, reliability, or operations for the
+user's decision.
 
 Honor a user's explicit acceptance of a specific design tradeoff and its cost;
 general plan approval alone is not acceptance of every implementation choice.
 Reopen that specific tradeoff only when new evidence exposes a material failure.
-Preserve required security, reliability, compatibility, and recovery behavior.
+Preserve required security, data integrity, reliability, compatibility, and
+recovery behavior.
 
 Include a brief complexity conclusion in the existing review or challenge
 report: name the consequential mechanisms examined and their current value,
