@@ -139,8 +139,11 @@ required gates or evidence access from focused implementation checks and final
 acceptance. Reserve expensive final suites and builds for relevant stable
 source; earlier independent evidence is reusable when its inputs stay valid.
 
-Start from the smallest change to the existing implementation that meets the
-outcome. Add abstractions, layers, or recovery mechanisms only for a current
+Default to the smallest complete change to the existing implementation that
+meets the current outcome. When a large-scale change is necessary and not
+already explicitly authorized, explain why a smaller change is insufficient,
+the proposed scope, and principal costs and risks in the plan's approval request.
+Add abstractions, layers, or recovery mechanisms only for a current
 requirement or a concrete failure under the actual input, trust, and deployment
 boundaries. For low-frequency scenarios, prefer simple handling, weighing
 likelihood and impact against implementation and maintenance cost. Surface

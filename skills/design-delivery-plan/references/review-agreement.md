@@ -62,6 +62,13 @@ reasoning, critical omissions, and whether the design or proposed corrections
 add avoidable complexity. Apply these complexity criteria within existing plan,
 implementation-risk, and Final reviews.
 
+Evaluate designs and proposed corrections against the smallest complete change
+that meets the current goal and required safeguards, judging scope by affected
+responsibilities and behavior rather than line count. Route a necessary,
+unapproved large-scale change to the coordinator with its justification, scope,
+and principal costs and risks for the user's decision. Honor explicitly approved
+scope under the tradeoff rules below.
+
 A material complexity finding identifies a specific mechanism without current
 value, a feasible simpler alternative preserving required behavior and
 safeguards, and a significant avoidable maintenance or operational burden.

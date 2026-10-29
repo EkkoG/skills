@@ -30,9 +30,13 @@ routine preflight and its in-scope fixes within the current Slice.
 ## Keep Implementation Minimal
 
 Implement only the current approved outcome. Prefer the simplest, most direct,
-verifiable and maintainable option with the smallest necessary change. Add
-complexity only when a simpler option cannot meet an explicit requirement,
-and explain that requirement. Keep scope within the approved contract.
+verifiable and maintainable option with the smallest complete change. If a
+necessary large-scale change is not already explicitly authorized, return it
+to the coordinator before affected implementation. Explain why a smaller change
+is insufficient, the proposed scope, and principal costs and risks so the
+coordinator can obtain the user's decision through the existing approval path.
+Continue within explicitly approved bounds. Add complexity only when a simpler
+option cannot meet an explicit requirement, and explain that requirement.
 
 Keep simple logic at its call site. Extract a helper or abstraction for actual
 reuse, a genuinely complex boundary, or a clear concept that improves readability.
