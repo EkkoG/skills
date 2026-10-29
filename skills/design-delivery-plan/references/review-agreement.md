@@ -78,6 +78,11 @@ remains advice unless a required condition or concrete engineering failure
 independently requires it. Changes to the approved contract return to the
 coordinator under the existing approval rules.
 
+For low-frequency scenarios, favor simple handling after weighing likelihood
+and impact. Additional robustness needs a concrete benefit proportionate to its
+implementation and maintenance burden; surface material unresolved tradeoffs
+for the user's decision.
+
 Honor a user's explicit acceptance of a specific design tradeoff and its cost;
 general plan approval alone is not acceptance of every implementation choice.
 Reopen that specific tradeoff only when new evidence exposes a material failure.

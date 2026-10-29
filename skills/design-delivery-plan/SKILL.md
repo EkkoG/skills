@@ -83,6 +83,9 @@ authorize implementation. Small direct tasks do not create plan files.
   use independent plan review only when scope or uncertainty warrants it.
 - Start delegated planning work with `fork_turns="none"` and a self-contained
   task packet; reference exact paths instead of copying long documents.
+  Give each reviewer and challenger the installed absolute path to the
+  [shared quality criteria](references/review-agreement.md#preserve-the-quality-threshold)
+  and require reading and applying that section.
 - Planning uses `plan_reviewer` and `plan_challenger`; execution roles belong
   to approved-plan execution.
 - Use main-thread fallback for a required role only after an explicit tool or
@@ -139,9 +142,13 @@ source; earlier independent evidence is reusable when its inputs stay valid.
 Start from the smallest change to the existing implementation that meets the
 outcome. Add abstractions, layers, or recovery mechanisms only for a current
 requirement or a concrete failure under the actual input, trust, and deployment
-boundaries. For material hardening beyond scope, present the failure scenario,
-likelihood, impact, and complexity cost for the user's decision. Preserve
-required security, reliability, and compatibility. Before presentation, remove
+boundaries. For low-frequency scenarios, prefer simple handling, weighing
+likelihood and impact against implementation and maintenance cost. Surface
+material unresolved tradeoffs, such as manual recovery, slower recovery, or limits
+on supported scenarios, for the user's decision. For material hardening beyond
+scope, present the failure scenario, likelihood, impact, and complexity cost for
+the user's decision. Preserve required security, reliability, and compatibility.
+Before presentation, remove
 hypothetical extension points, package splits that only mirror directories,
 and repeated checks that add no confidence.
 

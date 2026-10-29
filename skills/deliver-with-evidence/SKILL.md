@@ -40,6 +40,11 @@ Follow existing project idioms. Add state, dependencies, fallback paths, or
 compatibility layers only for current requirements or concrete failure modes.
 Preserve the contract's required security, reliability, and compatibility.
 
+For low-frequency scenarios, prefer simple handling, weighing likelihood and
+impact against implementation and maintenance cost. Return material unresolved
+tradeoffs, such as manual recovery, slower recovery, or limits on supported
+scenarios, to the coordinator for the user's decision.
+
 Validate unknown input at its owning input or trust boundary. Within that
 boundary, rely on guarantees already established by validation, construction,
 or types; reassess when data or trust boundaries change.
@@ -116,8 +121,11 @@ verification and review gates.
 Give delegated roles a self-contained packet with the workspace, stable
 repository states, approved conditions, exact scope and exclusions, preserved
 behavior, required evidence, and raw-evidence locations. Include the constraints
-from Keep Implementation Minimal in every executor packet. Do not suggest a
-desired verdict. Delegated roles return evidence and findings; they do not edit
+from Keep Implementation Minimal in every executor packet. Give each reviewer
+and challenger the installed absolute path to the
+[shared quality criteria](../design-delivery-plan/references/review-agreement.md#preserve-the-quality-threshold)
+and require reading and applying that section. Do not suggest a desired verdict.
+Delegated roles return evidence and findings; they do not edit
 Delivery, change the plan, select later work, create commits, or declare a
 formal boundary complete. Return one compact result with changed scope,
 outcome, reproducible evidence and locations, verification-state references,

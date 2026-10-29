@@ -11,6 +11,8 @@ The coordinator supplies an existing private review directory:
 Create it with user-only permissions, normally `0700`. Prepare one private
 UTF-8 prompt file there, or reuse the coordinator's existing packet. The
 coordinator can supply this file when the role lacks scratch-write permission.
+Read the [shared quality criteria](review-agreement.md#preserve-the-quality-threshold)
+and include that section's text in the Grok prompt as review instructions.
 Include the role's challenge contract, current plan or approved Goal, reviewed
 state, and the matching reviewer report with its verdict, findings, reasons,
 proposed corrections, evidence references and limits. Treat the report as claims
