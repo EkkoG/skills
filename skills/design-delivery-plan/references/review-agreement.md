@@ -36,7 +36,7 @@ wording, optional advice, or severity labels that do not change disposition.
 | Both pass; every material finding is resolved | agreed-pass | Review gate satisfied; normal approval or acceptance still applies |
 | Both confirm the blocking findings and their dispositions | agreed-blocked | Review has a settled result; correct blockers, not acceptance |
 | Conflicting verdicts or material finding dispositions | pending | Reconcile disputed items |
-| Missing role, failed CLI, incomplete evidence, or incompatible snapshots | pending | Restore the missing prerequisite |
+| Unavailable participant, incomplete review or evidence, or incompatible snapshots | pending | Restore the missing prerequisite |
 
 When the challenger confirms the verdict and material dispositions with no
 new blocker or consequential gap, record agreement directly. New or disputed
@@ -113,11 +113,12 @@ evidence; no inventory, separate review round, or finding quota is required.
 
 ## Availability And Recording
 
-Grok-backed roles use the [shared invocation helper](grok-cli.md). Keep runtime
-failures separate from substantive verdicts; CLI completion alone is not a pass.
+Both participants run as native subagents. Keep startup, runtime, and access
+failures separate from substantive verdicts; require an explicit verdict
+supported by evidence for the reviewed state.
 
-After one applicable recovery attempt, an unavailable reviewer or failed Grok
-invocation leaves the paired gate pending. A disclosed local diagnostic
+After one applicable recovery attempt, an unavailable reviewer or challenger
+leaves the paired gate pending. A disclosed local diagnostic
 fallback can identify work to do, but cannot replace either participant or count
 as agreement. Report the limitation and ask the user how to proceed. Only an
 explicit user revision of this gate can authorize a different completion path;

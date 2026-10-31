@@ -104,7 +104,7 @@ and plan-change rules. Review dispatch still follows the risk criteria below.
   coverage. Reuse the reviewer for original-blocker and direct-regression
   closure; start fresh for a new boundary.
 - Start Final with a fresh `final_reviewer` on the stable Whole-Goal packet.
-  After its report is available, use a fresh `challenger`, which invokes Grok
+  After its report is available, use a fresh native `challenger` subagent
   to challenge that report and consequential omissions against the same state
   and raw evidence. Reuse the pair for local corrective closure; the criteria
   for a fresh full review and required agreement are in

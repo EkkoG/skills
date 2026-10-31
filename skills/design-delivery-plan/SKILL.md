@@ -57,13 +57,11 @@ authorize implementation. Small direct tasks do not create plan files.
   draft plan without a desired verdict. Reuse it for targeted closure of
   material plan changes or disputed findings.
 - After `plan_reviewer` returns its report, use a fresh `plan_challenger` once
-  before user approval. It invokes the local Grok CLI to challenge the report's
+  before user approval. Start it as a native subagent to challenge the report's
   findings, verdict, proposed corrections, and consequential omissions,
   including avoidable complexity. Supply the report with its reasons and
   limitations, the same reviewed draft, latest goal, constraints, settled
   decisions, and raw-evidence locations, without an expected conclusion.
-  Supply the installed [Grok invocation reference](references/grok-cli.md)
-  and its helper path in the challenger packet.
 - Complete paired review under
   [references/review-agreement.md](references/review-agreement.md). Both roles
   must agree on the current draft's verdict and material finding dispositions.
@@ -96,7 +94,7 @@ authorize implementation. Small direct tasks do not create plan files.
   unique task name. Disclose the restriction or error, recovery outcome, and
   lack of independent reviewer context before doing the bounded work locally.
   For paired review, local fallback is diagnostic only: an unavailable
-  `plan_reviewer`, `plan_challenger`, or Grok invocation leaves agreement
+  `plan_reviewer` or `plan_challenger` leaves agreement
   pending under the shared agreement contract. Disclose the limitation and
   ask the user how to proceed; Main cannot substitute its own agreement.
 - Reviewers, challengers, and explorers in writable sandboxes continue under

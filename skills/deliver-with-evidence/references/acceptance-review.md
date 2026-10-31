@@ -140,14 +140,11 @@ a different boundary.
 
 Final starts with a fresh `final_reviewer` given the approved contract, stable
 repository snapshots, complete raw evidence, and material limitations. After
-it returns, give its report and the same packet to a fresh Grok-backed
-`challenger`. The challenger probes findings, blocker severity, verdict support,
-proposed corrections, and critical omissions, with raw reads focused on those
+it returns, give its report and the same packet to a fresh native
+`challenger` subagent. The challenger probes findings, blocker severity, verdict
+support, proposed corrections, and critical omissions, with raw reads focused on those
 questions. Both retain independent judgment without a desired conclusion and
 use only non-mutating reads; checks requiring writes return to the coordinator.
-Supply the challenger with the installed
-[Grok invocation reference](../../design-delivery-plan/references/grok-cli.md)
-and its helper path.
 Read and apply the shared
 [review-agreement contract](../../design-delivery-plan/references/review-agreement.md)
 before closing Final. Implementation-risk review retains a single reviewer.
@@ -170,7 +167,7 @@ diagnostic evidence while a Final participant is unavailable:
 For Final, this fallback does not complete the paired gate. Keep agreement
 pending and report the blocker; any different completion path needs an
 explicit user revision of the gate, recorded as an exception rather than
-agreement. A failed or incomplete Grok invocation is also an unavailable result.
+agreement. A failed or incomplete participant result also leaves the gate pending.
 
 Ask an initial review for the complete currently discoverable finding set and a
 bounded counterexample matrix for each blocker class. Separate blockers from
