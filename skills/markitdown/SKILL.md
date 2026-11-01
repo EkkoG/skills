@@ -10,6 +10,14 @@ conversion unless the user explicitly requests an Azure-backed mode or offline
 conversion is inadequate and sending the content to the configured service is
 authorized.
 
+For HTTP/HTTPS inputs or authorized cloud conversion, use the current
+environment's network policy and existing grants to choose execution permissions
+before the first invocation. Run directly when the required network access is
+available; when it is known to be restricted, obtain the required access through
+the available network-permission or command-approval mechanism before running.
+Reuse valid grants. Local offline conversion uses the existing execution
+permissions.
+
 ## Choose The Command
 
 - Convert a local file to stdout for inspection:
