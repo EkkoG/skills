@@ -39,8 +39,9 @@ The coordinator alone updates the plan. Record the coordinating workspace,
 draft or approved status, and the user's approval reference when given. Give
 reviewers this persistent path; keep recovery-critical supporting material and
 review results alongside it, using `reviews/` for review artifacts. Reuse durable
-sources by reference. On resume, read the saved plan and latest user decisions
-before continuing; keep the plan after delivery.
+sources by reference. On resume, use the saved plan, latest decisions and review
+status to locate the next action; reopen supporting material only where changed
+inputs or gaps affect that action. Keep the plan after delivery.
 
 Use private directories and files, normally `0700` and `0600`. Obtain any
 missing write permission through normal approval; if unavailable, report the
@@ -53,9 +54,9 @@ authorize implementation. Small direct tasks do not create plan files.
   Goal scope, a Work Package boundary, dependencies, or first Slice selection.
   Reuse its evidence in the current planning pass.
 - For a broad or high-risk plan, use `plan_reviewer` once before presenting the
-  draft for approval. Give it the latest goal, raw current-state evidence, and
-  draft plan without a desired verdict. Reuse it for targeted closure of
-  material plan changes or disputed findings.
+  draft for approval. Give it the latest goal, comparison baseline, raw
+  current-state evidence, and draft plan without a desired verdict. Reuse it for
+  targeted closure of material plan changes or disputed findings.
 - After `plan_reviewer` returns its report, use a fresh `plan_challenger` once
   before user approval. Start it as a native subagent to challenge the report's
   findings, verdict, proposed corrections, and consequential omissions,
@@ -103,8 +104,11 @@ authorize implementation. Small direct tasks do not create plan files.
 ## Build The Contract
 
 Establish current reality and separate facts, conclusions, assumptions, and
-pending decisions. Determine whether a scenario belongs in the current goal
-before designing its handling. Ground exception handling, compatibility,
+pending decisions. Identify the current goal's comparison baseline using an
+existing commit, snapshot, or observed behavior. Judge cumulative scope against
+that baseline across revisions; an approved goal change may revise it while
+retaining visibility of the cumulative work. Determine whether a scenario belongs
+in the current goal before designing its handling. Ground exception handling, compatibility,
 recovery, and extension work in explicit requirements, existing commitments,
 or failure paths supported by current code, callers, inputs, trust boundaries,
 and deployment conditions. Prior incidents are not required. Scenarios based

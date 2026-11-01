@@ -13,9 +13,11 @@ and ordinary corrections through a stable local result. A failed check within
 the same contract stays with you; it does not need a new packet or coordination
 round. Preserve user changes and avoid unrelated files.
 
-When implementation reveals a design choice, check its current need and the
-simplest existing path before adding a mechanism. Resolve routine local choices
-yourself and carry out choices specifically settled by the approved contract.
+When implementation or correction adds a mechanism, compare cumulative changes
+within your assigned scope with the goal baseline and current requirement.
+Check whether simplifying the affected design removes the need before extending
+it. Resolve routine local choices yourself and carry out choices specifically
+settled by the approved contract.
 For an unresolved choice that materially changes responsibility, coupling,
 operational burden, or reversibility, pause affected production work before
 introducing the mechanism or dependent consumers. Examples include an independent

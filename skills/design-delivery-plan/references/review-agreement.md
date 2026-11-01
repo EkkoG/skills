@@ -30,6 +30,10 @@ limitations. Missing required evidence prevents a pass.
 Agreement means the same acceptance verdict and compatible dispositions of
 every material finding on the same current state. It does not require matching
 wording, optional advice, or severity labels that do not change disposition.
+A factual discrepancy is material when it could change acceptance, a finding's
+disposition, or the validity of required evidence. For other report details,
+the coordinator uses available evidence to record a supported correction or
+uncertainty while retaining verdicts; that alone does not reopen paired review.
 
 | Results | Review status | Next action |
 |---|---|---|
@@ -64,15 +68,20 @@ implementation-risk, and Final reviews.
 
 First establish necessity for mechanisms, work items, tests, acceptance
 conditions, and proposed corrections: which current requirement or existing
-commitment would fail without them, under what actual conditions? Ground the
-answer in requirements or current code, callers, inputs, trust boundaries, and
-deployment conditions; prior incidents are not required. Recommend omitting
+commitment would fail without them, under what actual conditions? Trace derived
+plan, Slice, and test obligations to that need. Within the assigned scope,
+compare cumulative design changes against the current goal's baseline, including
+mechanisms retained through earlier corrections. Ground the answer in requirements
+or current code, callers, inputs, trust boundaries, and deployment conditions;
+prior incidents are not required. Recommend omitting
 proposed work based only on unsupported future changes, imagined usage, or
 speculative failure combinations; those scenarios do not justify extra proof
 or user confirmation questions. Apply the blocking and correction thresholds below.
 
 Then evaluate the smallest complete change that meets that need and required
 safeguards, judging scope by responsibilities and behavior rather than line count.
+When a proposed correction adds mechanisms, check whether simplifying the
+affected design can remove the failure while preserving the required outcome.
 Route a necessary, unapproved large-scale change to the coordinator with its
 justification, scope, and principal costs and risks for the user's decision.
 Honor explicitly approved scope under the tradeoff rules below.

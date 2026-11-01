@@ -26,7 +26,8 @@ boundary.
 ## Current State
 
 Summarize observed architecture, authority, data flow, tests, documentation,
-known problems, and reusable parts. Separate facts, conclusions, and assumptions.
+known problems, reusable parts, and the goal's comparison baseline. Separate
+facts, conclusions, and assumptions.
 For multi-repository work, list each resolved repository root and the Goal
 responsibility it owns.
 

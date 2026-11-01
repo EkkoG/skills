@@ -29,7 +29,10 @@ routine preflight and its in-scope fixes within the current Slice.
 
 ## Keep Implementation Minimal
 
-Implement only the current approved outcome. Prefer the simplest, most direct,
+Implement only the current approved outcome. Within the assigned scope, judge
+cumulative changes against the goal's comparison baseline. Retain it in Delivery
+from the plan, or establish it from the approved goal and available pre-change
+evidence when absent. Prefer the simplest, most direct,
 verifiable and maintainable option with the smallest complete change. If a
 necessary large-scale change is not already explicitly authorized, return it
 to the coordinator before affected implementation. Explain why a smaller change
@@ -63,8 +66,8 @@ or types; reassess when data or trust boundaries change.
 Exercise the actual implementation rather than copies of its logic; prefer
 fixtures and real code paths, using test doubles where isolation requires them.
 
-As design choices emerge during implementation, check the current requirement,
-existing capability, and simplest sufficient approach before adding a mechanism.
+As implementation or correction adds a mechanism, check the current requirement,
+existing capability, and whether simplifying the affected design removes the need.
 Routine local choices remain with the implementation owner. Carry out design
 choices specifically settled by the approved contract within their agreed bounds.
 
@@ -127,9 +130,9 @@ If `executor` remains unavailable, the coordinator may take over the authorized
 Slice only after the previous writer has stopped, retaining the same
 verification and review gates.
 
-Give delegated roles a self-contained packet with the workspace, stable
-repository states, approved conditions, exact scope and exclusions, preserved
-behavior, required evidence, and raw-evidence locations. Include the constraints
+Give delegated roles a self-contained packet with the workspace, goal baseline,
+stable repository states, approved conditions, exact scope and exclusions,
+preserved behavior, required evidence, and raw-evidence locations. Include the constraints
 from Keep Implementation Minimal in every executor packet. Give each reviewer
 and challenger the installed absolute path to the
 [shared quality criteria](../design-delivery-plan/references/review-agreement.md#preserve-the-quality-threshold)

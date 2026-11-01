@@ -4,11 +4,18 @@ Use this reference when initializing, resuming, or structurally updating the
 private Delivery document. Keep project documents authoritative and copy only
 the contract and state needed for reliable resumption and acceptance.
 
-At initialization and resumption, open the referenced plan and verify its
-contract against the user's approval and subsequent approved changes. For a
-file-backed plan, record its persistent absolute path as Plan source and retain
+At initialization, open the referenced plan and verify its contract against
+the user's approval and subsequent approved changes. For a file-backed plan,
+record its persistent absolute path as Plan source and retain
 the original location; Delivery tracks execution rather than becoming a second
 full plan. Resolve a missing source or approval mismatch before production work.
+
+On resumption, start with Delivery's current contract, Resume action, and latest
+user decisions. Confirm the plan source and approval, workspace, and relevant
+repository state; read only the plan sections and evidence needed for the pending
+action or a material gap, contradiction, or changed dependency. Reuse conclusions
+whose supporting inputs remain valid under the evidence rules below. If completion
+is already supported, continue with any outstanding handoff or reporting.
 
 ## Resolve The Path And Permission
 
@@ -84,9 +91,9 @@ Goal, plan source, or initial approval identifies different work.
 
 ## Repository States
 
-| Repository | Resolved root | Goal scope | HEAD | Worktree |
-|---|---|---|---|---|
-| `<name>` | `<absolute path>` | `<owned Goal responsibility>` | `<commit or not applicable>` | `<clean, concise dirty paths, or non-Git baseline>` |
+| Repository | Resolved root | Goal scope | Goal baseline | HEAD | Worktree |
+|---|---|---|---|---|---|
+| `<name>` | `<absolute path>` | `<owned Goal responsibility>` | `<comparison commit, snapshot, or observed behavior>` | `<commit or not applicable>` | `<clean, concise dirty paths, or non-Git state>` |
 
 ## Approved Contract
 
@@ -176,7 +183,7 @@ Goal, plan source, or initial approval identifies different work.
 
 ## Resume
 
-<Exact continuation point or re-evaluation action>
+<Exact next action, required inputs or unresolved dependency, and relevant evidence links>
 ```
 
 Omit optional fields that do not apply. When a durable plan exists, link it and
@@ -186,9 +193,11 @@ of the approved contract to resume every Work Package without guessing.
 ## Record Repository State And Commit Checkpoints
 
 List every repository whose production state or commit history participates in
-the Goal. Record its resolved root, owned Goal scope, current HEAD, and concise
-worktree state. Refresh affected rows when selecting, completing, blocking,
-resuming, or invalidating a Slice and at every acceptance boundary.
+the Goal. Record its resolved root, owned Goal scope, comparison baseline,
+current HEAD, and concise worktree state. Preserve the baseline across Slices
+and corrections; when an approved goal revision changes it, retain the cumulative
+scope reference in the Goal Change Record. Refresh affected rows when selecting,
+completing, blocking, resuming, or invalidating a Slice and at every acceptance boundary.
 
 One logical commit checkpoint may contain a hash for each participating
 repository. Treat it as complete only when every intended repository commit

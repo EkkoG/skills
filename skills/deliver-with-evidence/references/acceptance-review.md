@@ -235,10 +235,11 @@ boundaries, or broadly invalidates the prior review's basis. Contract changes
 follow the existing approval rules. Start either closure or full review after
 the correction is stable and affected evidence is current.
 
-Default to one regular corrective cycle. If the same finding class survives,
-reconstruct the contract, counterexample, and Slice boundary before further
-implementation. Additional findings extend the loop only when they meet the
-blocking threshold above, including material avoidable complexity with a
+If corrections add mechanisms or the same finding class survives, reassess the
+underlying requirement, cumulative design against the goal baseline, and whether
+a simpler design removes the failure. Resolve material choices under the existing
+approval rules before further affected implementation. Additional findings extend
+the loop only when they meet the blocking threshold above, including material avoidable complexity with a
 proportionate correction. Group related findings into the same corrective
 Slice and reuse unaffected evidence.
 
