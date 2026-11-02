@@ -37,7 +37,7 @@ An independent reviewer reconstructs the contract for its assigned boundary.
 For an initial or restarted full Final review, `final_reviewer` reconstructs
 every Goal and Work Package condition from the approved plan and current
 implementation. Local corrective closure follows Correct Blocking Findings
-below. A triggered Final challenger probes the report's judgments and consequential
+below. The Final challenger probes the report's judgments and consequential
 omissions against raw evidence. Delivery and prior reports locate evidence;
 their completion labels are claims, not proof.
 
@@ -139,11 +139,11 @@ the same reviewer for a boundary's corrective closure and a fresh reviewer for
 a different boundary.
 
 Final starts with a fresh `final_reviewer` given the approved contract, stable
-repository snapshots, complete raw evidence, and material limitations. Its pass
-normally satisfies the independent review gate. After the report, apply the shared
-[conditional challenge criteria](../../design-delivery-plan/references/review-agreement.md#review-and-decide-whether-to-challenge).
-When triggered, give a fresh `challenger` the concrete question, report and same
-packet, and close the challenge under that reference. All review roles retain
+repository snapshots, complete raw evidence, and material limitations. After its
+report, give a fresh `challenger` that report and the same packet by default.
+Obtain `agreed-pass` under the shared
+[review contract](../../design-delivery-plan/references/review-agreement.md#review-then-challenge)
+to satisfy the independent Final gate. All review roles retain
 independent judgment without a desired conclusion and use only non-mutating reads;
 checks requiring writes return to the implementation owner. Implementation-risk
 review retains a single reviewer.
@@ -154,7 +154,7 @@ follow the no-write contract and disclose the effective sandbox and lack of
 isolation in the result. Once role unavailability is established under the
 [role-routing criteria](../SKILL.md#route-execution-roles),
 use this clean-room fallback for an implementation-risk review, or to collect
-diagnostic evidence while a required Final reviewer or triggered challenger is unavailable:
+diagnostic evidence while the Final reviewer or challenger is unavailable:
 
 1. rebuild the current acceptance matrix from the approved plan, using the
    whole-Goal matrix for Final;
@@ -163,7 +163,7 @@ diagnostic evidence while a required Final reviewer or triggered challenger is u
 4. disclose that the review was not delegated and therefore lacks a separate
    reviewer context.
 
-Final requires an independent reviewer pass and closure of any triggered challenge.
+Final requires `agreed-pass` from the independent reviewer and challenger.
 Local fallback remains diagnostic; report a missing required result as pending.
 A different completion path needs an explicit user revision of the gate, recorded
 with the exception and actual review coverage. Failed or incomplete required
@@ -193,8 +193,9 @@ Use this order:
 2. have the coordinator ensure required broad, build and hygiene evidence is
    current on those snapshots; the implementation owner may run it and valid
    existing results are reused;
-3. obtain the fresh reviewer's full report and assess whether a challenge is needed;
-4. close any triggered challenge and record the review result against that stable state.
+3. obtain the fresh reviewer's full report;
+4. have a fresh challenger challenge that report and record paired agreement
+   against the same stable state.
 
 A Final reviewer should not be asked to approve an incomplete evidence packet.
 Additional evidence without a production change can return to a pending verdict
@@ -223,16 +224,17 @@ For a local Final correction, reuse the original reviewer. Give it the prior
 reports, corrected state, change scope, and refreshed evidence.
 The reviewer checks the fixes, direct regression risks, and affected conditions,
 retaining conclusions whose supporting inputs remain valid, and returns an updated
-Whole-Goal verdict. If challenged conclusions are affected, reuse that challenger
-to check the updated report and close those findings. Retain valid challenge
-conclusions and assess any new concern under the shared challenge criteria.
+Whole-Goal verdict. Then reuse the original challenger to check the updated
+report's treatment of those fixes, affected conditions and retained coverage.
+Retain valid conclusions from both roles and close affected findings under the
+shared agreement rules.
 
 Restart full Final review with a fresh reviewer only when the correction changes
 the approved contract, changes design across responsibility or authority
 boundaries, or broadly invalidates the prior review's basis. Contract changes
-follow the existing approval rules. Reassess challenge needs on the new report,
-including unresolved prior concerns. Start either closure or full review after the
-correction is stable and affected evidence is current.
+follow the existing approval rules. A fresh challenger then challenges the new
+report, including unresolved prior concerns. Start either closure or full review
+after the correction is stable and affected evidence is current.
 
 If corrections add mechanisms or the same finding class survives, reassess the
 underlying requirement, cumulative design against the goal baseline, and whether
@@ -249,8 +251,8 @@ Final.
 
 Completion requires sufficient current evidence for every condition in scope,
 no unresolved blocker, and explicit approval for every exception. Final also
-requires the independent reviewer's pass and closure of every triggered challenge
-under the shared review contract.
+requires `agreed-pass` from the independent reviewer and challenger under the
+shared review contract.
 
 ## Acceptance Report
 
@@ -268,8 +270,8 @@ Review mode:
 Independent review (when required):
 <Reviewer result reference and pass/blocked/incomplete/pending>
 
-Challenge (when triggered):
-<Reason, both result references, agreed-pass/agreed-blocked/pending, material dispositions>
+Challenge (required at Final):
+<Both result references, agreed-pass/agreed-blocked/pending, material dispositions>
 
 | Requirement | Type | Status | Current evidence | Counterexample when applicable | Exception |
 |---|---|---|---|---|---|

@@ -59,17 +59,17 @@ authorize implementation. Small direct tasks do not create plan files.
   work. Give it the latest goal, comparison baseline, raw current-state evidence,
   and draft without a desired verdict. Otherwise Main prepares the draft for
   user approval directly.
-- A reviewer pass normally closes independent plan review. After its report,
-  use `plan_challenger` only under the
-  [conditional challenge criteria](references/review-agreement.md#review-and-decide-whether-to-challenge).
-  Give it the concrete question, report, same reviewed draft, contract and raw
-  evidence without an expected conclusion. Close any triggered challenge under
-  that reference before presenting the draft for approval.
+- Each independent plan review includes `plan_challenger` by default, after
+  `plan_reviewer` returns its report. Give it the report, same reviewed draft,
+  contract and raw evidence without an expected conclusion. Obtain `agreed-pass`
+  under the [review contract](references/review-agreement.md#review-then-challenge)
+  before presenting the draft for approval.
 - Treat the draft as one approval candidate. Reuse the original reviewer for
   required evidence gaps, disputed findings and material revisions within its
-  scope; retain unaffected conclusions. Reuse an existing challenger for affected
-  challenged conclusions. Wording, formatting and local refinements retain valid
-  review results. Apply the review triggers to newly introduced material decisions.
+  scope; retain unaffected conclusions. Then reuse the original challenger to
+  check the updated report's affected conclusions. Wording, formatting and local
+  refinements retain valid review results. Apply the review triggers to newly
+  introduced material decisions.
 - Start delegated planning work with `fork_turns="none"` and a self-contained
   task packet; reference exact paths instead of copying long documents.
   Give each reviewer and challenger the installed absolute path to the
@@ -82,7 +82,7 @@ authorize implementation. Small direct tasks do not create plan files.
   Recover invocation conflicts by reusing an eligible agent or choosing a
   unique task name. Disclose the restriction or error, recovery outcome, and
   lack of independent reviewer context before doing the bounded work locally.
-  For a required `plan_reviewer` or triggered `plan_challenger`, local fallback
+  For a required `plan_reviewer` or `plan_challenger`, local fallback
   is diagnostic only; the review remains pending under the shared review contract.
   Disclose the limitation and ask the user how to proceed.
 - Reviewers, challengers, and explorers in writable sandboxes continue under

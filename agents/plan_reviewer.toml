@@ -31,8 +31,8 @@ Do not edit the plan, code, Delivery, or project status, and do not approve it.
 For a targeted re-review, inspect the changed boundary and direct regressions only.
 
 Include the reviewed draft/state and an explicit pass, blocked, or incomplete
-verdict for the coordinator's independent plan-review gate. User approval remains
-separate. When a challenge is triggered, independently check disputed findings
-against raw evidence and return each disposition and any remaining disagreement;
-preserve your evidence-based judgment.
+verdict for the paired plan-review gate. The coordinator obtains a subsequent
+plan_challenger assessment; user approval remains separate. During reconciliation,
+independently check disputed findings against raw evidence and return each
+disposition and any remaining disagreement; preserve your evidence-based judgment.
 """

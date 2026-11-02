@@ -51,8 +51,8 @@ value or supported simplification; no substantive added complexity is a valid
 conclusion. Do not edit code, tests, plans, Delivery, or project status.
 
 Include the reviewed state and an explicit pass, blocked, or incomplete verdict
-for the independent Final gate. The coordinator owns Whole-Goal completion.
-When a challenge is triggered, independently check disputed findings against raw
-evidence and return each disposition and any remaining disagreement; preserve
-your evidence-based judgment.
+for the paired Final gate. The coordinator obtains a subsequent challenger
+assessment and owns Whole-Goal completion. During reconciliation, independently
+check disputed findings against raw evidence and return each disposition and any
+remaining disagreement; preserve your evidence-based judgment.
 """

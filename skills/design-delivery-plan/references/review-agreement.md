@@ -1,23 +1,17 @@
-# Review Decisions And Conditional Challenge
+# Review And Challenge Agreement
 
 Use this contract for independent plan and Final reviews. The calling skill
-defines when a reviewer is required; a challenge uses the same review boundary.
+defines when independent review is required. Each independent plan or Final
+review uses a reviewer followed by a challenger by default, on the same boundary.
 
-## Review And Decide Whether To Challenge
+## Review Then Challenge
 
 The reviewer first evaluates the goal, constraints, review scope, stable draft
 or repository snapshots, and raw evidence. Its report identifies the reviewed
 state, verdict, material findings and proposed corrections, supporting reasons
 and evidence, and coverage limitations.
 
-The reviewer normally supplies the independent verdict. Add a challenger when
-an important design tradeoff remains disputed, evidence materially conflicts
-with the review's reasoning, or a high-consequence acceptance judgment remains
-uncertain. A user-requested challenge also qualifies. Record the concrete question
-in the existing review entry. Clear blockers go to correction and missing evidence
-to collection with the original reviewer.
-
-For a triggered challenge, give the challenger the available report and access to
+After the report, give the challenger that report and access to
 the same contract, reviewed state (including worktree changes), and raw evidence.
 Require a report covering the supplied state before starting the challenge.
 The challenger checks findings, blocker severity, the verdict's support, and
@@ -34,12 +28,8 @@ limitations. Missing required evidence prevents a pass.
 
 ## Close The Review
 
-Without a triggered challenge, record the reviewer's verdict. A `pass` with all
-material findings resolved satisfies the independent review gate; `blocked` or
-`incomplete` requires correction or evidence before acceptance.
-
-Once a challenge is triggered, close it with both participants before acceptance.
-Apply the agreement rules below to their conclusions on the current state,
+Close the review with both participants before acceptance. Apply the agreement
+rules below to their conclusions on the current state,
 retaining unaffected conclusions while their supporting inputs remain valid.
 
 Agreement means the same acceptance verdict and compatible dispositions of
@@ -137,20 +127,20 @@ evidence; no inventory, separate review round, or finding quota is required.
 
 ## Availability And Recording
 
-Required reviewers and triggered challengers run as native subagents. Keep startup, runtime, and access
-failures separate from substantive verdicts; require an explicit verdict
+Reviewers and challengers run as native subagents. Keep startup, runtime, and
+access failures separate from substantive verdicts; require an explicit verdict
 supported by evidence for the reviewed state.
 
-After one applicable recovery attempt, an unavailable required reviewer or
-triggered challenger leaves that review pending. A disclosed local diagnostic
+After one applicable recovery attempt, an unavailable reviewer or challenger
+leaves the paired review pending. A disclosed local diagnostic
 fallback can identify work to do, but cannot replace a required independent verdict.
 Report the limitation and ask the user how to proceed. Only an
 explicit user revision of this gate can authorize a different completion path;
 record the exception and actual review coverage.
 
-The coordinator alone records the reviewed state, reviewer result, material
-dispositions, and any triggered challenge's reason, result and agreement status
-in the existing plan-review summary or Delivery evidence. Link existing outputs;
-no extra report or command transcript is required. A reviewer `pass`, or an
-`agreed-pass` when challenged, satisfies the review gate. User approval and required
-evidence still apply. Blocked, incomplete and pending reviews never authorize acceptance.
+The coordinator alone records the reviewed state, both results, material
+dispositions, and agreement status in the existing plan-review summary or
+Delivery evidence. Link existing outputs; no extra report or command transcript
+is required. An `agreed-pass` satisfies the review gate. User approval and
+required evidence still apply. Blocked, incomplete and pending reviews never
+authorize acceptance.

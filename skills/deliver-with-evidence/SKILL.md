@@ -108,8 +108,8 @@ and plan-change rules. Review dispatch still follows the risk criteria below.
   coverage. Reuse the reviewer for original-blocker and direct-regression
   closure; start fresh for a new boundary.
 - Start Final with a fresh `final_reviewer` on the stable Whole-Goal packet.
-  Its pass normally closes the independent review gate. Add `challenger` after
-  the report only when the shared conditional challenge criteria apply.
+  After its report, use a fresh `challenger` by default to challenge that report
+  against the same packet. `agreed-pass` closes the independent review gate.
   Review closure, correction and availability rules are in
   [references/acceptance-review.md](references/acceptance-review.md).
   Implementation-risk review remains a single `implementation_reviewer` pass.
@@ -213,11 +213,12 @@ evidence. Use a Milestone for one stable boundary containing one or more Work
 Packages.
 
 Open Final only after known production changes, required documentation, and the
-evidence packet are stable. Obtain `final_reviewer`'s independent Whole-Goal pass
-and close any triggered challenge under the acceptance reference. Batch blockers
-from one boundary into a corrective Slice. Once it is stable and invalidated
-evidence is refreshed, close affected conditions with the original reviewer and
-any affected challenger, or restart full review when the reference's criteria apply.
+evidence packet are stable. Obtain Whole-Goal `agreed-pass` from
+`final_reviewer` followed by `challenger` under the acceptance reference. Batch
+blockers from one boundary into a corrective Slice. Once it is stable and invalidated
+evidence is refreshed, close affected conditions with the original reviewer
+followed by the original challenger, or restart full review when the reference's
+criteria apply.
 
 Run focused checks on each corrected state as needed to finish its outcome.
 Reserve expensive boundary-wide checks, final builds and Whole-Goal hygiene
