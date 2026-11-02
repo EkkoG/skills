@@ -50,43 +50,31 @@ authorize implementation. Small direct tasks do not create plan files.
 
 ## Route Planning Roles
 
+- Main owns investigation and plan drafting, reusing the current context.
 - Use `explorer` only for a bounded, read-only question whose answer can change
   Goal scope, a Work Package boundary, dependencies, or first Slice selection.
   Reuse its evidence in the current planning pass.
-- For a broad or high-risk plan, use `plan_reviewer` once before presenting the
-  draft for approval. Give it the latest goal, comparison baseline, raw
-  current-state evidence, and draft plan without a desired verdict. Reuse it for
-  targeted closure of material plan changes or disputed findings.
-- After `plan_reviewer` returns its report, use a fresh `plan_challenger` once
-  before user approval. Start it as a native subagent to challenge the report's
-  findings, verdict, proposed corrections, and consequential omissions,
-  including avoidable complexity. Supply the report with its reasons and
-  limitations, the same reviewed draft, latest goal, constraints, settled
-  decisions, and raw-evidence locations, without an expected conclusion.
-- Complete paired review under
-  [references/review-agreement.md](references/review-agreement.md). Both roles
-  must agree on the current draft's verdict and material finding dispositions.
-  Close material revisions with the affected roles on the updated draft. The
-  coordinator relays substantive disputes and records results; optional
-  simplifications remain advice. An agreed pass makes the draft ready for
-  user approval.
-- Treat the draft as one approval candidate. Wording, formatting, and Slice-level
-  refinements reuse unaffected conclusions. Material changes to the Goal
-  contract, architecture, dependency graph, permissions, compatibility, or
-  acceptance strength require targeted closure by the affected role. Evidence
-  closing a required gap and disputed findings return to the existing pair;
-  do not automatically rerun the full review chain.
-- Assess breadth and risk from intended behavior, authority, compatibility and
-  uncertainty, not the names of touched files or modules. Material changes to
-  public contracts, permissions, data integrity or migrations qualify; otherwise
-  use independent plan review only when scope or uncertainty warrants it.
+- Use `plan_reviewer` before approval for material architecture, compatibility,
+  authority or safety decisions, or uncertainty that could invalidate substantial
+  work. Give it the latest goal, comparison baseline, raw current-state evidence,
+  and draft without a desired verdict. Otherwise Main prepares the draft for
+  user approval directly.
+- A reviewer pass normally closes independent plan review. After its report,
+  use `plan_challenger` only under the
+  [conditional challenge criteria](references/review-agreement.md#review-and-decide-whether-to-challenge).
+  Give it the concrete question, report, same reviewed draft, contract and raw
+  evidence without an expected conclusion. Close any triggered challenge under
+  that reference before presenting the draft for approval.
+- Treat the draft as one approval candidate. Reuse the original reviewer for
+  required evidence gaps, disputed findings and material revisions within its
+  scope; retain unaffected conclusions. Reuse an existing challenger for affected
+  challenged conclusions. Wording, formatting and local refinements retain valid
+  review results. Apply the review triggers to newly introduced material decisions.
 - Start delegated planning work with `fork_turns="none"` and a self-contained
   task packet; reference exact paths instead of copying long documents.
   Give each reviewer and challenger the installed absolute path to the
   [shared quality criteria](references/review-agreement.md#preserve-the-quality-threshold)
   and require reading and applying that section.
-- Planning uses `plan_reviewer` and `plan_challenger`; execution roles belong
-  to approved-plan execution.
 - Use main-thread fallback for a required role only after an explicit tool or
   policy restriction, or an actual start/resume failure that remains after one
   applicable recovery attempt. Judge availability separately for each role;
@@ -94,10 +82,9 @@ authorize implementation. Small direct tasks do not create plan files.
   Recover invocation conflicts by reusing an eligible agent or choosing a
   unique task name. Disclose the restriction or error, recovery outcome, and
   lack of independent reviewer context before doing the bounded work locally.
-  For paired review, local fallback is diagnostic only: an unavailable
-  `plan_reviewer` or `plan_challenger` leaves agreement
-  pending under the shared agreement contract. Disclose the limitation and
-  ask the user how to proceed; Main cannot substitute its own agreement.
+  For a required `plan_reviewer` or triggered `plan_challenger`, local fallback
+  is diagnostic only; the review remains pending under the shared review contract.
+  Disclose the limitation and ask the user how to proceed.
 - Reviewers, challengers, and explorers in writable sandboxes continue under
   their no-write contracts and disclose the lack of sandbox isolation.
 

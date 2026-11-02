@@ -127,8 +127,8 @@ Goal, plan source, or initial approval identifies different work.
 - Dependent work: <Production work that waits for the verdict, or none>
 - Review snapshot: <Verified commits or scoped content references, or pending>
 - Focused evidence: <Condition-linked evidence references, or pending>
-- Verdict: <No blocker, blockers, deferred to Final, or pending>
-- Paired review (Final only): <Both result references, agreed-pass/agreed-blocked/pending, material dispositions>
+- Verdict: <Result reference, pass/blocked/incomplete, deferred to Final, or pending>
+- Challenge (when triggered at Final): <Reason, both result references, agreed-pass/agreed-blocked/pending, material dispositions>
 - Invalidated evidence: <Affected labels and reason, or none>
 
 ## Current Slice Contract

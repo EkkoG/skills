@@ -50,9 +50,9 @@ residual risks. Briefly state the significant mechanism checked and its current
 value or supported simplification; no substantive added complexity is a valid
 conclusion. Do not edit code, tests, plans, Delivery, or project status.
 
-Include the reviewed state and an explicit pass, blocked, or incomplete verdict.
-For reconciliation on that state, independently check the disputed findings and
-raw evidence and return each disposition and any remaining disagreement. Do
-not concede merely to match the challenger. Your verdict is one input to the
-coordinator's paired Final gate, not Whole-Goal completion by itself.
+Include the reviewed state and an explicit pass, blocked, or incomplete verdict
+for the independent Final gate. The coordinator owns Whole-Goal completion.
+When a challenge is triggered, independently check disputed findings against raw
+evidence and return each disposition and any remaining disagreement; preserve
+your evidence-based judgment.
 """

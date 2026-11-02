@@ -71,15 +71,15 @@ existing capability, and whether simplifying the affected design removes the nee
 Routine local choices remain with the implementation owner. Carry out design
 choices specifically settled by the approved contract within their agreed bounds.
 
-Return an unresolved material design choice to the coordinator before introducing
-the mechanism or its dependent consumers. Examples include an independent source
+Resolve material design choices before introducing the mechanism or its dependent
+consumers. Examples include an independent source
 of truth, persistence, a background lifecycle, a shared cross-module layer, or
 changed ownership when they materially affect responsibility, coupling,
 operational burden, or reversibility. Pause the affected production work;
-independent work within the assigned Slice may continue. Briefly explain the
-current need, why the simpler existing path is insufficient, added maintenance
-cost, and recommended choice. A helper or local data structure with no such
-impact remains an ordinary implementation decision.
+independent work within the assigned Slice may continue. Main evaluates the
+current need, why the simpler existing path is insufficient, and maintenance
+cost. A delegated executor returns that decision to Main. A helper or local
+data structure with no such impact remains an ordinary implementation decision.
 
 The coordinator resolves choices within the approved contract and records
 material decisions in the existing Slice/Delivery entry. Material requirement
@@ -88,17 +88,18 @@ and plan-change rules. Review dispatch still follows the risk criteria below.
 
 ## Route Execution Roles
 
+- Main implements consecutive dependency-ready Slices directly, including local
+  discovery, verification, documentation and corrections, retaining the working
+  context between Slices.
 - Use `explorer` only before Slice selection when a bounded unknown can change
-  Slice scope, authority, dependencies, or acceptance. The `executor` owns
+  Slice scope, authority, dependencies, or acceptance. The implementation owner owns
   ordinary Slice-local discovery.
-- Delegate every non-trivial approved production Slice to `executor`, including
-  resumed and corrective Slices. The main agent may implement a simple low-risk
-  Slice directly. Treat a Slice as non-trivial when it crosses files or
-  modules, changes a shared authority, needs isolated write context, or has
-  acceptance evidence that the main thread cannot safely own. Reuse an executor
-  for continuing work and corrections within one domain, authority and
-  acceptance context. Start a fresh executor for an independent domain with a
-  minimal complete packet; stop the prior writer before transferring ownership.
+- Delegate a bounded Slice to `executor` when isolated domain context or useful
+  parallel investigation/verification outweighs handoff and duplicated discovery.
+  Keep one production writer; Main may advance independent read-only work while
+  the executor implements. Reuse that executor for continuing work and corrections
+  within its domain and acceptance context. Stop the current writer before
+  transferring ownership; give a new executor a minimal complete packet.
 - Use `implementation_reviewer` only at a stable pre-Final boundary with a
   concrete failure risk whose discovery at Final would materially increase
   harm or rework. Explain the failure scenario and delayed-discovery cost using
@@ -107,10 +108,9 @@ and plan-change rules. Review dispatch still follows the risk criteria below.
   coverage. Reuse the reviewer for original-blocker and direct-regression
   closure; start fresh for a new boundary.
 - Start Final with a fresh `final_reviewer` on the stable Whole-Goal packet.
-  After its report is available, use a fresh native `challenger` subagent
-  to challenge that report and consequential omissions against the same state
-  and raw evidence. Reuse the pair for local corrective closure; the criteria
-  for a fresh full review and required agreement are in
+  Its pass normally closes the independent review gate. Add `challenger` after
+  the report only when the shared conditional challenge criteria apply.
+  Review closure, correction and availability rules are in
   [references/acceptance-review.md](references/acceptance-review.md).
   Implementation-risk review remains a single `implementation_reviewer` pass.
   Review roles use only non-mutating reads; checks requiring writes return to
@@ -126,9 +126,9 @@ recovery attempt. Judge availability separately for each role; task listings
 describe existing tasks, not which roles can be started. Recover invocation
 conflicts by reusing an eligible agent or choosing a unique task name. Disclose
 the restriction or error and recovery outcome, and record them in Delivery.
-If `executor` remains unavailable, the coordinator may take over the authorized
-Slice only after the previous writer has stopped, retaining the same
-verification and review gates.
+An optional executor's unavailability leaves implementation with Main; if work
+was already delegated, stop the previous writer before Main resumes it. Retain
+the same verification and review gates.
 
 Give delegated roles a self-contained packet with the workspace, goal baseline,
 stable repository states, approved conditions, exact scope and exclusions,
@@ -151,28 +151,28 @@ The coordinating agent alone interprets the contract, selects the current
 Slice, accepts evidence, updates Delivery, changes formal status, records
 approved exceptions, and declares Work Package, Milestone, or Goal completion.
 Accept results by matching the supplied raw evidence to required conditions
-and checking relevance, limits and unresolved blockers. The executor owns local
-diagnosis, implementation and checks; the reviewer owns independent challenge.
-Main investigates code or reproduces checks when evidence conflicts, material
-gaps or consequential decisions require it, rather than repeating both roles.
+and checking relevance, limits and unresolved blockers. Main normally owns local
+diagnosis, implementation and checks; independent reviewers evaluate acceptance.
+When a Slice is delegated, its executor owns those implementation duties. Main
+deepens inspection of delegated work when evidence conflicts, material gaps or
+consequential decisions require it.
 
 Resume the recorded unfinished Slice when its contract, dependencies, and code
 state remain valid. Otherwise choose one dependency-ready outcome that removes
 a blocker or advances a ready package. A Slice owns one complete result,
 including local discovery, implementation, necessary tests, guards and
-documentation. The executor continues routine diagnosis and corrections within
-that contract without a new packet for each failed check. Return material
-scope, permission, dependency or risk-boundary decisions to Main. Do not
-pre-plan later Slices.
+documentation. The implementation owner continues routine diagnosis and corrections
+within that contract. Main resolves material scope, permission, dependency or
+risk-boundary decisions under the approved contract. Do not pre-plan later Slices.
 
 Assign IDs as `<WP-ID>-S<NN>`, for example `WP-01-S01`. Allocate an ID only at
 selection and never rename, renumber, or reuse a recorded ID. Record why it is
 current, the acceptance labels it advances, local outcome, preserved behavior,
 expected scope, and focused exit evidence.
 
-The implementation owner completes the Slice and focused evidence before
-reporting a stable result. The coordinator records acceptance, repository and
-commit state, evidence links and next action in one Delivery update. Existing
+After a Slice and its focused evidence are stable, Main records acceptance,
+repository and commit state, evidence links and the next action in one Delivery
+update, using its own observations or the executor's compact result. Existing
 logs and the result packet normally suffice; create separate reports or
 snapshot manifests only for a concrete recovery, reproducibility or concurrency
 need.
@@ -213,14 +213,11 @@ evidence. Use a Milestone for one stable boundary containing one or more Work
 Packages.
 
 Open Final only after known production changes, required documentation, and the
-evidence packet are stable. Request the initial full review from `final_reviewer`,
-then give its report and the same packet to `challenger` for focused challenge.
-Final passes only when both agree on a pass and all material dispositions on
-that state. Batch blockers from one boundary into a corrective Slice. Once it
-is stable and invalidated evidence is refreshed, use the correction procedure
-in the acceptance reference to close affected conditions with the existing pair
-or restart full review when its criteria apply. Reconcile verdict-only
-disagreements with the existing pair.
+evidence packet are stable. Obtain `final_reviewer`'s independent Whole-Goal pass
+and close any triggered challenge under the acceptance reference. Batch blockers
+from one boundary into a corrective Slice. Once it is stable and invalidated
+evidence is refreshed, close affected conditions with the original reviewer and
+any affected challenger, or restart full review when the reference's criteria apply.
 
 Run focused checks on each corrected state as needed to finish its outcome.
 Reserve expensive boundary-wide checks, final builds and Whole-Goal hygiene

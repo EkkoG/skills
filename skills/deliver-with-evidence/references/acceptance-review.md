@@ -37,7 +37,7 @@ An independent reviewer reconstructs the contract for its assigned boundary.
 For an initial or restarted full Final review, `final_reviewer` reconstructs
 every Goal and Work Package condition from the approved plan and current
 implementation. Local corrective closure follows Correct Blocking Findings
-below. The Final challenger probes the report's judgments and consequential
+below. A triggered Final challenger probes the report's judgments and consequential
 omissions against raw evidence. Delivery and prior reports locate evidence;
 their completion labels are claims, not proof.
 
@@ -139,15 +139,14 @@ the same reviewer for a boundary's corrective closure and a fresh reviewer for
 a different boundary.
 
 Final starts with a fresh `final_reviewer` given the approved contract, stable
-repository snapshots, complete raw evidence, and material limitations. After
-it returns, give its report and the same packet to a fresh native
-`challenger` subagent. The challenger probes findings, blocker severity, verdict
-support, proposed corrections, and critical omissions, with raw reads focused on those
-questions. Both retain independent judgment without a desired conclusion and
-use only non-mutating reads; checks requiring writes return to the coordinator.
-Read and apply the shared
-[review-agreement contract](../../design-delivery-plan/references/review-agreement.md)
-before closing Final. Implementation-risk review retains a single reviewer.
+repository snapshots, complete raw evidence, and material limitations. Its pass
+normally satisfies the independent review gate. After the report, apply the shared
+[conditional challenge criteria](../../design-delivery-plan/references/review-agreement.md#review-and-decide-whether-to-challenge).
+When triggered, give a fresh `challenger` the concrete question, report and same
+packet, and close the challenge under that reference. All review roles retain
+independent judgment without a desired conclusion and use only non-mutating reads;
+checks requiring writes return to the implementation owner. Implementation-risk
+review retains a single reviewer.
 
 Independence comes from a separate reviewer context and evaluation of raw
 evidence, not sandbox isolation. A writable sandbox does not block review:
@@ -155,7 +154,7 @@ follow the no-write contract and disclose the effective sandbox and lack of
 isolation in the result. Once role unavailability is established under the
 [role-routing criteria](../SKILL.md#route-execution-roles),
 use this clean-room fallback for an implementation-risk review, or to collect
-diagnostic evidence while a Final participant is unavailable:
+diagnostic evidence while a required Final reviewer or triggered challenger is unavailable:
 
 1. rebuild the current acceptance matrix from the approved plan, using the
    whole-Goal matrix for Final;
@@ -164,10 +163,11 @@ diagnostic evidence while a Final participant is unavailable:
 4. disclose that the review was not delegated and therefore lacks a separate
    reviewer context.
 
-For Final, this fallback does not complete the paired gate. Keep agreement
-pending and report the blocker; any different completion path needs an
-explicit user revision of the gate, recorded as an exception rather than
-agreement. A failed or incomplete participant result also leaves the gate pending.
+Final requires an independent reviewer pass and closure of any triggered challenge.
+Local fallback remains diagnostic; report a missing required result as pending.
+A different completion path needs an explicit user revision of the gate, recorded
+with the exception and actual review coverage. Failed or incomplete required
+reviews leave the gate pending.
 
 Ask an initial review for the complete currently discoverable finding set and a
 bounded counterexample matrix for each blocker class. Separate blockers from
@@ -193,10 +193,8 @@ Use this order:
 2. have the coordinator ensure required broad, build and hygiene evidence is
    current on those snapshots; the implementation owner may run it and valid
    existing results are reused;
-3. obtain the fresh reviewer's full report, then give it and the same packet
-   to the fresh challenger;
-4. reconcile substantive disputes and record the agreed verdict against
-   that one stable state.
+3. obtain the fresh reviewer's full report and assess whether a challenge is needed;
+4. close any triggered challenge and record the review result against that stable state.
 
 A Final reviewer should not be asked to approve an incomplete evidence packet.
 Additional evidence without a production change can return to a pending verdict
@@ -219,21 +217,22 @@ Acceptance runs against stable code. When review requires a production change:
 4. at a pre-Final risk boundary, use its reviewer for targeted closure of the
    blocker classes and direct regression risks;
 5. rerun only broad or hygiene evidence invalidated by the correction, then
-   perform Final paired closure when applicable.
+   perform Final closure when applicable.
 
-For a local Final correction, reuse the original reviewer and challenger. Give
-them the prior reports, corrected state, change scope, and refreshed evidence.
+For a local Final correction, reuse the original reviewer. Give it the prior
+reports, corrected state, change scope, and refreshed evidence.
 The reviewer checks the fixes, direct regression risks, and affected conditions,
-retaining conclusions whose supporting inputs remain valid. Then the challenger
-checks that updated report and its reuse of prior conclusions. Both return
-verdicts covering the corrected Whole Goal through the retained review and
-targeted closure, with material findings resolved under the agreement contract.
+retaining conclusions whose supporting inputs remain valid, and returns an updated
+Whole-Goal verdict. If challenged conclusions are affected, reuse that challenger
+to check the updated report and close those findings. Retain valid challenge
+conclusions and assess any new concern under the shared challenge criteria.
 
-Restart full Final review with a fresh pair only when the correction changes
+Restart full Final review with a fresh reviewer only when the correction changes
 the approved contract, changes design across responsibility or authority
 boundaries, or broadly invalidates the prior review's basis. Contract changes
-follow the existing approval rules. Start either closure or full review after
-the correction is stable and affected evidence is current.
+follow the existing approval rules. Reassess challenge needs on the new report,
+including unresolved prior concerns. Start either closure or full review after the
+correction is stable and affected evidence is current.
 
 If corrections add mechanisms or the same finding class survives, reassess the
 underlying requirement, cumulative design against the goal baseline, and whether
@@ -250,7 +249,8 @@ Final.
 
 Completion requires sufficient current evidence for every condition in scope,
 no unresolved blocker, and explicit approval for every exception. Final also
-requires the pair's agreed pass under the shared agreement contract.
+requires the independent reviewer's pass and closure of every triggered challenge
+under the shared review contract.
 
 ## Acceptance Report
 
@@ -263,10 +263,13 @@ Reviewed repository states:
 <Roots, HEADs, and concise worktree states>
 
 Review mode:
-<local Work Package, stable Milestone boundary, paired Final, or diagnostic fallback>
+<local Work Package, stable Milestone boundary, independent Final, or diagnostic fallback>
 
-Paired review (when applicable):
-<Both result references, agreed-pass/agreed-blocked/pending, material dispositions>
+Independent review (when required):
+<Reviewer result reference and pass/blocked/incomplete/pending>
+
+Challenge (when triggered):
+<Reason, both result references, agreed-pass/agreed-blocked/pending, material dispositions>
 
 | Requirement | Type | Status | Current evidence | Counterexample when applicable | Exception |
 |---|---|---|---|---|---|
