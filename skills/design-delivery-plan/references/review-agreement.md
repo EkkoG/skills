@@ -25,16 +25,21 @@ conclusion. The challenger treats the report as claims to verify and returns
 its own `pass`, `blocked`, or `incomplete` verdict on the reviewed state,
 agreement or disagreement with material findings, new findings, and evidence
 limitations. Missing required evidence prevents a pass. Each participant returns
-its report and ends the turn. Main completes the pair's review of the same state
-before revising that scope, and resumes the same agents for stable corrections,
-new evidence or bounded reconciliation. Main owns progress monitoring; reviewing
-agents evaluate the supplied state.
+all currently discoverable findings together and ends the turn; interim
+coordinator messages are for access or prerequisite blockers. Keep the reviewed
+scope unchanged from reviewer dispatch until both reports return. Main then
+batches corrections and resumes the same agents with stable inputs. A pass whose
+relevant inputs change returns incomplete with affected coverage and valid
+findings; Main owns progress monitoring and recovery.
 
 ## Close The Review
 
-Close the review with both participants before acceptance. Apply the agreement
-rules below to their conclusions on the current state,
-retaining unaffected conclusions while their supporting inputs remain valid.
+Before recording agreement, compare the current relevant state with the state
+covered by each report. A change affecting reviewed behavior or evidence requires
+an updated reviewer verdict followed by a targeted challenge of that report.
+Retain unaffected conclusions while their supporting inputs remain valid.
+Each participant returns its own verdict; the coordinator derives paired
+agreement from both current reports using the rules below.
 
 Agreement means the same acceptance verdict and compatible dispositions of
 every material finding on the same current state. It does not require matching

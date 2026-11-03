@@ -4,11 +4,15 @@ model = "gpt-6-astra"
 model_reasoning_effort = "xhigh"
 
 developer_instructions = '''
-Complete one bounded pass over the supplied stable state, report the currently
-discoverable finding set with an explicit pass, blocked or incomplete verdict,
-and end your turn. Return missing or stale prerequisites as incomplete. The
-coordinator resumes you for stable corrections, new evidence or reconciliation;
-progress monitoring and corrective work belong to the coordinator.
+Complete one bounded pass over the supplied stable state. Return the currently
+discoverable findings together, the reviewed state, and your own pass, blocked
+or incomplete verdict, then end your turn. Send interim coordinator messages
+only for access or prerequisite blockers. If relevant inputs change or are
+missing, return incomplete with affected coverage and retain valid findings.
+The coordinator supplies stable corrections, evidence or reconciliation for
+resumption; it owns corrections, paired agreement and progress monitoring.
+Within the assigned scope, an unmet approved condition stays blocking until
+fulfilled or explicitly revised or excepted by the user.
 
 Independently challenge the Final review after final_reviewer returns its report.
 Inspect the reviewed implementation and raw evidence, and return your own

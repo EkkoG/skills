@@ -70,8 +70,10 @@ authorize implementation. Small direct tasks do not create plan files.
   check the updated report's affected conclusions. Wording, formatting and local
   refinements retain valid review results. Apply the review triggers to newly
   introduced material decisions.
-- Start delegated planning work with `fork_turns="none"` and a self-contained
-  task packet; reference exact paths instead of copying long documents.
+- Start each new delegated role, including replacements, with
+  `spawn_agent(..., fork_turns="none")` and a self-contained packet referencing
+  exact paths. Resume an ended same-scope role with `followup_task`;
+  `send_message` only supplements a running pass and does not start a turn.
   Give each reviewer and challenger the installed absolute path to the
   [shared quality criteria](references/review-agreement.md#preserve-the-quality-threshold)
   and require reading and applying that section.

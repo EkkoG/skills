@@ -122,6 +122,9 @@ Block acceptance only for:
 
 Treat style preferences, speculative extensions, stronger-than-approved proof,
 and low-impact maintainability suggestions as non-blocking residual risks.
+An unmet approved condition remains blocking until fulfilled or explicitly
+revised or excepted by the user. Track proposed deferrals as partial work;
+reviewer agreement does not authorize a scope reduction.
 
 Apply the shared complexity criteria to significant mechanisms introduced in
 the assigned scope and to proposed review corrections. Show the unnecessary
@@ -175,10 +178,11 @@ Ask an initial review for the complete currently discoverable finding set and a
 bounded counterexample matrix for each blocker class. Separate blockers from
 non-blocking advice and return missing evidence as one bounded list rather than
 incremental findings. Each review or challenge returns its report and ends the
-turn. Main completes the current review and any required challenge before
-changing that reviewed scope, then resumes the same agents with stable corrections,
-refreshed evidence or a bounded reconciliation question. Reviewers evaluate the
-supplied state; Main owns progress monitoring and corrective work.
+turn; interim coordinator messages are for access or prerequisite blockers.
+Keep the reviewed scope unchanged until the complete review and any required
+challenge return. Main then batches corrections and resumes the same agents
+with stable inputs. If relevant inputs change during a pass, return incomplete
+with the affected coverage and retain valid findings for resumption.
 
 ## Order Broad Evidence And Review
 
@@ -189,7 +193,8 @@ in-scope diagnosis and correction with Main.
 
 At a qualifying pre-Final implementation-risk boundary, a stable implementation
 verdict may precede boundary-wide broad evidence. After a no-blocker verdict,
-run the broad evidence owned by that boundary once on the reviewed state.
+ensure that boundary's required broad evidence is current on the reviewed state,
+reusing valid results and running only missing or invalidated checks.
 
 For an initial or restarted full Final review, open the review only after known
 production changes, required documentation, and the evidence packet are stable.
@@ -256,9 +261,11 @@ status, and revalidate the changed scope at the next relevant boundary or
 Final.
 
 Completion requires sufficient current evidence for every condition in scope,
-no unresolved blocker, and explicit approval for every exception. Final also
-requires `agreed-pass` from the independent reviewer and challenger under the
-shared review contract.
+no unresolved blocker, and explicit approval for every exception. Before Final
+closure, compare the current relevant state with both reports. A later change
+affecting reviewed behavior or evidence requires the original reviewer's updated
+verdict followed by the original challenger's targeted assessment. Retain
+unaffected coverage; record `agreed-pass` only when both cover the current state.
 
 ## Acceptance Report
 

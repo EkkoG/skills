@@ -26,6 +26,8 @@ Before costly work, resolve material unknowns about toolchains, required gates
 or evidence access with the cheapest useful preflight. This establishes
 feasibility, not acceptance, and does not itself require a reviewer. Keep
 routine preflight and its in-scope fixes within the current Slice.
+Retain working toolchain commands in Delivery and reuse them on resumption
+while the relevant environment remains unchanged.
 
 ## Keep Implementation Minimal
 
@@ -108,9 +110,11 @@ and plan-change rules. Review dispatch still follows the risk criteria below.
   Review roles use only non-mutating reads; checks requiring writes return to
   the coordinator. A writable sandbox does not block review; disclose the lack
   of sandbox isolation. Unavailability follows that reference's fallback rules.
-- Start delegated discovery and review work with `fork_turns="none"` and a
-  self-contained packet; reference exact paths rather than copying long
-  documents.
+- Start each new delegated role, including replacements, with
+  `spawn_agent(..., fork_turns="none")` and a self-contained packet referencing
+  exact paths. For an ended role's same-boundary correction, use `followup_task`
+  to start its next turn. Use `send_message` only to supplement a running pass;
+  it does not start a turn. A new review boundary gets a fresh reviewer.
 
 Before falling back for a required role, establish an explicit tool or policy
 restriction, or an actual start/resume failure that remains after one applicable
@@ -128,8 +132,9 @@ and require reading and applying that section. Do not suggest a desired verdict.
 Delegated roles use only non-mutating reads and return one compact result with
 reviewed scope and state, findings, evidence locations, limitations, and a verdict
 when reviewing. Main alone edits code, tests, plans and Delivery, selects work,
-creates commits and declares formal completion. Independent work may continue
-during review when it cannot invalidate the reviewed state.
+creates commits and declares formal completion. Keep the reviewed scope unchanged
+until the complete review and any required challenge return. Independent work
+may continue when it preserves the reviewed state.
 
 ## Coordinate The Delivery
 
@@ -157,7 +162,8 @@ constraints. A Slice adds execution scope and evidence, while the source conditi
 remain authoritative. Before editing, align its local outcome and scope with those
 conditions and identify what this Slice will establish. Correct conflicting Slice
 wording against the approved source; use plan-change rules when that source
-contract itself must change.
+contract itself must change. Keep conditions only partly covered by a Slice
+partial until their remaining work and evidence are complete.
 
 After a Slice and its focused evidence are stable, Main records acceptance,
 repository and commit state, evidence links and the next action in one Delivery
@@ -191,7 +197,9 @@ partial state and blocker and stop dependent work.
 ## Review And Accept
 
 Record a risk boundary as review-ready only when its implementation,
-dependencies, fixed snapshots, and focused evidence are stable. Defer broad
+dependencies, fixed snapshots, and focused evidence are stable. Match the
+conditions being submitted to their approved source and current evidence;
+identify any remaining work explicitly in the packet. Defer broad
 evidence until the boundary that owns it. Read the applicable sections of
 [references/acceptance-review.md](references/acceptance-review.md) before
 closing a Work Package, Milestone, or Goal.
@@ -214,8 +222,13 @@ for their relevant stable source. Preflight is not a substitute for these
 required gates. Reuse valid evidence; rerun only checks affected by changed
 code, inputs, tests, rules or contract. Documentation-only, formatting-only and
 unrelated changes do not invalidate production evidence.
+When durable output is needed, capture it in the original check; reuse existing
+valid output when assembling later review artifacts.
 
 Delivery status and commit records locate evidence but do not prove completion.
+Before declaring the Whole Goal complete, account for every required condition
+and confirm that both Final verdicts cover the current relevant state under the
+acceptance reference's correction and exception rules.
 Report the achieved outcome, verification, preserved behavior, blockers,
 repository state, and exact Slice, Work Package, Milestone, and Goal status.
 Read [references/handoff.md](references/handoff.md) before writing an explicit
