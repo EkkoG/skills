@@ -58,9 +58,8 @@ directories and `0600` for the document.
 
 ## Preserve One Writer
 
-The coordinating agent is the only writer. Delegated discovery,
-implementation, and review return results for serialized integration and never
-edit the document.
+Main is the only writer. Delegated discovery and review return evidence and
+findings for Main to integrate into the document.
 
 Keep one active coordinator per Goal. If another active coordinator,
 conflicting state, or an ambiguous resume candidate is detected, stop and
@@ -136,7 +135,7 @@ Goal, plan source, or initial approval identifies different work.
 - Slice ID: `<WP-01-S01>`
 - Title: <Short outcome title>
 - Why now: <Selection reason>
-- Covers: <Stable acceptance labels>
+- Covers: <Approved acceptance labels and source sections; preserve their conditions>
 - Local outcome: <One reviewable result>
 - Preserved behavior: <External promises or boundaries>
 - Expected scope: <Relevant responsibility or authority>

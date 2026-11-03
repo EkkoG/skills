@@ -34,10 +34,9 @@ cumulative changes against the goal's comparison baseline. Retain it in Delivery
 from the plan, or establish it from the approved goal and available pre-change
 evidence when absent. Prefer the simplest, most direct,
 verifiable and maintainable option with the smallest complete change. If a
-necessary large-scale change is not already explicitly authorized, return it
-to the coordinator before affected implementation. Explain why a smaller change
-is insufficient, the proposed scope, and principal costs and risks so the
-coordinator can obtain the user's decision through the existing approval path.
+necessary large-scale change is not already explicitly authorized, explain why
+a smaller change is insufficient, the proposed scope, and principal costs and
+risks, and obtain the user's decision before affected implementation.
 Continue within explicitly approved bounds. Add complexity only when a simpler
 option cannot meet an in-scope need established below, and explain that need.
 
@@ -54,10 +53,9 @@ questions.
 Preserve required security, data integrity, reliability, and compatibility.
 
 For in-scope low-frequency scenarios, prefer simple, explicit handling, weighing
-likelihood and impact against implementation and maintenance cost. Return only
+likelihood and impact against implementation and maintenance cost. Surface only
 material unresolved tradeoffs affecting current use, reliability, or operations
-to the coordinator for the user's decision, such as manual recovery or limits
-on supported scenarios.
+for the user's decision, such as manual recovery or limits on supported scenarios.
 
 Validate unknown input at its owning input or trust boundary. Within that
 boundary, rely on guarantees already established by validation, construction,
@@ -68,8 +66,8 @@ fixtures and real code paths, using test doubles where isolation requires them.
 
 As implementation or correction adds a mechanism, check the current requirement,
 existing capability, and whether simplifying the affected design removes the need.
-Routine local choices remain with the implementation owner. Carry out design
-choices specifically settled by the approved contract within their agreed bounds.
+Main resolves routine local choices and carries out design choices specifically
+settled by the approved contract within their agreed bounds.
 
 Resolve material design choices before introducing the mechanism or its dependent
 consumers. Examples include an independent source
@@ -78,8 +76,8 @@ changed ownership when they materially affect responsibility, coupling,
 operational burden, or reversibility. Pause the affected production work;
 independent work within the assigned Slice may continue. Main evaluates the
 current need, why the simpler existing path is insufficient, and maintenance
-cost. A delegated executor returns that decision to Main. A helper or local
-data structure with no such impact remains an ordinary implementation decision.
+cost. A helper or local data structure with no such impact remains an ordinary
+implementation decision.
 
 The coordinator resolves choices within the approved contract and records
 material decisions in the existing Slice/Delivery entry. Material requirement
@@ -88,18 +86,12 @@ and plan-change rules. Review dispatch still follows the risk criteria below.
 
 ## Route Execution Roles
 
-- Main implements consecutive dependency-ready Slices directly, including local
-  discovery, verification, documentation and corrections, retaining the working
-  context between Slices.
+- Main is the sole production and Delivery writer. It implements consecutive
+  dependency-ready Slices, including local discovery, verification, documentation
+  and corrections, retaining the working context between Slices.
 - Use `explorer` only before Slice selection when a bounded unknown can change
-  Slice scope, authority, dependencies, or acceptance. The implementation owner owns
-  ordinary Slice-local discovery.
-- Delegate a bounded Slice to `executor` when isolated domain context or useful
-  parallel investigation/verification outweighs handoff and duplicated discovery.
-  Keep one production writer; Main may advance independent read-only work while
-  the executor implements. Reuse that executor for continuing work and corrections
-  within its domain and acceptance context. Stop the current writer before
-  transferring ownership; give a new executor a minimal complete packet.
+  Slice scope, authority, dependencies, or acceptance. Main handles ordinary
+  Slice-local discovery.
 - Use `implementation_reviewer` only at a stable pre-Final boundary with a
   concrete failure risk whose discovery at Final would materially increase
   harm or rework. Explain the failure scenario and delayed-discovery cost using
@@ -116,7 +108,7 @@ and plan-change rules. Review dispatch still follows the risk criteria below.
   Review roles use only non-mutating reads; checks requiring writes return to
   the coordinator. A writable sandbox does not block review; disclose the lack
   of sandbox isolation. Unavailability follows that reference's fallback rules.
-- Start delegated execution and review work with `fork_turns="none"` and a
+- Start delegated discovery and review work with `fork_turns="none"` and a
   self-contained packet; reference exact paths rather than copying long
   documents.
 
@@ -126,24 +118,18 @@ recovery attempt. Judge availability separately for each role; task listings
 describe existing tasks, not which roles can be started. Recover invocation
 conflicts by reusing an eligible agent or choosing a unique task name. Disclose
 the restriction or error and recovery outcome, and record them in Delivery.
-An optional executor's unavailability leaves implementation with Main; if work
-was already delegated, stop the previous writer before Main resumes it. Retain
-the same verification and review gates.
 
 Give delegated roles a self-contained packet with the workspace, goal baseline,
 stable repository states, approved conditions, exact scope and exclusions,
-preserved behavior, required evidence, and raw-evidence locations. Include the constraints
-from Keep Implementation Minimal in every executor packet. Give each reviewer
-and challenger the installed absolute path to the
+preserved behavior, required evidence, and raw-evidence locations. Give each
+reviewer and challenger the installed absolute path to the
 [shared quality criteria](../design-delivery-plan/references/review-agreement.md#preserve-the-quality-threshold)
 and require reading and applying that section. Do not suggest a desired verdict.
-Delegated roles return evidence and findings; they do not edit
-Delivery, change the plan, select later work, create commits, or declare a
-formal boundary complete. Return one compact result with changed scope,
-outcome, reproducible evidence and locations, verification-state references,
-limitations and whether production writing has stopped. Keep one production
-writer; independent work may continue during review when it cannot invalidate
-the reviewed state.
+Delegated roles use only non-mutating reads and return one compact result with
+reviewed scope and state, findings, evidence locations, limitations, and a verdict
+when reviewing. Main alone edits code, tests, plans and Delivery, selects work,
+creates commits and declares formal completion. Independent work may continue
+during review when it cannot invalidate the reviewed state.
 
 ## Coordinate The Delivery
 
@@ -151,31 +137,33 @@ The coordinating agent alone interprets the contract, selects the current
 Slice, accepts evidence, updates Delivery, changes formal status, records
 approved exceptions, and declares Work Package, Milestone, or Goal completion.
 Accept results by matching the supplied raw evidence to required conditions
-and checking relevance, limits and unresolved blockers. Main normally owns local
-diagnosis, implementation and checks; independent reviewers evaluate acceptance.
-When a Slice is delegated, its executor owns those implementation duties. Main
-deepens inspection of delegated work when evidence conflicts, material gaps or
-consequential decisions require it.
+and checking relevance, limits and unresolved blockers. Main owns diagnosis,
+implementation and checks; independent reviewers evaluate acceptance.
 
 Resume the recorded unfinished Slice when its contract, dependencies, and code
 state remain valid. Otherwise choose one dependency-ready outcome that removes
 a blocker or advances a ready package. A Slice owns one complete result,
 including local discovery, implementation, necessary tests, guards and
-documentation. The implementation owner continues routine diagnosis and corrections
-within that contract. Main resolves material scope, permission, dependency or
-risk-boundary decisions under the approved contract. Do not pre-plan later Slices.
+documentation. Main continues routine diagnosis and corrections within that
+contract, resolving material scope, permission, dependency or risk-boundary
+decisions under the approved contract. Do not pre-plan later Slices.
 
 Assign IDs as `<WP-ID>-S<NN>`, for example `WP-01-S01`. Allocate an ID only at
 selection and never rename, renumber, or reuse a recorded ID. Record why it is
 current, the acceptance labels it advances, local outcome, preserved behavior,
-expected scope, and focused exit evidence.
+expected scope, and focused exit evidence. Resolve its acceptance labels directly
+from the approved source, preserving required behavior, intentional removals and
+constraints. A Slice adds execution scope and evidence, while the source conditions
+remain authoritative. Before editing, align its local outcome and scope with those
+conditions and identify what this Slice will establish. Correct conflicting Slice
+wording against the approved source; use plan-change rules when that source
+contract itself must change.
 
 After a Slice and its focused evidence are stable, Main records acceptance,
 repository and commit state, evidence links and the next action in one Delivery
-update, using its own observations or the executor's compact result. Existing
-logs and the result packet normally suffice; create separate reports or
-snapshot manifests only for a concrete recovery, reproducibility or concurrency
-need.
+update using its observations and independent findings. Existing logs and review
+results normally suffice; create separate reports or snapshot manifests only
+for a concrete recovery, reproducibility or concurrency need.
 
 When evidence requires a material contract change, stop before implementing it,
 record the conflict, use `$design-delivery-plan`, and resume only after user

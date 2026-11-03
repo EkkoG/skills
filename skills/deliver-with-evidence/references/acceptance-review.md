@@ -84,9 +84,11 @@ production consumers use it, the superseded path has the approved disposition,
 and the responsibility was not merely renamed, moved, hidden, or wrapped.
 
 Reuse authoritative evidence while its relevant code, tests, rules, contract,
-and repository snapshots remain unchanged. Rerun only evidence whose support
-has become stale, ambiguous, or invalidated. Record known baseline failures
-precisely and require no new failures.
+environment and inputs remain valid. A change of participant or acceptance
+boundary alone preserves that evidence. Before rerunning a check, identify the
+changed input, failed result, material evidence gap or explicit gate requiring
+it, and run only the affected checks. Record known baseline failures precisely
+and require no new failures.
 
 ## Challenge Completion
 
@@ -145,7 +147,7 @@ Obtain `agreed-pass` under the shared
 [review contract](../../design-delivery-plan/references/review-agreement.md#review-then-challenge)
 to satisfy the independent Final gate. All review roles retain
 independent judgment without a desired conclusion and use only non-mutating reads;
-checks requiring writes return to the implementation owner. Implementation-risk
+checks requiring writes return to Main. Implementation-risk
 review retains a single reviewer.
 
 Independence comes from a separate reviewer context and evaluation of raw
@@ -172,14 +174,18 @@ reviews leave the gate pending.
 Ask an initial review for the complete currently discoverable finding set and a
 bounded counterexample matrix for each blocker class. Separate blockers from
 non-blocking advice and return missing evidence as one bounded list rather than
-incremental findings.
+incremental findings. Each review or challenge returns its report and ends the
+turn. Main completes the current review and any required challenge before
+changing that reviewed scope, then resumes the same agents with stable corrections,
+refreshed evidence or a bounded reconciliation question. Reviewers evaluate the
+supplied state; Main owns progress monitoring and corrective work.
 
 ## Order Broad Evidence And Review
 
 Resolve material toolchain, gate or evidence-access unknowns with cheap early
 preflight. Its purpose is to reveal feasibility problems before expensive work,
 not to replace required verification or trigger a review. Keep ordinary
-in-scope diagnosis and correction with the implementation owner.
+in-scope diagnosis and correction with Main.
 
 At a qualifying pre-Final implementation-risk boundary, a stable implementation
 verdict may precede boundary-wide broad evidence. After a no-blocker verdict,
@@ -190,9 +196,9 @@ production changes, required documentation, and the evidence packet are stable.
 Use this order:
 
 1. establish stable final implementation across every repository;
-2. have the coordinator ensure required broad, build and hygiene evidence is
-   current on those snapshots; the implementation owner may run it and valid
-   existing results are reused;
+2. have Main ensure required broad, build and hygiene evidence is current on
+   those snapshots, reusing valid results and running only missing or invalidated
+   checks;
 3. obtain the fresh reviewer's full report;
 4. have a fresh challenger challenge that report and record paired agreement
    against the same stable state.

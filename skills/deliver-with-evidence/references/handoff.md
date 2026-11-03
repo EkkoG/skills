@@ -1,11 +1,10 @@
 # Handoff
 
-Use only when another agent or session needs an explicit execution handoff.
-Delivery remains the authoritative contract, status, and evidence record; the
-handoff points to it and records only what the recipient needs to resume safely.
-For continued work within the same Slice and context, use the existing packet
-and relevant deltas. An actual ownership or domain transfer gets a minimal
-complete packet after the previous production writer has stopped.
+Use when execution continues in another coordinating session. Delivery records
+the approved plan source, current contract, status and evidence; the handoff
+points to it and records only what the next Main needs to resume safely.
+Continue within the current session using its existing context and relevant
+deltas. Transfer coordination only after the previous Main has stopped writing.
 
 ```markdown
 Recipient and scope:

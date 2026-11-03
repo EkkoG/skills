@@ -24,7 +24,11 @@ Both roles retain independent evidence-based judgment; supply no desired
 conclusion. The challenger treats the report as claims to verify and returns
 its own `pass`, `blocked`, or `incomplete` verdict on the reviewed state,
 agreement or disagreement with material findings, new findings, and evidence
-limitations. Missing required evidence prevents a pass.
+limitations. Missing required evidence prevents a pass. Each participant returns
+its report and ends the turn. Main completes the pair's review of the same state
+before revising that scope, and resumes the same agents for stable corrections,
+new evidence or bounded reconciliation. Main owns progress monitoring; reviewing
+agents evaluate the supplied state.
 
 ## Close The Review
 

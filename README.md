@@ -131,10 +131,12 @@ declared scope.
 .
 ├── user-AGENTS.md
 ├── agents/
-│   ├── executor.toml
+│   ├── challenger.toml
 │   ├── explorer.toml
 │   ├── final_reviewer.toml
+│   ├── final_reviewer_grok.toml
 │   ├── implementation_reviewer.toml
+│   ├── plan_challenger.toml
 │   └── plan_reviewer.toml
 ├── scripts/
 │   └── sync-skills.sh
@@ -279,10 +281,12 @@ Use $markitdown to convert this document to Markdown.
 .
 ├── user-AGENTS.md
 ├── agents/
-│   ├── executor.toml
+│   ├── challenger.toml
 │   ├── explorer.toml
 │   ├── final_reviewer.toml
+│   ├── final_reviewer_grok.toml
 │   ├── implementation_reviewer.toml
+│   ├── plan_challenger.toml
 │   └── plan_reviewer.toml
 ├── scripts/
 │   └── sync-skills.sh

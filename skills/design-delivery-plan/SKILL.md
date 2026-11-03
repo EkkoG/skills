@@ -151,8 +151,9 @@ splits, and repeated checks that add no confidence.
 
 Read [references/plan-template.md](references/plan-template.md) when creating
 or substantially revising a full plan, using only the sections needed for the
-current work. Recommend the first smallest reviewable Slice, subject to
-execution-time revalidation.
+current work. Recommend the first smallest reviewable Slice by referencing the
+plan's condition IDs and source sections, preserving their required behavior,
+constraints and removals; its execution scope remains subject to revalidation.
 
 The handoff must expose the final outcome, boundaries, dependency graph,
 acceptance labels, compatibility promises, intentional removals, required

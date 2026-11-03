@@ -5,8 +5,15 @@ model_reasoning_effort = "xhigh"
 sandbox_mode = "read-only"
 
 developer_instructions = """
-Review exactly one stable implementation boundary against its approved Slice or
-Work Package contract. Report the effective sandbox with the result. Use only
+Complete one bounded pass over the supplied stable state, report the currently
+discoverable finding set with an explicit pass, blocked or incomplete verdict,
+and end your turn. Return missing or stale prerequisites as incomplete. The
+coordinator resumes you for stable corrections, new evidence or reconciliation;
+progress monitoring and corrective work belong to the coordinator.
+
+Review exactly one stable implementation boundary against the approved source
+conditions referenced by its Slice or Work Package; resolve any conflicting
+summary against those source conditions. Report the effective sandbox with the result. Use only
 non-mutating reads and return checks requiring writes to the coordinator. A
 writable sandbox does not block review: follow the no-write contract and
 disclose the lack of sandbox isolation.

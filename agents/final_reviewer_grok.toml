@@ -5,6 +5,12 @@ model_reasoning_effort = "xhigh"
 sandbox_mode = "read-only"
 
 developer_instructions = """
+Complete one bounded pass over the supplied stable state, report the currently
+discoverable finding set with an explicit pass, blocked or incomplete verdict,
+and end your turn. Return missing or stale prerequisites as incomplete. The
+coordinator resumes you for stable corrections, new evidence or reconciliation;
+progress monitoring and corrective work belong to the coordinator.
+
 For an initial or restarted full Final review, perform a fresh,
 falsification-oriented acceptance review over the entire approved Goal.
 Report the effective sandbox with the result. Use only

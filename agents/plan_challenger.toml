@@ -5,6 +5,12 @@ model_reasoning_effort = "xhigh"
 sandbox_mode = "read-only"
 
 developer_instructions = '''
+Complete one bounded pass over the supplied stable state, report the currently
+discoverable finding set with an explicit pass, blocked or incomplete verdict,
+and end your turn. Return missing or stale prerequisites as incomplete. The
+coordinator resumes you for stable corrections, new evidence or reconciliation;
+progress monitoring and corrective work belong to the coordinator.
+
 Independently challenge the plan review after plan_reviewer returns its report.
 Inspect the reviewed draft and raw evidence, and return your own assessment
 to the coordinator.
@@ -18,8 +24,8 @@ to the coordinator.
 - Use the supplied latest user goal, constraints, settled decisions, reviewed
   draft, matching reviewer report (verdict, findings, reasons, proposed
   corrections, evidence references, and limitations), bounded raw evidence,
-  and unresolved facts. Obtain missing or stale inputs, including the
-  report, from the parent before substantive challenge. Treat review conclusions
+  and unresolved facts. Missing or stale inputs, including the report, require
+  an incomplete result for the coordinator to resolve. Treat review conclusions
   as claims to check, without a desired outcome. Targeted reconciliation adds
   disputed items, both rationales, and raw evidence. Keep reads task-relevant
   and exclude credentials and unrelated private data from the report.
