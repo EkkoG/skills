@@ -33,7 +33,7 @@ evidence gap instead of presenting an approval-ready plan based on assumptions.
 
 ## Installation
 
-Install interactively with the Skills CLI:
+For `commit` and `markitdown`, use the Skills CLI and select these two skills:
 
 ```bash
 npx skills add EkkoG/skills
@@ -45,21 +45,25 @@ Add `-g` to install at user scope instead of the current project:
 npx skills add EkkoG/skills -g
 ```
 
-For manual installation, clone the repository and copy the skills into the
-user-level Codex skills directory:
+Install `design-delivery-plan` and `deliver-with-evidence` in the Codex directory
+`${CODEX_HOME:-$HOME/.codex}/skills/`. Install `commit` and `markitdown` in the
+shared directory `$HOME/.agents/skills/`:
 
 ```bash
 git clone https://github.com/EkkoG/skills.git ekko-skills
 cd ekko-skills
-mkdir -p "$HOME/.agents/skills"
-for skill in commit deliver-with-evidence design-delivery-plan markitdown; do
+codex_skills_dir="${CODEX_HOME:-$HOME/.codex}/skills"
+mkdir -p "$codex_skills_dir" "$HOME/.agents/skills"
+for skill in design-delivery-plan deliver-with-evidence; do
+  rsync -a --delete "skills/$skill/" "$codex_skills_dir/$skill/"
+done
+for skill in commit markitdown; do
   rsync -a --delete "skills/$skill/" "$HOME/.agents/skills/$skill/"
 done
 ```
 
-For repository-scoped use, copy or link the desired skill directories under
-`<repo>/.agents/skills/` instead. Codex detects skill changes automatically; if
-an update does not appear, restart Codex.
+For repository-scoped use of `commit` and `markitdown`, copy or link them under
+`<repo>/.agents/skills/`. Restart Codex if a skill does not appear after installation.
 
 See the official OpenAI documentation for
 [building and installing skills](https://learn.chatgpt.com/docs/build-skills).
@@ -134,7 +138,6 @@ declared scope.
 │   ├── challenger.toml
 │   ├── explorer.toml
 │   ├── final_reviewer.toml
-│   ├── final_reviewer_grok.toml
 │   ├── implementation_reviewer.toml
 │   ├── plan_challenger.toml
 │   └── plan_reviewer.toml
@@ -189,7 +192,7 @@ Slice，并记录为什么选择当前 Slice、它覆盖哪些条件，以及什
 
 ### 安装
 
-使用 Skills CLI 进行交互式安装：
+对于 `commit` 和 `markitdown`，可使用 Skills CLI 交互式安装并选择这两个 skill：
 
 ```bash
 npx skills add EkkoG/skills
@@ -201,20 +204,25 @@ npx skills add EkkoG/skills
 npx skills add EkkoG/skills -g
 ```
 
-如需手工安装，可以克隆仓库并将 skill 复制到用户级 Codex skill 目录：
+将 `design-delivery-plan` 和 `deliver-with-evidence` 安装到 Codex 专用目录
+`${CODEX_HOME:-$HOME/.codex}/skills/`；将 `commit` 和 `markitdown` 安装到
+共享目录 `$HOME/.agents/skills/`：
 
 ```bash
 git clone https://github.com/EkkoG/skills.git ekko-skills
 cd ekko-skills
-mkdir -p "$HOME/.agents/skills"
-for skill in commit deliver-with-evidence design-delivery-plan markitdown; do
+codex_skills_dir="${CODEX_HOME:-$HOME/.codex}/skills"
+mkdir -p "$codex_skills_dir" "$HOME/.agents/skills"
+for skill in design-delivery-plan deliver-with-evidence; do
+  rsync -a --delete "skills/$skill/" "$codex_skills_dir/$skill/"
+done
+for skill in commit markitdown; do
   rsync -a --delete "skills/$skill/" "$HOME/.agents/skills/$skill/"
 done
 ```
 
-如果只希望在某个仓库中使用，可以把所需 skill 复制或链接到
-`<repo>/.agents/skills/`。Codex 会自动检测 skill 变化；如果更新没有出现，请重启
-Codex。
+如果只希望在某个仓库中使用 `commit` 和 `markitdown`，可以将它们复制或链接到
+`<repo>/.agents/skills/`。安装后若未显示 skill，请重启 Codex。
 
 更多信息参见 OpenAI 官方文档：
 [创建和安装 Skill](https://learn.chatgpt.com/docs/build-skills)。
@@ -284,7 +292,6 @@ Use $markitdown to convert this document to Markdown.
 │   ├── challenger.toml
 │   ├── explorer.toml
 │   ├── final_reviewer.toml
-│   ├── final_reviewer_grok.toml
 │   ├── implementation_reviewer.toml
 │   ├── plan_challenger.toml
 │   └── plan_reviewer.toml

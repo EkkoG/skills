@@ -11,5 +11,9 @@
   locations. Verify the complete maintained file set and contents, including
   models, rather than only the current diff. Limit removals to the maintained
   skill directories and agents directory.
+- Install `design-delivery-plan` and `deliver-with-evidence` in the target
+  Codex home at `$CODEX_HOME/skills/` (`~/.codex/skills/` by default). Keep
+  these skills only in that location. Install `commit` and `markitdown`
+  in `~/.agents/skills/` on the remote host.
 - The synchronization scope excludes `config.toml`, credentials, plans,
   Delivery records, and sessions. Publishing still follows the user's request.

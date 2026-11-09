@@ -36,16 +36,20 @@ Choose an unused `<plan-id>` once, such as `YYYYMMDD-HHMMSS-goal-slug`, and reta
 that path through revisions, approval, execution, and resumption.
 
 The coordinator alone updates the plan. Record the coordinating workspace,
-draft or approved status, and the user's approval reference when given. Give
-reviewers this persistent path; keep recovery-critical supporting material and
-review results alongside it, using `reviews/` for review artifacts. Reuse durable
-sources by reference. On resume, use the saved plan, latest decisions and review
-status to locate the next action; reopen supporting material only where changed
-inputs or gaps affect that action. Keep the plan after delivery.
+draft or approved status, and the user's approval reference when given. Record
+review status in the plan and link existing results. Save separate supporting
+material only for a concrete recovery need, using `reviews/` for review artifacts.
+Give reviewers the persistent plan path and reuse durable sources by reference.
+On resume, use the plan, latest decisions and review status to locate the next
+action; reopen supporting material only where changed inputs or gaps affect
+that action. Keep the plan after delivery.
 
-Use private directories and files, normally `0700` and `0600`. Obtain any
-missing write permission through normal approval; if unavailable, report the
-blocker before delegated review or formal handoff. Saving a draft does not
+Use private directories and files, normally `0700` and `0600`. Before the first
+write, use the session's effective permissions; if access is missing, request
+write access to this task's plan directory through normal approval and reuse
+the grant while valid. If unavailable, report the blocker before delegated
+review or formal handoff. Prefer direct file creation and focused patches at
+the persistent path for ordinary Markdown edits. Saving a draft does not
 authorize implementation. Small direct tasks do not create plan files.
 
 ## Route Planning Roles
@@ -71,8 +75,9 @@ authorize implementation. Small direct tasks do not create plan files.
   refinements retain valid review results. Apply the review triggers to newly
   introduced material decisions.
 - Start each new delegated role, including replacements, with
-  `spawn_agent(..., fork_turns="none")` and a self-contained packet referencing
-  exact paths. Resume an ended same-scope role with `followup_task`;
+  `spawn_agent(..., fork_turns="none")`. Supply the review packet in the
+  delegation message, with task context and exact paths to existing sources.
+  Resume an ended same-scope role with `followup_task`;
   `send_message` only supplements a running pass and does not start a turn.
   Give each reviewer and challenger the installed absolute path to the
   [shared quality criteria](references/review-agreement.md#preserve-the-quality-threshold)

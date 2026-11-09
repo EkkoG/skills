@@ -3,6 +3,8 @@
 Use when execution continues in another coordinating session. Delivery records
 the approved plan source, current contract, status and evidence; the handoff
 points to it and records only what the next Main needs to resume safely.
+Send this handoff as a message by default. Save a separate file only when needed
+for recovery or explicitly requested; reference existing durable sources.
 Continue within the current session using its existing context and relevant
 deltas. Transfer coordination only after the previous Main has stopped writing.
 

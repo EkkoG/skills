@@ -111,8 +111,9 @@ and plan-change rules. Review dispatch still follows the risk criteria below.
   the coordinator. A writable sandbox does not block review; disclose the lack
   of sandbox isolation. Unavailability follows that reference's fallback rules.
 - Start each new delegated role, including replacements, with
-  `spawn_agent(..., fork_turns="none")` and a self-contained packet referencing
-  exact paths. For an ended role's same-boundary correction, use `followup_task`
+  `spawn_agent(..., fork_turns="none")`. Supply the review packet in the
+  delegation message, with task context and exact paths to existing sources.
+  For an ended role's same-boundary correction, use `followup_task`
   to start its next turn. Use `send_message` only to supplement a running pass;
   it does not start a turn. A new review boundary gets a fresh reviewer.
 
@@ -123,9 +124,10 @@ describe existing tasks, not which roles can be started. Recover invocation
 conflicts by reusing an eligible agent or choosing a unique task name. Disclose
 the restriction or error and recovery outcome, and record them in Delivery.
 
-Give delegated roles a self-contained packet with the workspace, goal baseline,
-stable repository states, approved conditions, exact scope and exclusions,
-preserved behavior, required evidence, and raw-evidence locations. Give each
+Make that message self-contained: identify the workspace, goal baseline,
+stable repository states, exact scope and exclusions, and reference approved
+conditions, preserved behavior, required evidence and raw-evidence locations
+in the existing plan and Delivery. Give each
 reviewer and challenger the installed absolute path to the
 [shared quality criteria](../design-delivery-plan/references/review-agreement.md#preserve-the-quality-threshold)
 and require reading and applying that section. Do not suggest a desired verdict.

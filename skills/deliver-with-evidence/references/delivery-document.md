@@ -46,10 +46,11 @@ For the default path:
 
 Keep the default root outside every target repository. Use a repository-local
 path only when current instructions explicitly require it. Plan approval
-defines the work scope; obtain any additional filesystem permissions through
-the runtime's normal approval mechanism. If the required Delivery path is not
-writable, request the minimum necessary permission for that exact path, or
-ask for an approved alternate. After permission is granted, initialize Delivery
+defines the work scope. Before the first write, use the session's effective
+permissions; if access is missing, request write access to this Goal's Delivery
+directory through normal approval and reuse the grant while valid. This covers
+the document and its temporary file. If directory grants are unavailable, use
+scoped approval for the write or an approved alternate path. Initialize Delivery
 before the first production edit. If permission is denied or unavailable, stop
 the dependent writes and report the blocker.
 
@@ -66,8 +67,11 @@ conflicting state, or an ambiguous resume candidate is detected, stop and
 reconcile the approved contract, current implementation, evidence, repository
 states, and next action before writing.
 
-Write through a private temporary file in the same directory and replace the
-document atomically. Do not overwrite a document whose coordinating workspace,
+Complete each Delivery update in one write operation: create a private temporary
+file in the destination directory and replace the document atomically. Use a
+short command when needed for these filesystem operations. Ordinary Markdown
+edits to supporting documents use direct edits or focused patches at their
+persistent paths. Do not overwrite a document whose coordinating workspace,
 Goal, plan source, or initial approval identifies different work.
 
 ## Template
