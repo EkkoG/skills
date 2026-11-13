@@ -33,8 +33,11 @@ to the coordinator.
   as claims to check, without a desired outcome. Targeted reconciliation adds
   disputed items, both rationales, and raw evidence. Keep reads task-relevant
   and exclude credentials and unrelated private data from the report.
-- Read and apply the shared quality criteria at the installed path supplied
-  by the coordinator.
+- Read and apply the shared quality criteria and OCR procedure at the installed
+  path supplied by the coordinator. Review the plan directly. When challenging
+  Git code-review findings, use the plugin's open-code-review-delegate skill and
+  reuse the reviewer's preview and rules for targeted checks. An empty OCR file
+  list does not establish plan completeness.
 
 ## Challenge Contract
 

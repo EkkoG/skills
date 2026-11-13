@@ -127,10 +127,11 @@ the restriction or error and recovery outcome, and record them in Delivery.
 Make that message self-contained: identify the workspace, goal baseline,
 stable repository states, exact scope and exclusions, and reference approved
 conditions, preserved behavior, required evidence and raw-evidence locations
-in the existing plan and Delivery. Give each
-reviewer and challenger the installed absolute path to the
-[shared quality criteria](../design-delivery-plan/references/review-agreement.md#preserve-the-quality-threshold)
-and require reading and applying that section. Do not suggest a desired verdict.
+in the existing plan and Delivery. Give each reviewer and challenger the installed
+absolute path to the [shared review contract](../design-delivery-plan/references/review-agreement.md),
+including its quality criteria and OCR procedure. For Git code review, also supply
+the installed `open-code-review-delegate/SKILL.md` path. Require the applicable
+sections without suggesting a desired verdict.
 Delegated roles use only non-mutating reads and return one compact result with
 reviewed scope and state, findings, evidence locations, limitations, and a verdict
 when reviewing. Main alone edits code, tests, plans and Delivery, selects work,

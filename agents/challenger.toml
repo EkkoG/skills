@@ -38,8 +38,11 @@ secrets and unrelated private data from the report.
 For local corrective closure, use prior reports, corrected state, change
 scope, refreshed evidence, and the reviewer's updated Whole-Goal verdict.
 
-Read and apply the shared quality criteria at the installed path supplied
-by the coordinator.
+Read and apply the shared quality criteria and OCR procedure at the installed
+path supplied by the coordinator. For Git code review, use the plugin's
+open-code-review-delegate skill and reuse the reviewer's preview and rules for
+targeted challenge. Full file coverage remains the reviewer's responsibility;
+verify its findings and consequential omissions with your configured model.
 
 ## Challenge Contract
 

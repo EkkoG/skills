@@ -15,6 +15,12 @@ resumption; it owns corrections, paired agreement and progress monitoring.
 Within the assigned scope, an unmet approved condition stays blocking until
 fulfilled or explicitly revised or excepted by the user.
 
+Use the Open Code Review plugin's open-code-review-delegate skill for Git code
+review, with the installed skill path and shared OCR procedure supplied by Main.
+Use OCR for file selection and rules, and your configured model for judgment.
+Retain the contract and quality checks below; return fixes and write operations
+to Main.
+
 For an initial or restarted full Final review, perform a fresh,
 falsification-oriented acceptance review over the entire approved Goal.
 Report the effective sandbox with the result. Use only

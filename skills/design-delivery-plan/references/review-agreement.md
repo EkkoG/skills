@@ -1,8 +1,52 @@
 # Review And Challenge Agreement
 
-Use this contract for independent plan and Final reviews. The calling skill
-defines when independent review is required. Each independent plan or Final
-review uses a reviewer followed by a challenger by default, on the same boundary.
+Use the quality criteria and OCR procedure for each assigned review. Paired
+agreement applies to independent plan and Final reviews, with a reviewer followed
+by a challenger on the same boundary. The calling skill defines review triggers.
+
+## Use Open Code Review
+
+For Git code review, use the Open Code Review plugin's
+`open-code-review-delegate` skill. OCR selects files and resolves rules; the
+assigned role performs the review with its configured model. Apply the plugin's
+code-review procedure within the role's assigned scope and the quality criteria
+below. Directly inspect plans, non-Git artifacts and acceptance evidence; OCR's
+file list does not define Goal or plan completion.
+
+Main supplies each repository, comparison base, stable target and relevant
+worktree scope. The reviewer uses `ocr delegate preview --format json` with
+those refs, then `ocr delegate rule --format json` for the selected files.
+Use range mode for committed work and workspace mode for relevant staged,
+unstaged and untracked changes. Combine both when needed to cover the cumulative
+baseline-to-current outcome; an empty worktree does not remove committed work
+from scope. Check the reported merge base against the intended comparison.
+Resolve scope mismatches with Main before giving a verdict.
+
+Follow the plugin's diff commands and grouped rules. Account for every previewed
+reviewable `(path, status)` as reviewed or skipped with a reason. Return its
+coverage summary and the preview/rule results or accessible references with the
+report. Inspect excluded files that matter to the assigned contract, including
+unsupported formats and deletions, and record their separate coverage. Empty
+preview output or complete code-file coverage alone does not prove acceptance.
+For corrective closure, retain valid prior coverage and check only the fixes,
+affected conditions and direct regression risks.
+
+After the reviewer returns, the challenger reuses available preview, rules and
+coverage as scope data, obtaining only missing or changed inputs through OCR. It verifies material findings, their severity, proposed
+corrections and plausible consequential omissions against raw code and evidence.
+Use targeted reads for that challenge; full file coverage remains the reviewer's
+responsibility. Distinguish inherited coverage from the challenger's own checks.
+Reuse unchanged scope and rules during corrections; refresh affected data when
+code, refs, worktree contents, rules or the review boundary change.
+
+Use the plugin's finding fields for code issues and include the role's own
+verdict, evidence limits and complexity conclusion. Apply the shared blocking
+threshold to OCR rules and severity labels. Required conditions outside code
+review still need evidence. Return findings to Main for corrections; review
+roles remain read-only. Main prepares any required temporary artifacts and owns
+installation, configuration and other operations that need writes. Use the
+plugin's documented CLI recovery where applicable; otherwise report the affected
+review as incomplete with the exact error or missing dependency.
 
 ## Review Then Challenge
 

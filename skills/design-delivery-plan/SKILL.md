@@ -80,8 +80,9 @@ authorize implementation. Small direct tasks do not create plan files.
   Resume an ended same-scope role with `followup_task`;
   `send_message` only supplements a running pass and does not start a turn.
   Give each reviewer and challenger the installed absolute path to the
-  [shared quality criteria](references/review-agreement.md#preserve-the-quality-threshold)
-  and require reading and applying that section.
+  [shared review contract](references/review-agreement.md), including its quality
+  criteria and OCR procedure. For Git code review, also supply the installed
+  `open-code-review-delegate/SKILL.md` path. Require the applicable sections.
 - Use main-thread fallback for a required role only after an explicit tool or
   policy restriction, or an actual start/resume failure that remains after one
   applicable recovery attempt. Judge availability separately for each role;
